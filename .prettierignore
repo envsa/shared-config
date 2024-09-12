@@ -1,24 +1,23 @@
 # Prettier Ignore
 # Does not inherit from .gitignore
 
-# @kitschpatrol/repo-config boilerplate
-.astro/
+# @envsa/repo-config boilerplate
 .DS_Store
+.ddev/
 .env
 .env.*
 !.env.example
-.svelte-kit/
-{tmp,temp}/
-**/*.min.js
-/scratch/
-bower_components/
+node_modules/
+vendor/
 build/
 coverage/
 dist/
-node_modules/
-vendor/
+**/*.min.js
+tmp/
+temp/
+_junk/
 
-# @kitschpatrol/prettier-config boilerplate
+# @envsa/prettier-config boilerplate
 pnpm-lock.yaml
 package-lock.json
 

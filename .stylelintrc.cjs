@@ -1,4 +1,4 @@
 module.exports = {
-	extends: ['@kitschpatrol/stylelint-config'],
-	// Overrides
-}
+  extends: ['@envsa/stylelint-config'],
+  // Overrides
+};

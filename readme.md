@@ -2,13 +2,13 @@
 
 <!-- title { prefix: "🔬 " } -->
 
-# 🔬 @kitschpatrol/shared-config
+# 🔬 @envsa/shared-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/shared-config](https://img.shields.io/npm/v/@kitschpatrol/shared-config.svg)](https://npmjs.com/package/@kitschpatrol/shared-config)
+[![NPM Package @envsa/shared-config](https://img.shields.io/npm/v/@envsa/shared-config.svg)](https://npmjs.com/package/@envsa/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
@@ -28,7 +28,7 @@
 - [Usage](#usage)
 - [Implementation notes](#implementation-notes)
 - [Development notes](#development-notes)
-- [Background](#background)
+- [Credits](#credits)
 - [License](#license)
 
 <!-- /table-of-contents -->
@@ -42,27 +42,25 @@ This project attempts to consolidate most of the configuration and tooling share
 It takes care of dependencies and configurations for the following tools:
 
 - [CSpell](https://cspell.org)
-- [ESLint](https://eslint.org) (including Svelte, Astro, and TypeScript support)
+- [ESLint](https://eslint.org) (including Svelte, and TypeScript support)
 - [mdat](https://github.com/kitschpatrol/mdat)
 - [Prettier](https://prettier.io) (including a bunch of extra plugins)
-- [remarklint](https://github.com/remarkjs/remark-lint)
 - [Stylelint](https://stylelint.io)
 - [VS Code](https://code.visualstudio.com) (extension recommendations and extension settings)
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
 ### Packages
 
-This readme is for the [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in its respective readme, linked below:
+This readme is for the [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) package, which depends on a number of tool-specific packages included in the [`kitschpatrol/shared-config`](https://github.com/kitschpatrol/shared-config) monorepo on GitHub, each of which is documented in its respective readme, linked below:
 
-- [`@kitschpatrol/cspell-config`](/packages/cspell-config/readme.md)
-- [`@kitschpatrol/eslint-config`](/packages/eslint-config/readme.md)
-- [`@kitschpatrol/mdat-config`](/packages/mdat-config/readme.md)
-- [`@kitschpatrol/prettier-config`](/packages/prettier-config/readme.md)
-- [`@kitschpatrol/remark-config`](/packages/remark-config/readme.md)
-- [`@kitschpatrol/repo-config`](/packages/repo-config/readme.md)
-- [`@kitschpatrol/stylelint-config`](/packages/stylelint-config/readme.md)
+- [`@envsa/cspell-config`](/packages/cspell-config/readme.md)
+- [`@envsa/eslint-config`](/packages/eslint-config/readme.md)
+- [`@envsa/mdat-config`](/packages/mdat-config/readme.md)
+- [`@envsa/prettier-config`](/packages/prettier-config/readme.md)
+- [`@envsa/repo-config`](/packages/repo-config/readme.md)
+- [`@envsa/stylelint-config`](/packages/stylelint-config/readme.md)
 
-Any of these may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@kitschpatrol/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
+Any of these may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@envsa/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
 ## Getting started
 
@@ -77,7 +75,7 @@ Node 18+ and [pnpm](https://pnpm.io) are required. It probably works with NPM an
 Bootstrap a new project and open in VS Code:
 
 ```sh
-git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/repo-config --init && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init && pnpm i && code .
+git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @envsa/repo-config --init && pnpm add -D @envsa/shared-config && pnpm shared-config --init && pnpm i && code .
 ```
 
 #### Quick add to an existing project:
@@ -85,7 +83,7 @@ git init && pnpm init && pnpm pkg set type="module" && pnpm dlx @kitschpatrol/re
 This might overwrite certain config files, so commit first:
 
 ```sh
-pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol/shared-config && pnpm shared-config --init
+pnpm dlx @envsa/repo-config --init && pnpm i && pnpm add -D @envsa/shared-config && pnpm shared-config --init
 ```
 
 #### Step-by-step:
@@ -93,13 +91,13 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
 1. Install the requisite `.npmrc`:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Install the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/shared-config
+   pnpm add -D @envsa/shared-config
    ```
 
 3. Add default config files for all the tools to your project root:
@@ -118,9 +116,6 @@ pnpm dlx @kitschpatrol/repo-config --init && pnpm i && pnpm add -D @kitschpatrol
      "lint": "shared-config --lint",
    }
    ```
-
-   > \[!NOTE]\
-   > Prettier formatting for Ruby requires some extra legwork to configure, see [`the @kitschpatrol/prettier-config` package readme](https://github.com/kitschpatrol/shared-config/blob/main/packages/prettier-config/readme.md) for more details.
 
 ## Usage
 
@@ -163,7 +158,7 @@ shared-config [<file|glob> ...]
 
 <!-- /cli-help -->
 
-Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `shared-config` effectively runs the same command against all the tool-specific packages.
+Recall that the `@envsa/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `shared-config` effectively runs the same command against all the tool-specific packages.
 
 ## Implementation notes
 
@@ -177,7 +172,7 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 Pnpm considers module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary:
 
-- CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
+- CSpell, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 
@@ -193,33 +188,14 @@ For local development via `pnpm`, use `file:` dependency protocol instead of `li
 
 Something to investigate: An [approach](https://github.com/antfu/eslint-config#vs-code-support-auto-fix) to ignoring style rules in VS Code, and possibly migrate all style to
 
-## Background
+## Credits
 
-### Motivation
-
-[`xo`](https://github.com/xojs/xo) is really, really close to what I'm after here, but I wanted a few extra tools and preferred to use "first party" VS Code plugins where possible.
-
-### Similar projects
-
-- [1stG/configs](https://github.com/1stG/configs)
-- [antfu/eslint-config](https://github.com/antfu/eslint-config)
-- [awesome-eslint](https://github.com/dustinspecker/awesome-eslint)
-- [lass](https://lass.js.org) (xo etc.)
-- [routine-npm-packages](https://github.com/kachkaev/routine-npm-packages) and [example](https://github.com/kachkaev/website)
-- [sheriff](https://www.eslint-config-sheriff.dev)
-- [standard](https://standardjs.com)
-- [trunk](https://trunk.io)
-- [xo](https://github.com/xojs/xo)
-- [vscode-file-nesting-config](https://github.com/antfu/vscode-file-nesting-config)
-- [NullVoxPopuli/eslint-configs](https://github.com/NullVoxPopuli/eslint-configs)
-- [tsconfig/bases](https://github.com/tsconfig/bases/tree/main)
-- [eslint-config-current-thing](https://github.com/GildedPleb/eslint-config-current-thing) _(Smart!)_
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
 
 <!-- license -->
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->
-

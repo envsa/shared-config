@@ -2,20 +2,20 @@
 
 <!-- title -->
 
-# @kitschpatrol/cspell-config
+# @envsa/cspell-config
 
 <!-- /title -->
 
 <!-- badges -->
 
-[![NPM Package @kitschpatrol/cspell-config](https://img.shields.io/npm/v/@kitschpatrol/cspell-config.svg)](https://npmjs.com/package/@kitschpatrol/cspell-config)
+[![NPM Package @envsa/cspell-config](https://img.shields.io/npm/v/@envsa/cspell-config.svg)](https://npmjs.com/package/@envsa/cspell-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**CSpell configuration for @kitschpatrol/shared-config.**
+**CSpell configuration for @envsa/shared-config.**
 
 <!-- /description -->
 
@@ -23,7 +23,7 @@
 
 It's a shared [CSpell](https://cspell.org) config.
 
-**See [`@kitschpatrol/shared-config`](https://www.npmjs.com/package/@kitschpatrol/shared-config) for the recommended single-package approach.**
+**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
 
 ## Setup
 
@@ -32,13 +32,13 @@ To use just this CSpell config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @kitschpatrol/repo-config --init
+   pnpm dlx @envsa/repo-config --init
    ```
 
 2. Add the package:
 
    ```sh
-   pnpm add -D @kitschpatrol/cspell-config
+   pnpm add -D @envsa/cspell-config
    ```
 
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:
@@ -67,7 +67,7 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 #### Command: `cspell-config`
 
-CSpell configuration for @kitschpatrol/shared-config.
+CSpell configuration for @envsa/shared-config.
 
 Usage:
 
@@ -100,23 +100,22 @@ In additional to CSpell's default dictionary configuration, this shared configur
 
 It also includes a number of _custom_ dictionaries distributed with this package, all of which are enabled by default:
 
-- `kp-acronyms` Contains acronyms
-- `kp-brands` Contains proper nouns like brand names
-- `kp-files` File extensions and types
-- `kp-misc` Contains general and miscellaneous words
-- `kp-names` Human names and usernames
-- `kp-tech` Tech-specific terminology, some ambiguity vs. "brands"
+- `envsa-acronyms` Contains acronyms
+- `envsa-files` File extensions and types
+- `envsa-misc` Contains general and miscellaneous words
+- `envsa-names` Human names and usernames
+- `envsa-tech` Tech-specific terminology
 
 In your project's root `.cspell.json`, you can disable any combination of these dictionaries by adding them to the `dictionaries` array with a `!` prefix.
 
-For example, do disable the `kp-acronyms` and `kp-brands` dictionaries:
+For example, do disable the `envsa-acronyms` and `envsa-names` dictionaries:
 
 ```json
 {
-  "import": "@kitschpatrol/cspell-config",
+  "import": "@envsa/cspell-config",
   "dictionaries": [
-    "!kp-acronyms",
-    "!kp-brands"
+    "!envsa-acronyms",
+    "!envsa-names"
     // ...Addtional !-prefixed dicitonary names
   ]
 }
@@ -128,7 +127,7 @@ In your project's root `.cspell.json`:
 
 ```json
 {
-  "import": "@kitschpatrol/cspell-config",
+  "import": "@envsa/cspell-config",
   "words": [
     "mountweazel",
     "steinlaus",
@@ -145,10 +144,14 @@ This config includes a bunch of words I've happened to have needed to use. Your 
 
 CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`), and to ignore words inside of ` ``` ` code fences in markdown and mdx files.
 
+## Credits
+
+[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
+
 <!-- license -->
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © Liam Rella
 
 <!-- /license -->
