@@ -6,8 +6,8 @@
     "esbenp.prettier-vscode",
     "stylelint.vscode-stylelint",
     "usernamehw.errorlens",
-    "antfu.where-am-i",
-    "antfu.open-in-github-button",
-    "johnsoncodehk.vscode-tsconfig-helper"
+    "johnsoncodehk.vscode-tsconfig-helper",
+    "github.vscode-github-actions",
+    "yoavbls.pretty-ts-errors"
   ]
 }
