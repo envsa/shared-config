@@ -10,7 +10,8 @@ import type { Flag } from 'meow';
 import chalk, { type foregroundColorNames } from 'chalk';
 import { cosmiconfig } from 'cosmiconfig';
 import { execa, type ExecaError } from 'execa';
-import * as fse from 'fs-extra';
+// eslint-disable-next-line import-x/default
+import fse from 'fs-extra';
 import meow from 'meow';
 import path from 'node:path';
 import { PassThrough, Transform, type Stream } from 'node:stream';

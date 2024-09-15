@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { buildCommands } from '$root/src/command-builder.ts';
-import * as fse from 'fs-extra';
+// eslint-disable-next-line import-x/default
+import fse from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { packageUp } from 'package-up';
