@@ -1,6 +1,6 @@
 {
   "name": "@envsa/shared-config",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "type": "module",
   "description": "A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.",
   "repository": {
