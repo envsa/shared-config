@@ -1,3 +1,7 @@
+assetbundles
+alpinejs
+autoload
+autoloader
 bullrich
 cantarell
 consolas
@@ -7,11 +11,13 @@ deepmerge
 dewnrger
 drawnoxima
 execa
+favicons
 fira
 formie
 glightbox
 grecaptcha
 kbrashears
+lazyloaded
 lazysizes
 mdat
 mdatrc
@@ -24,6 +30,7 @@ redactoranchors
 remarklint
 segoe
 seomatic
+sitemodule
 softprops
 solspace
 stylelintrc
@@ -31,4 +38,5 @@ tailwindcss
 trivago
 tseslint
 tsup
+twigextensions
 yiisoft
