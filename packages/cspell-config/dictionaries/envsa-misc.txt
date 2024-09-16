@@ -8,6 +8,7 @@ carbonneutraladelaide
 clelandwildlifepark
 contentmigrations
 cpresources
+creativecommons
 defaultstatus
 dogandcatboard
 envsa
@@ -27,6 +28,8 @@ productname
 scpt
 startdate
 stateflora
+sublicensable
 tldr
 transportadapters
+waivable
 webroot
