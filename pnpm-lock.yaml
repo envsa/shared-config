@@ -392,6 +392,9 @@ importers:
       '@envsa/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
+      '@envsa/remark-config':
+        specifier: workspace:*
+        version: link:../remark-config
       '@envsa/repo-config':
         specifier: workspace:*
         version: link:../repo-config
