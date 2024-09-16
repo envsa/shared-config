@@ -49,7 +49,6 @@
     "@envsa/eslint-config": "workspace:*",
     "@envsa/mdat-config": "workspace:*",
     "@envsa/prettier-config": "workspace:*",
-    "@envsa/remark-config": "workspace:*",
     "@envsa/repo-config": "workspace:*",
     "@envsa/stylelint-config": "workspace:*",
     "@pinojs/json-colorizer": "^4.0.0",
