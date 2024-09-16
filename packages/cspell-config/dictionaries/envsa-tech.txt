@@ -1,9 +1,13 @@
 bullrich
+cantarell
+consolas
+craftcms
 ddev
 deepmerge
 dewnrger
 drawnoxima
 execa
+fira
 formie
 glightbox
 grecaptcha
@@ -11,11 +15,14 @@ kbrashears
 lazysizes
 mdat
 mdatrc
+menlo
 openforms
 pcss
+phpdotenv
 pinojs
 redactoranchors
 remarklint
+segoe
 seomatic
 softprops
 solspace
@@ -24,3 +31,4 @@ tailwindcss
 trivago
 tseslint
 tsup
+yiisoft

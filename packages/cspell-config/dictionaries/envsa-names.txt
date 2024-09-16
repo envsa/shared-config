@@ -1,4 +1,6 @@
 Mika
+nystudio
 Rella
 rellafella
+vlucas
 wolispace
