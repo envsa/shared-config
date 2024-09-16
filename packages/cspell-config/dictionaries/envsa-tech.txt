@@ -15,6 +15,7 @@ openforms
 pcss
 pinojs
 redactoranchors
+remarklint
 seomatic
 softprops
 solspace

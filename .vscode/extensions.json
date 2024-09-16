@@ -1,13 +1,14 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "svelte.svelte-vscode",
-    "streetsidesoftware.code-spell-checker",
     "esbenp.prettier-vscode",
-    "stylelint.vscode-stylelint",
-    "usernamehw.errorlens",
-    "johnsoncodehk.vscode-tsconfig-helper",
     "github.vscode-github-actions",
+    "johnsoncodehk.vscode-tsconfig-helper",
+    "streetsidesoftware.code-spell-checker",
+    "stylelint.vscode-stylelint",
+    "svelte.svelte-vscode",
+    "unifiedjs.vscode-mdx",
+    "usernamehw.errorlens",
     "yoavbls.pretty-ts-errors"
   ]
 }
