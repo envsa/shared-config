@@ -47,6 +47,11 @@ prepros-6.config
 # @envsa/prettier-config boilerplate
 pnpm-lock.yaml
 package-lock.json
+composer.lock
+config/project/**/*
+storage/config-deltas/**/*
+storage/logs/**/*
+storage/runtime/**/*
 
 # Customizations
 bin/
