@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// eslint-disable-next-line import-x/no-relative-packages
+
 import { buildCommands, executeJsonOutput } from '$root/src/command-builder.ts';
 
 await buildCommands('eslint-config', `[ESLint]`, 'magenta', {

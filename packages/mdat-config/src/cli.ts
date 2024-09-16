@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-// eslint-disable-next-line import-x/extensions, import-x/no-relative-packages
-import { buildCommands } from '../../../src/command-builder.js';
+import { buildCommands } from '$root/src/command-builder.js';
 
 await buildCommands('mdat-config', '[Mdat Config]', 'green', {
   check: {
