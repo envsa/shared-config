@@ -23,9 +23,9 @@
     "pnpm": ">=8.0.0"
   },
   "bin": {
-    "browserslist-config": "bin/cli.cjs"
+    "browserslist-config": "bin/cli.js"
   },
-  "main": "./index.js",
+  "main": "./index.cjs",
   "keywords": [
     "shared-config",
     "browserslist-config",
