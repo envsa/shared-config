@@ -33,6 +33,7 @@
     "eslint-config",
     "stylelint-config",
     "prettier-config",
+    "browserslist-config",
     "github-actions",
     "cspell",
     "mdat",
@@ -45,6 +46,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "@envsa/browserslist-config": "workspace:*",
     "@envsa/cspell-config": "workspace:*",
     "@envsa/eslint-config": "workspace:*",
     "@envsa/mdat-config": "workspace:*",

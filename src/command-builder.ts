@@ -73,6 +73,13 @@ function generateHelpText(command: string, options: OptionCommands): string {
     $ ${command} [<file|glob> ...]
   `;
 
+  if (command === 'browserslist-config') {
+    helpText = `
+    Usage
+      $ ${command} --init
+    `;
+  }
+
   helpText += '\n  Options';
 
   if (Object.keys(options).length > 0) {
@@ -80,7 +87,9 @@ function generateHelpText(command: string, options: OptionCommands): string {
       switch (name) {
         case 'init': {
           helpText +=
-            '\n    --init, -i                Initialize by copying starter config files to your project root.';
+            command === 'browserslist-config'
+              ? '\n    --init, -i                Add browserslist key to `package.json`.'
+              : '\n    --init, -i                Initialize by copying starter config files to your project root.';
           break;
         }
 
