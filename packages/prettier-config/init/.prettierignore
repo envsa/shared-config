@@ -52,6 +52,7 @@ config/project/**/*
 storage/config-deltas/**/*
 storage/logs/**/*
 storage/runtime/**/*
+web/cpresources/**/*
 .ddev/
 
 # Customizations

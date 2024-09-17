@@ -81,7 +81,8 @@
     "*.wav",
     "package.json",
     "patches/",
-    "pnpm-lock.yaml"
+    "pnpm-lock.yaml",
+    "**/cpresources/**"
   ],
   "ignoreRegExpList": ["tp-.+", "tweakpane-plugin-.+", "v2_c_\\w{21}"],
   "language": "en,en-AU",

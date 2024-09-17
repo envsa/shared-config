@@ -10,7 +10,7 @@ const propertiesOrder = propertyGroups.map((properties) => ({
 /** @type {import("stylelint").Config} */
 export default {
   extends: ['stylelint-config-standard-scss'],
-  ignoreFiles: ['./vendor/**/*'],
+  ignoreFiles: ['./vendor/**', '**/cpresources/**'],
   rules: {
     'at-rule-empty-line-before': [
       'always',

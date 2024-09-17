@@ -9,11 +9,12 @@ import path from 'node:path';
 import typescriptEslint from 'typescript-eslint';
 
 const gitignorePath = path.join(process.cwd(), '.gitignore');
+const baseIgnore = fs.existsSync(gitignorePath) ? includeIgnoreFile(gitignorePath)?.ignores : [];
 
 export default typescriptEslint.config(
   // Use project .gitignore file for a basis of ignored files
   {
-    ignores: fs.existsSync(gitignorePath) ? includeIgnoreFile(gitignorePath)?.ignores : [],
+    ignores: [...baseIgnore, '**/cpresources/**'],
   },
   // 1st party eslint config
   eslint.configs.recommended,
