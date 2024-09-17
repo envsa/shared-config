@@ -23,7 +23,7 @@
     "pnpm": ">=8.0.0"
   },
   "bin": {
-    "browserslist-config": "bin/cli.js"
+    "browserslist-config": "bin/cli.cjs"
   },
   "main": "./index.js",
   "keywords": [
