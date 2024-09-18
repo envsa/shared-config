@@ -34,7 +34,7 @@
   ],
   "prettier.enable": true,
   "stylelint.enable": true,
-  "stylelint.validate": ["scss", "css", "twig", "html", "svelte"],
+  "stylelint.validate": ["scss", "css", "html", "svelte"],
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.useFlatConfig": true,
   "css.validate": false,

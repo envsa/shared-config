@@ -1,6 +1,6 @@
 {
   "stylelint.enable": true,
-  "stylelint.validate": ["scss", "css", "twig", "html", "svelte"],
+  "stylelint.validate": ["scss", "css", "html", "svelte"],
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },
