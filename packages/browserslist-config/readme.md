@@ -61,7 +61,7 @@ or use the cli
 
     Usage
       $ browserslist-config --init
-  
+
   Options
     --init, -i                Add browserslist key to `package.json`.
     --help, -h                Print this help info.
@@ -70,10 +70,6 @@ or use the cli
 ```
 
 <!-- /cli-help -->
-
-## Credits
-
-[Eric Mika](https://github.com/kitschpatrol) is the author of the original [@kitschpatrol/shared-config](https://github.com/kitschpatrol/shared-config) project on which this is based.
 
 <!-- license -->
 
