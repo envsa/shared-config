@@ -39,5 +39,17 @@
   "eslint.useFlatConfig": true,
   "css.validate": false,
   "less.validate": false,
-  "scss.validate": false
+  "scss.validate": false,
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "compDefaults = \\{([^%]*) %\\}",
+      ":\\s*?[\"'`]([^\"'`]*).*?,?"
+    ] /* compDefaults: { data: { active: "tailwind" }} */,
+    [
+      "[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"
+    ] /* element.classList.*("tailwind") */
+  ],
+  "tailwindCSS.classAttributes": [
+    ".*Class.*"
+  ] /* class = "tailwind" && errorClass = "tailwind" etc.. */
 }
