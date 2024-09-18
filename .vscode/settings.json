@@ -16,7 +16,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.enable": true,
-  "eslint.workingDirectories": ["./"], // Make sure vscode is getting config from root dir
+  "eslint.workingDirectories": ["./"],
   "eslint.validate": ["javascript", "typescript", "svelte", "markdown", "html", "twig"],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
@@ -41,15 +41,8 @@
   "less.validate": false,
   "scss.validate": false,
   "tailwindCSS.experimental.classRegex": [
-    [
-      "compDefaults = \\{([^%]*) %\\}",
-      ":\\s*?[\"'`]([^\"'`]*).*?,?"
-    ] /* compDefaults: { data: { active: "tailwind" }} */,
-    [
-      "[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"
-    ] /* element.classList.*("tailwind") */
+    ["compDefaults = \\{([^%]*) %\\}", ":\\s*?[\"'`]([^\"'`]*).*?,?"],
+    ["[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"]
   ],
-  "tailwindCSS.classAttributes": [
-    ".*Class.*"
-  ] /* class = "tailwind" && errorClass = "tailwind" etc.. */
+  "tailwindCSS.classAttributes": [".*Class.*"]
 }
