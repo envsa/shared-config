@@ -13,6 +13,8 @@ deepmerge
 dewnrger
 drawnoxima
 emptycoalesce
+endcache
+endnav
 execa
 favicons
 fira
@@ -43,13 +45,11 @@ remarklint
 segoe
 seomatic
 sitemodule
-touchevents
-endcache
-endnav
 softprops
 solspace
 stylelintrc
 tailwindcss
+touchevents
 trivago
 tseslint
 tsup
