@@ -50,8 +50,7 @@ package-lock.json
 composer.lock
 config/project/**/*
 storage/config-deltas/**/*
-storage/logs/**/*
-storage/runtime/**/*
+storage/**/*
 web/cpresources/**/*
 .ddev/
 

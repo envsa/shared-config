@@ -31,6 +31,7 @@ mdatrc
 menlo
 merriweather
 mousedown
+ontouchstart
 openforms
 ostark
 pcss
@@ -42,6 +43,9 @@ remarklint
 segoe
 seomatic
 sitemodule
+touchevents
+endcache
+endnav
 softprops
 solspace
 stylelintrc
