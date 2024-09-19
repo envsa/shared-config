@@ -1,7 +1,10 @@
+
 alpinejs
 assetbundles
+assetusage
 autoload
 autoloader
+bookeasy
 bullrich
 cantarell
 consolas
@@ -14,6 +17,8 @@ dewnrger
 drawnoxima
 emptycoalesce
 endcache
+endcss
+endjs
 endnav
 execa
 favicons
@@ -24,6 +29,7 @@ getenv
 glightbox
 grecaptcha
 imageoptimize
+instagramfeed
 kbrashears
 keydown
 lazyloaded
@@ -38,16 +44,19 @@ openforms
 ostark
 pcss
 phpdotenv
+picturefill
 pinojs
 putyourlightson
 redactoranchors
 remarklint
+rezdy
 segoe
 seomatic
 sitemodule
 softprops
 solspace
 stylelintrc
+tablemaker
 tailwindcss
 touchevents
 trivago
