@@ -10,5 +10,6 @@
     ["compDefaults = \\{([^%]*) %\\}", ":\\s*?[\"'`]([^\"'`]*).*?,?"],
     ["[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"]
   ],
-  "tailwindCSS.classAttributes": [".*Class.*"]
+  "tailwindCSS.classAttributes": [".*Class.*"],
+  "twiggy.framework": "craft"
 }

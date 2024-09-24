@@ -11,6 +11,7 @@
     "usernamehw.errorlens",
     "yoavbls.pretty-ts-errors",
     "bradlc.vscode-tailwindcss",
-    "EditorConfig.EditorConfig"
+    "EditorConfig.EditorConfig",
+    "moetelo.twiggy"
   ]
 }
