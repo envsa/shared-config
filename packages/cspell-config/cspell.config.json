@@ -49,6 +49,10 @@
       "ignoreRegExpList": [
         "/^```(?:.|\\s)+?^```/mig" // Code fences
       ]
+    },
+    {
+      "languageId": "twig",
+      "ignoreRegExpList": ["/\\{\\%\\sset\\s\\w+Id\\s=\\s\"[^\"]+\"\\s\\%\\}/"]
     }
   ],
   "globRoot": "/",
@@ -83,10 +87,12 @@
     "package.json",
     "patches/",
     "pnpm-lock.yaml",
-    "**/cpresources/**"
+    "migrations/freeform-5/forms.json",
+    "vendor/**/*",
+    "web/**/*"
   ],
   "ignoreRegExpList": ["tp-.+", "tweakpane-plugin-.+", "v2_c_\\w{21}"],
-  "language": "en,en-AU",
+  "language": "en,en-GB,en-AU",
   "useGitignore": true,
   "version": "0.2"
 }
