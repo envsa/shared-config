@@ -27,6 +27,7 @@ This includes the following:
 
 - [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `shared-config` tool access
 - `.gitignore` with typical patterns
+- `.editorconfig` for basic code style settings
 - `.vscode` extension recommendations (additional settings and recommendations come from other `shared-config` packages)
 - `.github` folder with workflows:
   - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs
@@ -90,9 +91,9 @@ Note: Action dependencies have been forked.
 
 | Original                                                                                      | Fork                                                                                                            | Modifications |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------- |
-| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌             |
-| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌             |
-| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅             |
+| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌            |
+| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌            |
+| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅            |
 
 ## Usage
 
