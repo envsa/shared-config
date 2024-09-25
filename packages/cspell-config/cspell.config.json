@@ -86,10 +86,7 @@
     "*.wav",
     "package.json",
     "patches/",
-    "pnpm-lock.yaml",
-    "migrations/freeform-5/forms.json",
-    "vendor/**/*",
-    "web/**/*"
+    "pnpm-lock.yaml"
   ],
   "ignoreRegExpList": ["tp-.+", "tweakpane-plugin-.+", "v2_c_\\w{21}"],
   "language": "en,en-GB,en-AU",

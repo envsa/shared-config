@@ -1,7 +1,7 @@
 chihuly
 craftquest
 goodliving
-harron's
+harron
 jalendport
 kint
 mika
@@ -11,6 +11,7 @@ nystudio
 percipioglobal
 rella
 rellafella
+robuust
 sagovau
 sebastianlenz
 spicyweb
