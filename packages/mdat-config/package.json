@@ -1,6 +1,6 @@
 {
   "name": "@envsa/mdat-config",
-  "version": "1.0.0",
+  "version": "8.0.0",
   "type": "module",
   "description": "MDAT configuration for @envsa/shared-config.",
   "repository": {

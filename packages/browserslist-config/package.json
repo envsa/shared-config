@@ -1,6 +1,6 @@
 {
   "name": "@envsa/browserslist-config",
-  "version": "1.0.0",
+  "version": "8.0.0",
   "type": "module",
   "description": "Browserslist configuration for @envsa/shared-config.",
   "repository": {
