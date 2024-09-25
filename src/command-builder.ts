@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable import-x/namespace */
 /* eslint-disable complexity */
 
 // Creates cli bin files for each package
@@ -10,7 +9,7 @@ import type { Flag } from 'meow';
 import chalk, { type foregroundColorNames } from 'chalk';
 import { cosmiconfig } from 'cosmiconfig';
 import { execa, type ExecaError } from 'execa';
-import * as fse from 'fs-extra';
+import fse from 'fs-extra';
 import meow from 'meow';
 import path from 'node:path';
 import { PassThrough, Transform, type Stream } from 'node:stream';
@@ -74,6 +73,13 @@ function generateHelpText(command: string, options: OptionCommands): string {
     $ ${command} [<file|glob> ...]
   `;
 
+  if (command === 'browserslist-config') {
+    helpText = `
+    Usage
+      $ ${command} --init
+    `;
+  }
+
   helpText += '\n  Options';
 
   if (Object.keys(options).length > 0) {
@@ -81,7 +87,9 @@ function generateHelpText(command: string, options: OptionCommands): string {
       switch (name) {
         case 'init': {
           helpText +=
-            '\n    --init, -i                Initialize by copying starter config files to your project root.';
+            command === 'browserslist-config'
+              ? '\n    --init, -i                Add browserslist key to `package.json`.'
+              : '\n    --init, -i                Initialize by copying starter config files to your project root.';
           break;
         }
 

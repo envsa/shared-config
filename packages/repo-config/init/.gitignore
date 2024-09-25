@@ -2,19 +2,46 @@
 # Also used by CSpell and Stylelint
 
 # @envsa/repo-config boilerplate
-.DS_Store
-.ddev/
+# =====
+# Craft
+# =====
 .env
 .env.*
 !.env.example
-node_modules/
 vendor/
-build/
-coverage/
-dist/
+/web/assets/*
+
+# ======
+# Builds
+# ======
+node_modules/
 **/*.min.js
+dist/
+build/
+
+# =====
+# Tests
+# =====
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# ====
+# Misc
+# ====
+.cache
+.DS_Store
+_junk/
 tmp/
 temp/
-_junk/
+.project
+.settings
+*.esproj
+*.sublime-workspace
+*.sublime-project
+*.tmproj
+*.tmproject
+config.codekit3
+prepros-6.config
 
 # Customizations

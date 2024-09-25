@@ -6,16 +6,4 @@ export default [
   {
     ignores: ['**/bin/cli.js'],
   },
-  {
-    settings: {
-      'import/resolver': {
-        alias: {
-          map: [['$root', './']],
-        },
-      },
-    },
-    rules: {
-      'import-x/no-extraneous-dependencies': 'off',
-    },
-  },
 ];

@@ -1,12 +1,12 @@
 {
-  "name": "@envsa/cspell-config",
+  "name": "@envsa/browserslist-config",
   "version": "1.0.0-beta.27",
   "type": "module",
-  "description": "CSpell configuration for @envsa/shared-config.",
+  "description": "Browserslist configuration for @envsa/shared-config.",
   "repository": {
     "type": "git",
     "url": "git@github.com:envsa/shared-config.git",
-    "directory": "packages/cspell-config"
+    "directory": "packages/browserslist-config"
   },
   "bugs": {
     "url": "https://github.com/envsa/shared-config/issues",
@@ -23,30 +23,19 @@
     "pnpm": ">=8.0.0"
   },
   "bin": {
-    "cspell-config": "bin/cli.js"
+    "browserslist-config": "bin/cli.js"
   },
-  "main": "./cspell.config.json",
-  "files": [
-    "bin/*",
-    "dictionaries/*",
-    "init/*"
-  ],
+  "main": "./index.cjs",
   "keywords": [
     "shared-config",
-    "cspell-config",
-    "cspell",
+    "browserslist-config",
+    "browserslist",
     "cli"
   ],
   "scripts": {
     "build": "../../scripts/build.ts && mdat readme",
     "cli": "node ./bin/cli.js",
-    "find-duplicates": "cat ./dictionaries/*.txt | sort -f | uniq -i -d",
-    "list-words": "cat ./dictionaries/*.txt",
-    "prepublishOnly": "pnpm run build",
-    "sort-dictionaries": "find ./dictionaries -name '*.txt' -execdir sort -f -o {} {} \\;"
-  },
-  "peerDependencies": {
-    "cspell": "^8.8.4"
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@pinojs/json-colorizer": "^4.0.0",

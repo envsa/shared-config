@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "version": "0.0.1",
+  "version": "1.0.0-beta.27",
   "type": "module",
   "description": "A single dependency and single command to configure and run various code linters and tools.",
   "repository": {
@@ -29,6 +29,7 @@
     "eslint-config",
     "stylelint-config",
     "prettier-config",
+    "browserslist-config",
     "github-actions",
     "cspell",
     "mdat",
@@ -51,6 +52,7 @@
     "release": "pnpm bumpp -r --commit 'release: %s' --tag 'v%s' && pnpm -r publish --otp $(op read 'op://Personal/NPM/one-time password?attribute=otp')"
   },
   "devDependencies": {
+    "@envsa/browserslist-config": "workspace:*",
     "@envsa/cspell-config": "workspace:*",
     "@envsa/eslint-config": "workspace:*",
     "@envsa/mdat-config": "workspace:*",

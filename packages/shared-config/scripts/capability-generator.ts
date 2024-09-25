@@ -1,8 +1,6 @@
 #!/usr/bin/env tsx
-/* eslint-disable import-x/no-named-as-default-member */
 import camelCase from 'camelcase';
 import { execa } from 'execa';
-// eslint-disable-next-line import-x/default
 import fse from 'fs-extra';
 import { globby } from 'globby';
 

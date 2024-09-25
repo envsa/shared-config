@@ -1,6 +1,6 @@
 {
   "name": "@envsa/shared-config",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.27",
   "type": "module",
   "description": "A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.",
   "repository": {
@@ -33,6 +33,7 @@
     "eslint-config",
     "stylelint-config",
     "prettier-config",
+    "browserslist-config",
     "github-actions",
     "cspell",
     "mdat",
@@ -45,6 +46,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    "@envsa/browserslist-config": "workspace:*",
     "@envsa/cspell-config": "workspace:*",
     "@envsa/eslint-config": "workspace:*",
     "@envsa/mdat-config": "workspace:*",

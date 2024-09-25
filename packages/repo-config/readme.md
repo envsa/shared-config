@@ -27,6 +27,7 @@ This includes the following:
 
 - [`.npmrc`](https://pnpm.io/npmrc) with hoisting patterns for `shared-config` tool access
 - `.gitignore` with typical patterns
+- `.editorconfig` for basic code style settings
 - `.vscode` extension recommendations (additional settings and recommendations come from other `shared-config` packages)
 - `.github` folder with workflows:
   - `github-release.yml` Automates turning turning vX.X.X tags on main into GitHub releases with changelogs

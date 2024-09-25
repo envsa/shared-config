@@ -2,6 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "enabled": true,
   "enableGlobDot": false,
+  "enableFiletypes": ["twig", "md", "svelte"],
   "dictionaryDefinitions": [
     {
       "name": "envsa-acronyms",
@@ -16,16 +17,6 @@
     {
       "name": "envsa-misc",
       "path": "./dictionaries/envsa-misc.txt",
-      "addWords": true
-    },
-    {
-      "name": "envsa-names",
-      "path": "./dictionaries/envsa-names.txt",
-      "addWords": true
-    },
-    {
-      "name": "envsa-tech",
-      "path": "./dictionaries/envsa-tech.txt",
       "addWords": true
     }
   ],
@@ -48,6 +39,10 @@
       "ignoreRegExpList": [
         "/^```(?:.|\\s)+?^```/mig" // Code fences
       ]
+    },
+    {
+      "languageId": "twig",
+      "ignoreRegExpList": ["/\\{\\%\\sset\\s\\w+Id\\s=\\s\"[^\"]+\"\\s\\%\\}/"]
     }
   ],
   "globRoot": "/",
@@ -83,8 +78,8 @@
     "patches/",
     "pnpm-lock.yaml"
   ],
-  "ignoreRegExpList": ["tp-.+", "tweakpane-plugin-.+", "v2_c_\\w{21}"],
-  "language": "en,en-AU",
+  "ignoreRegExpList": ["tp-.+", "tweakpane-plugin-.+", "v2_c_\\w{21}", "\\\\\\\"id"],
+  "language": "en,en-GB,en-AU",
   "useGitignore": true,
   "version": "0.2"
 }
