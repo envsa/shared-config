@@ -16,8 +16,6 @@ vendor/
 # ======
 node_modules/
 **/*.min.js
-dist/
-build/
 
 # =====
 # Tests
@@ -45,3 +43,5 @@ config.codekit3
 prepros-6.config
 
 # Customizations
+dist/
+build/
