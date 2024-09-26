@@ -189,6 +189,7 @@ rlike
 robuust
 rsquo
 rsynced
+sadewnr
 sagovau
 scpt
 sebastianlenz
