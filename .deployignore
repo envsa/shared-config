@@ -1,36 +1,38 @@
 # ================
 # specific ignores
 # ================
-.git/
-.ddev/
-.github/
-.vscode/
-node_modules/
-scripts/
-src/
-storage/
-tools/
-.env.example
-pnpm-*
-pnpm-*
-package.json
-README.md
-readme.md
-CHANGELOG.md
-changelog.md
-.cspell.json
-composer.*
+/.git/
+/.ddev/
+/.github/
+/.vscode/
+/node_modules/
+/scripts/
+/src/
+/storage/
+/tests/
+/tools/
+/.env.example
+/pnpm-*
+/pnpm-*
+/package.json
+/package-lock.json
+/README.md
+/readme.md
+/CHANGELOG.md
+/changelog.md
+/.cspell.json
+/composer.*
 
 # ===============
 # ignore patterns
 # ===============
 # any config files that don't have an extension (.editorconfig)
-*config
+/*config
 # any config files that have an extension (eslint.config.js, tsconfig.json, vite.config.ts)
-*config.*
+/*config.*
 # any config files using rc format (.npmrc)
-.*rc
+/.*rc
 # any config files using rc format with an extension (.mdatrc.ts)
-.*rc.*
+/.*rc.*
 # any ignore files (.deployignore, .gitignore, .prettierignore)
-.*ignore
+/.*ignore
