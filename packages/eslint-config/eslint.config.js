@@ -60,6 +60,15 @@ export default typescriptEslint.config(
       },
     },
     rules: {
+      // base rule overrides
+      'no-unused-vars': [
+        'error',
+        {
+          ignoreRestSiblings: true,
+          argsIgnorePattern: 'res|next|^err|^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
       // Unicorn rule overrides
       'unicorn/no-array-reduce': 'off',
       'unicorn/no-object-as-default-parameter': 'off',
