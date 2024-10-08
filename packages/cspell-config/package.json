@@ -1,6 +1,6 @@
 {
   "name": "@envsa/cspell-config",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "type": "module",
   "description": "CSpell configuration for @envsa/shared-config.",
   "repository": {
