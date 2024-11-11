@@ -10,14 +10,17 @@
   },
   "cSpell.enabled": true,
   "cSpell.workspaceRootPath": ".",
+  "css.validate": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.enable": true,
-  "eslint.workingDirectories": ["./"],
+  "eslint.useFlatConfig": true,
   "eslint.validate": ["javascript", "typescript", "svelte", "markdown", "html", "twig"],
+  "eslint.workingDirectories": ["./"],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
@@ -25,6 +28,7 @@
     "package.json": ".*.cjs, .*.js, .*.json, .*.mjs, .*.toml, .*.ts, .*.yaml, .*.yml, .*ignore, .*rc, *config.cjs, *config.js, *config.json, *config.mjs, *config.toml, *config.ts, *config.yaml, *config.yml, .editorconfig, lerna.json, netlify.toml, package-lock.json, , pnpm*, turbo.json, vercel.json, workspace*, wrangler.toml, yarn.lock, yarn*",
     "readme.md": "authors*, backers*, changelog*, citation*, code_of_conduct*, contributing*, contributors*, copying*, credits*, governance*, history*, license*, maintainers*, release_notes*, security*, sponsors*"
   },
+  "less.validate": false,
   "prettier.documentSelectors": [
     "**/*.svelte",
     "**/.prettierignore",
@@ -33,17 +37,14 @@
     "**/.node-version"
   ],
   "prettier.enable": true,
+  "scss.validate": false,
   "stylelint.enable": true,
   "stylelint.validate": ["scss", "css", "html", "svelte"],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.useFlatConfig": true,
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false,
+  "tailwindCSS.classAttributes": [".*Class.*"],
   "tailwindCSS.experimental.classRegex": [
     ["compDefaults = \\{([^%]*) %\\}", ":\\s*?[\"'`]([^\"'`]*).*?,?"],
     ["[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"]
   ],
-  "tailwindCSS.classAttributes": [".*Class.*"],
-  "twiggy.framework": "craft"
+  "twiggy.framework": "craft",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
