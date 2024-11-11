@@ -42,9 +42,7 @@ interface OptionCommand {
 }
 
 // Supported options
-type OptionCommands = {
-  [_key in 'check' | 'fix' | 'init' | 'printConfig']?: OptionCommand;
-};
+type OptionCommands = Partial<Record<'check' | 'fix' | 'init' | 'printConfig', OptionCommand>>;
 
 function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
   return new Transform({
