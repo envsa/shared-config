@@ -11,6 +11,7 @@ autoload
 autoloader
 autophagic
 autoplay
+awss3
 aṉangu
 bgcolor
 bgset
@@ -23,6 +24,7 @@ bookeasy
 botanicgardens
 bullrich
 buttonbox
+byjam
 camelcase
 cantarell
 carbonneutraladelaide
@@ -37,6 +39,7 @@ codemonauts
 consolas
 contentmigrations
 cooldown
+corepack
 cpresources
 craftcms
 craftpulse
@@ -75,12 +78,14 @@ figcaption
 fira
 fleurieu
 flipboxfactory
+florasa
 fontawesome
 formie
 freeforms
 fullscreen
 fullwidth
 getenv
+gifsicle
 glightbox
 globalmeta
 goldinteractive
@@ -103,6 +108,8 @@ inlinejs
 instagramfeed
 itemprop
 jalendport
+johnhenry
+jpegoptim
 kbrashears
 keydown
 kint
@@ -118,7 +125,6 @@ lgcursor
 linecap
 linejoin
 linkfield
-linkfields
 linkfields
 linklist
 mapbox
@@ -151,6 +157,7 @@ nystudio
 onclick
 ontouchstart
 openforms
+optipng
 ostark
 outfile
 pagebreak
@@ -216,6 +223,7 @@ studioespresso
 stylelintrc
 stylesheet
 sublicensable
+tabindex
 tablemaker
 tablespaces
 tagembed
@@ -246,6 +254,7 @@ waivable
 waterconnect
 waymouth
 wbrowar
+webimage
 webkitallowfullscreen
 webroot
 wiluṟara
