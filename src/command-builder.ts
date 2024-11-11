@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable complexity */
 
 // Creates cli bin files for each package
 // based on the shared-config field in their package.js
@@ -31,9 +30,9 @@ interface OptionCommand {
   command?:
     | ((
         /** Useful if you're logging in the function, ensures output is prefixed */
-        logStream: NodeJS.WritableStream,
-        args: string[],
-        options: string[],
+        _logStream: NodeJS.WritableStream,
+        _args: string[],
+        _options: string[],
       ) => Promise<number>)
     | string;
   /** Arguments to be passed to the command in the absence of user-provided arguments */
@@ -44,7 +43,7 @@ interface OptionCommand {
 
 // Supported options
 type OptionCommands = {
-  [key in 'check' | 'fix' | 'init' | 'printConfig']?: OptionCommand;
+  [_key in 'check' | 'fix' | 'init' | 'printConfig']?: OptionCommand;
 };
 
 function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
@@ -248,7 +247,6 @@ async function execute(
         [...(optionCommand.options ?? []), ...input],
         {
           env: {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
             FORCE_COLOR: 'true',
           },
           stdin: 'inherit', // For input, todo anything weird here?

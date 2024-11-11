@@ -21,7 +21,6 @@ function stringify(object: unknown): string {
       },
     }),
     {
-      /* eslint-disable @typescript-eslint/naming-convention */
       colors: {
         BRACKET: 'gray',
       },
@@ -49,7 +48,7 @@ const combineMerge = (target: any[], source: any[], options: ArrayMergeOptions):
 function merge(
   destination: any,
   source: any,
-  // eslint-disable-next-line unicorn/no-object-as-default-parameter
+
   options: Options = { arrayMerge: combineMerge },
 ): any[] {
   return deepmerge(destination, source, options);

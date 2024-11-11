@@ -61,7 +61,7 @@ or use the cli
 
     Usage
       $ browserslist-config --init
-  
+
   Options
     --init, -i                Add browserslist key to `package.json`.
     --help, -h                Print this help info.

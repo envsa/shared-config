@@ -16,17 +16,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.enable": true,
-  "eslint.workingDirectories": [
-    "./"
-  ],
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "svelte",
-    "markdown",
-    "html",
-    "twig"
-  ],
+  "eslint.workingDirectories": ["./"],
+  "eslint.validate": ["javascript", "typescript", "svelte", "markdown", "html", "twig"],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
@@ -43,28 +34,16 @@
   ],
   "prettier.enable": true,
   "stylelint.enable": true,
-  "stylelint.validate": [
-    "scss",
-    "css",
-    "html",
-    "svelte"
-  ],
+  "stylelint.validate": ["scss", "css", "html", "svelte"],
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.useFlatConfig": true,
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
   "tailwindCSS.experimental.classRegex": [
-    [
-      "compDefaults = \\{([^%]*) %\\}",
-      ":\\s*?[\"'`]([^\"'`]*).*?,?"
-    ],
-    [
-      "[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"
-    ]
+    ["compDefaults = \\{([^%]*) %\\}", ":\\s*?[\"'`]([^\"'`]*).*?,?"],
+    ["[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"]
   ],
-  "tailwindCSS.classAttributes": [
-    ".*Class.*"
-  ],
+  "tailwindCSS.classAttributes": [".*Class.*"],
   "twiggy.framework": "craft"
 }

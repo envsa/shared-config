@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import { propertyGroups } from 'stylelint-config-clean-order';
 
 const propertiesOrder = propertyGroups.map((properties) => ({
