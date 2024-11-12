@@ -42,7 +42,7 @@
     },
     {
       "languageId": "twig",
-      "ignoreRegExpList": ["/\\{\\%\\sset\\s\\w+Id\\s=\\s\"[^\"]+\"\\s\\%\\}/"]
+      "ignoreRegExpList": ["\\{%\\s*set\\s+\\w+(id|key)\\s*=\\s*\"[^\"]+\"\\s*%\\}"]
     }
   ],
   "globRoot": "/",
