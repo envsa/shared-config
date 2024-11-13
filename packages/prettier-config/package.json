@@ -1,6 +1,6 @@
 {
   "name": "@envsa/prettier-config",
-  "version": "8.0.2",
+  "version": "8.0.3",
   "type": "module",
   "description": "Prettier configuration for @envsa/shared-config.",
   "repository": {
