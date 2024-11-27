@@ -49,6 +49,7 @@ const config = {
     '@prettier/plugin-xml',
     'prettier-plugin-pkg',
     'prettier-plugin-sh',
+    '@zackad/prettier-plugin-twig',
     // 'prettier-plugin-tailwindcss',
   ],
   printWidth: 100,
@@ -57,6 +58,14 @@ const config = {
   tabWidth: 2,
   trailingComma: 'all',
   useTabs: false,
+  twigSingleQuote: false,
+  twigMultiTags: [
+    'apply,endapply',
+    'cache,endcache',
+    'ifchildren,endifchildren',
+    'nav,endnav',
+    'switch,case,default,endswitch',
+  ],
 };
 
 export default config;
