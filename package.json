@@ -62,7 +62,7 @@
     "@envsa/stylelint-config": "workspace:*",
     "@pinojs/json-colorizer": "^4.0.0",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.10.0",
     "bumpp": "^9.8.1",
     "chalk": "^5.3.0",
     "cosmiconfig": "^9.0.0",
@@ -75,6 +75,6 @@
     "meow": "^13.2.0",
     "package-up": "^5.0.0",
     "tsx": "^4.19.2",
-    "typescript": "~5.6.3"
+    "typescript": "~5.7.2"
   }
 }
