@@ -65,19 +65,16 @@ function createStreamTransform(logPrefix: string | undefined, logColor: ChalkCol
 }
 
 function generateHelpText(command: string, options: OptionCommands): string {
-  let helpText = `
-  Usage
-    $ ${command} [<file|glob> ...]
-  `;
+  let usageText = `$ ${command} [<file|glob> ...]`;
 
   if (command === 'browserslist-config') {
-    helpText = `
-    Usage
-      $ ${command} --init
-    `;
+    usageText = `$ ${command} --init`;
   }
 
-  helpText += '\n  Options';
+  let helpText = `Usage
+    ${usageText}
+
+  Options`;
 
   if (Object.keys(options).length > 0) {
     for (const name of Object.keys(options)) {
