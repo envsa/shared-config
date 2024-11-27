@@ -55,19 +55,21 @@ or use the cli
 
 <!-- cli-help {cliCommand: "browserslist-config"} -->
 
+#### Subcommand: `browserslist-config --init`
+
+Browserslist configuration for @envsa/shared-config.
+
+Usage:
+
 ```txt
-
-  Browserslist configuration for @envsa/shared-config.
-
-    Usage
-      $ browserslist-config --init
-
-  Options
-    --init, -i                Add browserslist key to `package.json`.
-    --help, -h                Print this help info.
-    --version, -v             Print the package version.
-
+browserslist-config --init
 ```
+
+| Option              | Description                             |
+| ------------------- | --------------------------------------- |
+| `--init`<br>`-i`    | Add browserslist key to `package.json`. |
+| `--help`<br>`-h`    | Print this help info.                   |
+| `--version`<br>`-v` | Print the package version.              |
 
 <!-- /cli-help -->
 
