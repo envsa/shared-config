@@ -15,7 +15,6 @@ const config = {
     {
       files: '*.php',
       options: {
-        plugins: ['@prettier/plugin-php'],
         phpVersion: '8.2',
         printWidth: 80,
         parser: 'php',
@@ -34,21 +33,17 @@ const config = {
       files: ['*rc', '*ignore', '*.sh', '*.zsh', '*.bash', '*.fish'],
       options: {
         parser: 'sh',
-        plugins: ['prettier-plugin-sh'],
       },
     },
     {
       files: '*.svelte',
       options: {
         parser: 'svelte',
-        plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
       },
     },
     {
       files: '*.twig',
       options: {
-        parser: 'twig',
-        plugins: ['@zackad/prettier-plugin-twig'],
         twigSingleQuote: false,
         twigMultiTags: [
           'apply,endapply',
@@ -60,7 +55,14 @@ const config = {
       },
     },
   ],
-  plugins: ['@prettier/plugin-xml', 'prettier-plugin-pkg', 'prettier-plugin-tailwindcss'],
+  plugins: [
+    '@prettier/plugin-php',
+    '@prettier/plugin-xml',
+    '@zackad/prettier-plugin-twig',
+    'prettier-plugin-pkg',
+    'prettier-plugin-svelte',
+    'prettier-plugin-tailwindcss',
+  ],
   printWidth: 100,
   semi: true,
   singleQuote: true,
