@@ -50,6 +50,8 @@ config/project/**/*
 storage/config-deltas/**/*
 storage/**/*
 web/cpresources/**/*
+web/web.config
+*.svg
 .ddev/
 
 # Customizations
