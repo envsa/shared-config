@@ -47,8 +47,11 @@ pnpm-lock.yaml
 package-lock.json
 composer.lock
 config/project/**/*
+storage/config-deltas/**/*
 storage/**/*
 web/cpresources/**/*
+web/web.config
+*.svg
 .ddev/
 
 # Customizations

@@ -33,23 +33,35 @@ const config = {
       files: ['*rc', '*ignore', '*.sh', '*.zsh', '*.bash', '*.fish'],
       options: {
         parser: 'sh',
-        plugins: ['prettier-plugin-sh'],
       },
     },
     {
       files: '*.svelte',
       options: {
         parser: 'svelte',
-        plugins: ['prettier-plugin-svelte', 'prettier-plugin-tailwindcss'],
+      },
+    },
+    {
+      files: '*.twig',
+      options: {
+        twigSingleQuote: false,
+        twigMultiTags: [
+          'apply,endapply',
+          'cache,endcache',
+          'ifchildren,endifchildren',
+          'nav,endnav',
+          'switch,case,default,endswitch',
+        ],
       },
     },
   ],
   plugins: [
     '@prettier/plugin-php',
     '@prettier/plugin-xml',
+    '@zackad/prettier-plugin-twig',
     'prettier-plugin-pkg',
-    'prettier-plugin-sh',
-    // 'prettier-plugin-tailwindcss',
+    'prettier-plugin-svelte',
+    'prettier-plugin-tailwindcss',
   ],
   printWidth: 100,
   semi: true,
