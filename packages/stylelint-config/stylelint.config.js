@@ -8,7 +8,7 @@ const propertiesOrder = propertyGroups.map((properties) => ({
 
 /** @type {import("stylelint").Config} */
 export default {
-  extends: ['stylelint-config-standard-scss', 'stylelint-config-clean-order'],
+  extends: ['stylelint-config-clean-order'],
   rules: {
     'at-rule-empty-line-before': [
       'always',
@@ -41,19 +41,31 @@ export default {
       },
     ],
     'value-keyword-case': ['lower', { camelCaseSvgKeywords: true }],
-    'scss/at-rule-no-unknown': [
-      true,
-      {
-        ignoreAtRules: [
-          /* Tailwind */
-          'tailwind',
-          'apply',
-          'variants',
-          'responsive',
-          'screen',
-        ],
-      },
-    ],
-    'scss/load-partial-extension': 'never',
   },
+  overrides: [
+    {
+      files: ['**/*.css'],
+      extends: ['stylelint-config-standard'],
+    },
+    {
+      files: ['**/*.scss'],
+      extends: ['stylelint-config-standard-scss'],
+      rules: {
+        'scss/at-rule-no-unknown': [
+          true,
+          {
+            ignoreAtRules: [
+              /* Tailwind */
+              'tailwind',
+              'apply',
+              'variants',
+              'responsive',
+              'screen',
+            ],
+          },
+        ],
+        'scss/load-partial-extension': 'never',
+      },
+    },
+  ],
 };
