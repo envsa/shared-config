@@ -45,6 +45,11 @@
     ["compDefaults = \\{([^%]*) %\\}", ":\\s*?[\"'`]([^\"'`]*).*?,?"],
     ["[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"]
   ],
-  "twiggy.framework": "craft",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "json.schemas": [
+    {
+      "fileMatch": ["tsconfigs/*.json"],
+      "url": "https://json.schemastore.org/tsconfig"
+    }
+  ]
 }
