@@ -4,6 +4,8 @@
 // based on the shared-config field in their package.js
 
 import type { Flag } from 'meow';
+
+import prettierConfig from '$root/prettier.config.js';
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk';
 import { cosmiconfig } from 'cosmiconfig';
@@ -14,6 +16,7 @@ import path from 'node:path';
 import { PassThrough, Transform, type Stream } from 'node:stream';
 import { fileURLToPath } from 'node:url';
 import { packageUp } from 'package-up';
+import prettier from 'prettier';
 import { merge, stringify } from './json-utils.ts';
 
 // TODO get these from meow?
@@ -375,7 +378,7 @@ async function buildCommands(
 
           try {
             await fse.copy(source, destination, {
-              filter(source, destination) {
+              async filter(source, destination) {
                 const isFile = fse.statSync(source).isFile();
                 const destinationExists = fse.existsSync(destination);
 
@@ -394,8 +397,12 @@ async function buildCommands(
                       unknown
                     >;
                     const mergedJson = merge(destinationJson, sourceJson);
+                    const prettifiedJson = await prettier.format(
+                      JSON.stringify(mergedJson),
+                      prettierConfig,
+                    );
 
-                    fse.writeJSONSync(destination, mergedJson, { spaces: 2 });
+                    fse.writeFileSync(destination, prettifiedJson);
 
                     return false;
                   }
