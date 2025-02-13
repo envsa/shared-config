@@ -14,5 +14,4 @@
     ["[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"]
   ],
   "tailwindCSS.classAttributes": [".*Class.*"],
-  "twiggy.framework": "craft"
 }
