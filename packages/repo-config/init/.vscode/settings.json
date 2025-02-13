@@ -11,7 +11,9 @@
   },
   "tailwindCSS.experimental.classRegex": [
     ["compDefaults = \\{([^%]*) %\\}", ":\\s*?[\"'`]([^\"'`]*).*?,?"],
-    ["[\\w]+\\.classList\\.(?:add|remove|replace|toggle)\\([\"'`]([^\"'`]*)[\"'`]\\)"]
+    ["classList.(?:add|remove|toggle)\\(([^)]*)\\)", "(?:'|\"|`)([^\"'`]*)(?:'|\"|`)"],
+    ["{%\\s+set\\s+.*[Cc]lass(?:es)?\\s+=\\s+['\"](.*)['\"]\\s+%}"],
+    ["*[Cc]lass(?:es)?:\\s*['\"](.*)['\"]"]
   ],
-  "tailwindCSS.classAttributes": [".*Class.*"],
+  "tailwindCSS.classAttributes": [".*Class.*"]
 }
