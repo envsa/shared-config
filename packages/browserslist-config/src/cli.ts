@@ -1,9 +1,5 @@
 #!/usr/bin/env node
-import { buildCommands } from '$root/src/command-builder.ts';
+import { buildCommands } from '../../../src/command-builder.js';
+import { commandDefinition } from './command.js';
 
-await buildCommands('browserslist-config', '[Browserslist]', 'white', {
-  init: {
-    command: 'pnpm',
-    defaultArguments: ['pkg', 'set', 'browserslist[0]=extends @envsa/browserslist-config'],
-  },
-});
+await buildCommands(commandDefinition);
