@@ -1,498 +1,683 @@
 #!/usr/bin/env node
 
-// Creates cli bin files for each package
-// based on the shared-config field in their package.js
-
-import type { Flag } from 'meow';
-
-import prettierConfig from '$root/prettier.config.js';
+import type internal from 'node:stream';
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk';
-import { cosmiconfig } from 'cosmiconfig';
-import { execa, type ExecaError } from 'execa';
+import { cosmiconfig, type CosmiconfigResult } from 'cosmiconfig';
+import { execa } from 'execa';
+
 import fse from 'fs-extra';
-import meow from 'meow';
+import fs from 'node:fs';
 import path from 'node:path';
-import { PassThrough, Transform, type Stream } from 'node:stream';
+import { PassThrough } from 'node:stream';
 import { fileURLToPath } from 'node:url';
 import { packageUp } from 'package-up';
-import prettier from 'prettier';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { version } from '../package.json';
+import { isErrorExecaError } from './execa-utils.js';
 import { merge, stringify } from './json-utils.ts';
-
-// TODO get these from meow?
-type StringFlag = Flag<'string', string> | Flag<'string', string[], true>;
-type BooleanFlag = Flag<'boolean', boolean> | Flag<'boolean', boolean[], true>;
-type NumberFlag = Flag<'number', number> | Flag<'number', number[], true>;
-type AnyFlag = BooleanFlag | NumberFlag | StringFlag;
-type AnyFlags = Record<string, AnyFlag>;
+import { type CwdOverrideOptions, getCwdOverride } from './path-utils.js';
+import { formatFileInPlace } from './prettier-utils.js';
+import { createStreamTransform, streamToString } from './stream-utils.ts';
+import { pluralize } from './string-utils.js';
 
 type ChalkColor = (typeof foregroundColorNames)[number];
 
-interface OptionCommand {
-  /** Either a string to run a command, or a function to do something custom. If undefined, a default behavior is used. */
-  command?:
-    | ((
-        /** Useful if you're logging in the function, ensures output is prefixed */
-        _logStream: NodeJS.WritableStream,
-        _args: string[],
-        _options: string[],
-      ) => Promise<number>)
-    | string;
-  /** Arguments to be passed to the command in the absence of user-provided arguments */
-  defaultArguments?: string[];
-  /** Options to be passed to the command. The argument is handled in command-builder.ts */
-  options?: string[];
+interface CommandCommon {
+  /** Customizes color of log prefix string. Default color used if undefined. */
+  logColor?: ChalkColor;
+  /** Enables a string prefix in the log output. False if undefined */
+  logPrefix?: string;
+  /** CLI command name to execute, or function name to be used in logs */
+  name: string;
 }
 
-// Supported options
-type OptionCommands = Partial<Record<'check' | 'fix' | 'init' | 'printConfig', OptionCommand>>;
+type CommandFunction = CommandCommon & {
+  execute: (
+    _logStream: NodeJS.WritableStream,
+    _positionalArguments: string[], // Passed by default, but can be ignored in implementation
+    _optionFlags: string[], // Passed by default, but can be ignored in implementation
+  ) => Promise<number>;
+};
 
-function createStreamTransform(logPrefix: string | undefined, logColor: ChalkColor): Transform {
-  return new Transform({
-    transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
-      // Convert the chunk to a string and prepend the string to each line
-      const lines: string[] = chunk
-        .toString()
-        .split(/\r?\n/)
-        .filter((line) => line.trim().length > 0);
+export type CommandCli = CommandCommon & {
+  /** Optionally change the context where the command is executed. Defaults to `process.cwd()` if undefined. */
+  cwdOverride?: CwdOverrideOptions;
+  /** Command-local fixed option flags. */
+  optionFlags?: string[];
+  /** Command-local fixed positional arguments. */
+  positionalArguments?: string[];
+  /** Formats and colorizes output if JSON. False if undefined */
+  prettyJsonOutput?: boolean;
+  /** If true, option flags are passed from the parent command. False if undefined. */
+  receiveOptionFlags?: boolean;
+  /** If true, positional arguments are passed in from the parent command. False if undefined. */
+  receivePositionalArguments?: boolean;
+  /** Comes immediately after the command */
+  subcommands?: string[];
+};
 
-      const transformed =
-        lines.map((line) => `${logPrefix ? chalk[logColor](logPrefix) : ''} ${line}`).join('\n') +
-        '\n';
+export type Command = CommandCli | CommandFunction;
 
-      // Pass the transformed data to the next stage in the stream
-      this.push(transformed);
-      callback();
-    },
-  });
+// Init
+// Optionally takes --location option flag
+interface InitCommand {
+  /** Optional additional commands to run */
+  commands?: Command[];
+  /** Specific config file */
+  configFile?: string;
+  configPackageJson?: Record<string, unknown>;
+  /** Optional, just used for top-level shared-config command */
+  description?: string;
+  locationOptionFlag: boolean;
 }
 
-function generateHelpText(command: string, options: OptionCommands): string {
-  let usageText = `$ ${command} [<file|glob> ...]`;
-
-  if (command === 'browserslist-config') {
-    usageText = `$ ${command} --init`;
-  }
-
-  let helpText = `Usage
-    ${usageText}
-
-  Options`;
-
-  if (Object.keys(options).length > 0) {
-    for (const name of Object.keys(options)) {
-      switch (name) {
-        case 'init': {
-          helpText +=
-            command === 'browserslist-config'
-              ? '\n    --init, -i                Add browserslist key to `package.json`.'
-              : '\n    --init, -i                Initialize by copying starter config files to your project root.';
-          break;
-        }
-
-        case 'check': {
-          helpText += `\n    --check, -c               Check for and report issues. Same as \`${command}\`.`;
-          break;
-        }
-
-        case 'fix': {
-          helpText +=
-            '\n    --fix, -f                 Fix all auto-fixable issues, and report the un-fixable.';
-          break;
-        }
-
-        case 'printConfig': {
-          helpText +=
-            '\n    --print-config, -p <path> Print the effective configuration at a certain path.';
-          break;
-        }
-
-        case 'help': {
-          break;
-        }
-
-        case 'version': {
-          break;
-        }
-
-        default: {
-          console.error(`Unknown command name in generateHelpText: ${name}`);
-        }
-      }
-    }
-  }
-
-  // Note some spooky behavior around these affecting how options are parsed
-  helpText += '\n    --help, -h                Print this help info.';
-  helpText += '\n    --version, -v             Print the package version.\n';
-
-  return helpText;
+// Lint
+// Optionally takes files (plural) positional arguments (array of strings, possibly expanded from glob?)
+interface LintCommand {
+  commands: Command[];
+  description: string;
+  positionalArgumentDefault?: string; // Only applies if arguments mode is not 'none'
+  positionalArgumentMode: 'none' | 'optional' | 'required';
 }
 
-function generateFlags(options: OptionCommands): AnyFlags {
-  return Object.keys(options).reduce<AnyFlags>((accumulator, name) => {
-    let flagOptions: AnyFlag = {};
+// Fix
+// Same as lint for now
+type FixCommand = LintCommand;
 
-    switch (name) {
-      case 'init': {
-        flagOptions = {
-          shortFlag: 'i',
-          type: 'boolean',
-        };
-        break;
-      }
+// Print Config
+// Same as lint for now, Optionally takes file (singular) positional argument
+type PrintConfigCommand = LintCommand;
 
-      case 'check': {
-        flagOptions = {
-          aliases: ['lint', ''],
-          shortFlag: 'l',
-          type: 'boolean',
-        };
-        break;
-      }
-
-      case 'fix': {
-        flagOptions = {
-          shortFlag: 'f',
-          type: 'boolean',
-        };
-        break;
-      }
-
-      case 'printConfig': {
-        flagOptions = {
-          shortFlag: 'p',
-          type: 'boolean',
-        };
-        break;
-      }
-
-      case 'help': {
-        flagOptions = {
-          type: 'boolean',
-        };
-        break;
-      }
-
-      case 'version': {
-        flagOptions = {
-          type: 'boolean',
-        };
-        break;
-      }
-
-      default: {
-        console.error(`Unknown command name: ${name}`);
-      }
-    }
-
-    accumulator[name] = flagOptions;
-    return accumulator;
-  }, {});
+export interface Commands {
+  fix?: FixCommand;
+  init?: InitCommand;
+  lint?: LintCommand;
+  printConfig?: PrintConfigCommand;
 }
 
-async function streamToString(stream: Stream): Promise<string> {
-  const chunks: Uint8Array[] = [];
-  return new Promise((resolve, reject) => {
-    stream.on('data', (chunk: Uint8Array) => chunks.push(Buffer.from(chunk)));
-    stream.on('error', (error) => {
-      reject(error as Error);
-    });
-    stream.on('end', () => {
-      resolve(Buffer.concat(chunks).toString('utf8'));
-    });
-  });
+// Exported for aggregation later
+export interface CommandDefinition {
+  commands: Commands;
+  description: string;
+  logColor: ChalkColor;
+  logPrefix: string | undefined;
+  name: string;
+  order: number;
+  showSummary?: boolean;
+  verbose?: boolean;
 }
 
-async function executeJsonOutput(
+async function executeFunctionCommand(
   logStream: NodeJS.WritableStream,
-  optionCommand: OptionCommand,
-  input: string[] = [],
+  positionalArguments: string[],
+  optionFlags: string[],
+  command: CommandFunction,
+  verbose?: boolean,
 ): Promise<number> {
-  // Capture the output of execution, and then format is nicely
-  const pass = new PassThrough();
-  const exitCode = await execute(pass, optionCommand, input);
-  pass.end();
+  let exitCode = 1; // Assume failure
 
-  if (exitCode !== 0) {
-    logStream.write('Error printing config.\n');
-    return exitCode;
+  // Add to the log stream if desired
+  let targetStream: NodeJS.WritableStream;
+
+  if (command.logPrefix === undefined) {
+    targetStream = logStream;
+  } else {
+    const subStream = createStreamTransform(command.logPrefix, command.logColor);
+    subStream.pipe(logStream);
+    targetStream = subStream;
+  }
+
+  if (verbose) {
+    targetStream.write(
+      chalk.bold(
+        `Running: "${command.name}() with Positional arguments: ${String(positionalArguments)} and Option flags: ${String(optionFlags)}"`,
+      ),
+    );
   }
 
   try {
-    const configString = await streamToString(pass);
-
-    logStream.write(stringify(JSON.parse(configString)));
-    logStream.write('\n');
-    return 0;
+    exitCode = await command.execute(targetStream, positionalArguments, optionFlags);
   } catch (error) {
-    logStream.write(`Error: ${String(error)}\n`);
-    return 1;
+    console.error(String(error));
+    exitCode = 1;
   }
+
+  return exitCode;
 }
 
-async function execute(
+async function executeCliCommand(
   logStream: NodeJS.WritableStream,
-  optionCommand: OptionCommand,
-  input: string[] = [],
+  positionalArguments: string[],
+  optionFlags: string[],
+  command: CommandCli,
+  verbose?: boolean,
 ): Promise<number> {
-  if (optionCommand.command !== undefined && typeof optionCommand.command === 'string') {
-    let exitCode = 1;
+  let exitCode = 1; // Assume failure
 
-    try {
-      const subprocess = execa(
-        optionCommand.command,
-        [...(optionCommand.options ?? []), ...input],
-        {
-          env: {
-            FORCE_COLOR: 'true',
-          },
-          stdin: 'inherit', // For input, todo anything weird here?
-        },
-      );
+  // Add the log stream if desired
+  let targetStream: NodeJS.WritableStream;
 
-      // End false is required here, otherwise the stream will close before the subprocess is done
-      subprocess.stdout?.pipe(logStream, { end: false });
-      subprocess.stderr?.pipe(logStream, { end: false });
-      await subprocess;
-      exitCode = subprocess.exitCode ?? 1;
-    } catch (error) {
-      // Console.error(`${optionCommand.command} failed with error "${error.shortMessage}"`);
-      if (isErrorExecaError(error)) {
-        exitCode = typeof error.exitCode === 'number' ? error.exitCode : 1;
+  if (command.logPrefix === undefined) {
+    targetStream = logStream;
+  } else {
+    const subStream = createStreamTransform(command.logPrefix, command.logColor);
+    subStream.pipe(logStream);
+    targetStream = subStream;
+  }
+
+  const resolvedSubcommands = command.subcommands ?? [];
+
+  const resolvedPositionalArguments = [
+    ...(command.receivePositionalArguments ? positionalArguments : []),
+    ...(command.positionalArguments ?? []),
+  ];
+  const resolvedOptionFlags = [
+    ...(command.receiveOptionFlags ? optionFlags : []),
+    ...(command.optionFlags ?? []),
+  ];
+
+  const resolvedArguments = [
+    ...resolvedSubcommands,
+    ...resolvedOptionFlags,
+    ...resolvedPositionalArguments,
+  ];
+
+  // Manage current working directory
+  const cwd = getCwdOverride(command.cwdOverride);
+
+  if (verbose) {
+    targetStream.write(`Running: "${command.name} ${resolvedArguments.join(' ')}"`);
+  }
+
+  const cliTargetStream: NodeJS.WritableStream = command.prettyJsonOutput
+    ? new PassThrough()
+    : targetStream;
+
+  try {
+    const subprocess = execa(command.name, resolvedArguments, {
+      cwd,
+      env: {
+        // Use colorful output unless NO_COLOR is set
+        ...(process.env.NO_COLOR === undefined ? { FORCE_COLOR: 'true' } : {}),
+        // Quiet node for when processing *.config.js files in Node 22
+        // Suppress experimental type stripping warning with --no-warnings
+        NODE_OPTIONS: '--experimental-strip-types --disable-warning=ExperimentalWarning',
+      },
+      preferLocal: true,
+      reject: false, // Prevents throwing on non-zero exit code
+      stdin: 'inherit',
+    });
+
+    // End false is required here, otherwise the stream will close before the process is done
+    subprocess.stdout.pipe(cliTargetStream, { end: false });
+    subprocess.stderr.pipe(cliTargetStream, { end: false });
+
+    await subprocess;
+
+    if (command.prettyJsonOutput) {
+      cliTargetStream.end();
+      // TODO is this a bad cast?
+      const jsonString = await streamToString(cliTargetStream as unknown as internal.Stream);
+      const prettyAndColorfulJsonLines = stringify(JSON.parse(jsonString)).split('\n');
+      for (const line of prettyAndColorfulJsonLines) {
+        targetStream.write(`${line}\n`);
       }
     }
 
-    return exitCode;
+    exitCode = subprocess.exitCode ?? 1;
+  } catch (error) {
+    // Extra debugging...
+    console.error(`${command.name} failed with error:`);
+    console.error(error);
+    if (isErrorExecaError(error)) {
+      exitCode = typeof error.exitCode === 'number' ? error.exitCode : 1;
+    }
   }
 
-  logStream.write(`Error: Invalid optionCommand: ${JSON.stringify(optionCommand, undefined, 2)}`);
-  return 1;
+  return exitCode;
 }
 
-function checkArguments(
-  input: string[],
-  optionCommand: OptionCommand,
+// Type guard for CommandCli vs CommandFunction
+function isCommandFunction(command: Command): command is CommandFunction {
+  return 'execute' in command;
+}
+
+/**
+ * Execute multiple commands (either functions or command line) in serial
+ */
+export async function executeCommands(
   logStream: NodeJS.WritableStream,
-): void {
-  // Warn if no default arguments are provided, don't be too clever
-  if (input.length === 0 && !optionCommand.defaultArguments) {
-    logStream.write('Error: This command must be used with a file argument\n');
-    process.exit(1);
+  positionalArguments: string[],
+  optionFlags: string[],
+  commands: Command[],
+  verbose?: boolean,
+  showSummary?: boolean,
+): Promise<number> {
+  const exitCodes: { exitCode: number; name: string }[] = [];
+
+  for (const command of commands) {
+    const exitCode = await (isCommandFunction(command)
+      ? executeFunctionCommand(logStream, positionalArguments, optionFlags, command, verbose)
+      : executeCliCommand(logStream, positionalArguments, optionFlags, command, verbose));
+
+    exitCodes.push({ exitCode, name: command.name });
   }
+
+  if (showSummary) {
+    const successfulCommands = exitCodes
+      .filter(({ exitCode }) => exitCode === 0)
+      .map(({ name }) => name);
+    const failedCommands = exitCodes
+      .filter(({ exitCode }) => exitCode !== 0)
+      .map(({ name }) => name);
+    const totalCommands = exitCodes.length;
+
+    if (successfulCommands.length > 0) {
+      logStream.write(
+        `✅ ${chalk.green.bold(
+          `${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded: `,
+        )} ${chalk.green(successfulCommands.join(', '))}\n`,
+      );
+    }
+
+    if (failedCommands.length > 0) {
+      logStream.write(
+        `❌ ${chalk.red.bold(
+          `${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed: `,
+        )} ${chalk.red(failedCommands.join(', '))}\n`,
+      );
+    }
+  }
+
+  // Return zero if all zero, otherwise return 1
+  return exitCodes.every(({ exitCode }) => exitCode === 0) ? 0 : 1;
 }
 
-async function buildCommands(
-  command: string,
-  logPrefix: string | undefined,
-  logColor: ChalkColor,
-  options: OptionCommands,
-) {
-  const cli = meow({
-    allowUnknownFlags: false,
-    booleanDefault: undefined,
-    flags: generateFlags(options),
-    help: generateHelpText(command, options),
-    importMeta: import.meta,
-  });
+async function copyAndMergeInitFiles(
+  logStream: NodeJS.WritableStream,
+  location: string | undefined,
+  configFile: string | undefined,
+  configPackageJson: Record<string, unknown> | undefined,
+): Promise<number> {
+  // By default, copies files in the script package's /init directory to the root of the package it's called from
+  // For files in .vscode, if both the source and destination files are json, then merge them instead of overwriting
 
-  const { flags, input } = cli;
+  // Copy files
+  const destinationPackage = await packageUp();
+  if (destinationPackage === undefined) {
+    throw new Error('The `init` command must be used in a directory with a package.json file');
+  }
 
-  const commandsToRun = Object.keys(options).reduce<OptionCommands>(
-    (accumulator, command: string) => {
-      if (flags[command]) {
-        accumulator[command as keyof OptionCommands] = options[command as keyof OptionCommands];
+  // TODO do we actually need import.meta.resolve() here?
+  const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
+  if (sourcePackage === undefined) {
+    logStream.write('Error: The script being called was not in a package, weird.\n');
+    return 1;
+  }
+
+  const source = path.join(path.dirname(sourcePackage), 'init');
+  const destination = path.dirname(destinationPackage);
+
+  const hasConfigLocationOption =
+    (location === 'file' || location === 'package') &&
+    configFile !== undefined &&
+    configPackageJson !== undefined;
+
+  try {
+    if (hasConfigLocationOption) {
+      const configKey = Object.keys(configPackageJson)[0];
+
+      if (location === 'package') {
+        const destinationPackageJson = fse.readJSONSync(destinationPackage) as Record<
+          string,
+          unknown
+        >;
+
+        // Merge json into package.json
+        logStream.write(
+          `Merging: \nPackage config key "${configKey} → "${destination}" (Because --location is set to "package")\n`,
+        );
+        const mergedPackageJson = merge(destinationPackageJson, configPackageJson);
+        fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: 2 });
+        await formatFileInPlace(destinationPackage);
       }
+    }
 
-      return accumulator;
-    },
-    {},
-  );
+    // Make sure there's stuff to copy from init before proceeding
+    const sourceExists = await fse.pathExists(source);
+    if (!sourceExists) {
+      return 0;
+    }
+
+    const sourceFiles = await fse.readdir(source);
+    if (sourceFiles.length === 0) {
+      logStream.write(`Source directory "${source}" is empty.\n`);
+      return 0;
+    }
+
+    logStream.write(`Adding initial configuration files from:\n"${source}" → "${destination}"\n`);
+
+    await fse.copy(source, destination, {
+      async filter(source, destination) {
+        const isFile = fs.statSync(source).isFile();
+        const destinationExists = fs.existsSync(destination);
+
+        if (isFile) {
+          // Special case to skip copying config files to root if --location is set to package
+          if (hasConfigLocationOption && location === 'package' && source.includes(configFile)) {
+            if (destinationExists) {
+              logStream.write(
+                `Deleting: \n"${source}" → "${destination}" (Because --location is set to "package")\n`,
+              );
+
+              fse.removeSync(destination);
+            } else {
+              logStream.write(
+                `Skipping: \n"${source}" → "${destination}" (Because --location is set to "package")\n`,
+              );
+            }
+
+            return false;
+          }
+
+          // Special case to merge package.json and .vscode json settings files
+          if (
+            destinationExists &&
+            (destination.includes('.vscode/') || destination.includes('package.json')) &&
+            path.extname(destination) === '.json'
+          ) {
+            // Merge
+            logStream.write(`Merging: \n"${source}" → "${destination}"\n`);
+
+            const sourceJson = fse.readJSONSync(source) as Record<string, unknown>;
+            const destinationJson = fse.readJSONSync(destination) as Record<string, unknown>;
+            const mergedJson = merge(destinationJson, sourceJson);
+
+            fse.writeJSONSync(destination, mergedJson, { spaces: 2 });
+            await formatFileInPlace(destination);
+
+            return false;
+          }
+
+          if (destinationExists) {
+            logStream.write(`Overwriting: \n"${source}" → "${destination}"\n`);
+            await formatFileInPlace(destination);
+            return true;
+          }
+
+          logStream.write(`Copying: \n"${source}" → "${destination}"\n`);
+          await formatFileInPlace(destination);
+          return true;
+        }
+
+        // Don't log directory copy
+        return true;
+      },
+      overwrite: true,
+    });
+  } catch (error) {
+    console.error(String(error));
+    return 1;
+  }
+
+  return 0;
+}
+
+/**
+ * Create a simple command line interface for a package.
+ */
+export async function buildCommands(commandDefinition: CommandDefinition) {
+  const {
+    commands: { fix, init, lint, printConfig },
+    description,
+    logColor,
+    logPrefix,
+    name,
+    showSummary,
+    verbose,
+  } = commandDefinition;
 
   // Set up log stream
   const logStream = createStreamTransform(logPrefix, logColor);
   logStream.pipe(process.stdout);
 
-  // Make 'check' the default behavior if no flags are specified
-  if (Object.keys(commandsToRun).length === 0) {
-    if (options.check === undefined) {
-      logStream.write(`This command requires options. Run ${command} --help for valid commands.\n`);
-    } else {
-      commandsToRun.check = options.check;
-    }
-  }
+  const yargsInstance = yargs(hideBin(process.argv))
+    .scriptName(name)
+    .usage('$0 <command>', description);
 
-  // Debug
-  // console.log(`commandsToRun: ${JSON.stringify(commandsToRun, undefined, 2)}`);
+  if (init !== undefined) {
+    yargsInstance.command({
+      builder(yargs) {
+        return init.locationOptionFlag
+          ? yargs.option('location', {
+              choices: ['file', 'package'],
+              default: 'file',
+              description: 'TK',
+              type: 'string',
+            })
+          : yargs;
+      },
+      command: 'init',
+      // Command: init.locationOptionFlag ? 'init [--location]' : init
+      describe:
+        init.description ??
+        `Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
+      async handler(argv) {
+        // Copy files
+        const location = init.locationOptionFlag
+          ? (argv.location as string | undefined)
+          : undefined;
 
-  let aggregateExitCode = 0;
-
-  for (const [name, optionCommand] of Object.entries(commandsToRun)) {
-    if (typeof optionCommand.command === 'function') {
-      checkArguments(input, optionCommand, logStream);
-
-      const args = input.length === 0 ? (optionCommand.defaultArguments ?? []) : input;
-      const options = optionCommand.options ?? [];
-
-      // Custom function execution is always the same
-      aggregateExitCode += await optionCommand.command(logStream, args, options);
-    } else if (typeof optionCommand.command === 'string') {
-      // Warn if no default arguments are provided, don't be too clever
-      checkArguments(input, optionCommand, logStream);
-
-      aggregateExitCode += await execute(
-        logStream,
-        optionCommand,
-        input.length === 0 ? optionCommand.defaultArguments : input,
-      );
-    } else {
-      // Handle default behaviors (e.g. {})
-      switch (name) {
-        case 'init': {
-          // By default, copies files in script package's /init directory to the root of the package it's called from
-          // For files in .vscode, if both the source and destination files are json, then merge them instead of overwriting
-
-          // Copy files
-          const destinationPackage = await packageUp();
-          if (destinationPackage === undefined) {
-            logStream.write(
-              'Error: The `--init` flag must be used in a directory with a package.json file\n',
+        // Grab context by closure
+        const copyAndMergeInitFilesCommand: CommandFunction = {
+          async execute(logStream, _, optionFlags) {
+            return copyAndMergeInitFiles(
+              logStream,
+              optionFlags.at(1),
+              init.configFile,
+              init.configPackageJson,
             );
-            aggregateExitCode += 1;
-            break;
-          }
+          },
+          name: 'copyAndMergeInitFiles',
+        };
 
-          const sourcePackage = await packageUp({ cwd: fileURLToPath(import.meta.url) });
-          if (sourcePackage === undefined) {
-            logStream.write('Error: The script being called was not in a package, weird.\n');
-            aggregateExitCode += 1;
-            break;
-          }
+        // Run commands
+        const exitCode = await executeCommands(
+          logStream,
+          [],
+          location === undefined ? [] : ['--location', location],
+          [copyAndMergeInitFilesCommand, ...(init.commands ?? [])],
+        );
 
-          const source = path.join(path.dirname(sourcePackage), 'init/');
-          const destination = path.dirname(destinationPackage);
-
-          logStream.write(
-            `Adding initial configuration files from:\n"${source}" → "${destination}"\n`,
-          );
-
-          try {
-            await fse.copy(source, destination, {
-              async filter(source, destination) {
-                const isFile = fse.statSync(source).isFile();
-                const destinationExists = fse.existsSync(destination);
-
-                if (isFile) {
-                  if (
-                    destinationExists &&
-                    destination.includes('.vscode/') &&
-                    path.extname(destination) === '.json'
-                  ) {
-                    // Merge
-                    logStream.write(`Merging: \n"${source}" → "${destination}"\n`);
-
-                    const sourceJson = fse.readJSONSync(source) as Record<string, unknown>;
-                    const destinationJson = fse.readJSONSync(destination) as Record<
-                      string,
-                      unknown
-                    >;
-                    const mergedJson = merge(destinationJson, sourceJson);
-                    const prettifiedJson = await prettier.format(
-                      JSON.stringify(mergedJson),
-                      prettierConfig,
-                    );
-
-                    fse.writeFileSync(destination, prettifiedJson);
-
-                    return false;
-                  }
-
-                  if (destinationExists) {
-                    logStream.write(`Overwriting: \n"${source}" → "${destination}"\n`);
-                    return true;
-                  }
-
-                  logStream.write(`Copying: \n"${source}" → "${destination}"\n`);
-                  return true;
-                }
-
-                // Don't log directory copy
-                return true;
-              },
-              overwrite: true,
-            });
-          } catch {
-            // Intentionally blank
-          }
-
-          // TODO
-          aggregateExitCode += 0;
-
-          break;
-        }
-
-        case 'check': {
-          console.error(
-            'There is no default implementation for check. The [tool]-config package must define a command.',
-          );
-          aggregateExitCode += 1;
-          break;
-        }
-
-        case 'fix': {
-          console.error(
-            'There is no default implementation for fix. The [tool]-config package must define a command.',
-          );
-          aggregateExitCode += 1;
-          break;
-        }
-
-        case 'printConfig': {
-          const args = input.length === 0 ? (optionCommand.defaultArguments ?? ['.']) : input;
-          const filePath = args?.at(0);
-
-          // Brittle, could pass config name to commandBuilder() instead
-          const configName = command.split('-').at(0);
-
-          if (configName === undefined) {
-            logStream.write(`Error: Could not find or parse config file for ${command}.\n`);
-            aggregateExitCode += 1;
-            break;
-          }
-
-          const configSearch = await cosmiconfig(configName).search(filePath);
-
-          if (!configSearch?.config) {
-            logStream.write(`Error: Could not find or parse config file for ${configName}.\n`);
-            aggregateExitCode += 1;
-            break;
-          }
-
-          logStream.write(`${logPrefix} config path: "${configSearch?.filepath}"\n`);
-          logStream.write(stringify(configSearch.config));
-          logStream.write('\n');
-          break;
-        }
-
-        default: {
-          console.error(`Unknown command name: ${name}`);
-          aggregateExitCode += 1;
-          break;
-        }
-      }
-    }
+        process.exit(exitCode);
+      },
+    });
   }
 
-  process.exit(aggregateExitCode > 0 ? 1 : 0);
+  if (lint !== undefined) {
+    yargsInstance.command({
+      builder(yargs) {
+        return lint.positionalArgumentMode === 'none'
+          ? yargs
+          : yargs.positional('files', {
+              array: true,
+              ...(lint.positionalArgumentDefault === undefined
+                ? {}
+                : { default: lint.positionalArgumentDefault }),
+              describe: 'Files or glob pattern to lint.',
+              type: 'string',
+            });
+      },
+      command: lint.positionalArgumentMode === 'none' ? 'lint [files..]' : 'lint <files..>',
+      describe: lint.description,
+      async handler(argv) {
+        const positionalArguments = (argv.files as string[] | undefined) ?? [];
+        const exitCode = await executeCommands(
+          logStream,
+          positionalArguments,
+          [],
+          lint.commands,
+          verbose,
+          showSummary,
+        );
+        process.exit(exitCode);
+      },
+    });
+  }
+
+  // Duplicate of above, but whatever
+  if (fix !== undefined) {
+    yargsInstance.command({
+      builder(yargs) {
+        return fix.positionalArgumentMode === 'none'
+          ? yargs
+          : yargs.positional('files', {
+              array: true,
+              ...(fix.positionalArgumentDefault === undefined
+                ? {}
+                : { default: fix.positionalArgumentDefault }),
+              describe: 'Files or glob pattern to fix.',
+              type: 'string',
+            });
+      },
+      command: fix.positionalArgumentMode === 'none' ? 'fix [files..]' : 'fix <files..>',
+      describe: fix.description,
+      async handler(argv) {
+        const positionalArguments = (argv.files as string[] | undefined) ?? [];
+        const exitCode = await executeCommands(
+          logStream,
+          positionalArguments,
+          [],
+          fix.commands,
+          verbose,
+          showSummary,
+        );
+        process.exit(exitCode);
+      },
+    });
+  }
+
+  if (printConfig !== undefined) {
+    yargsInstance.command({
+      builder(yargs) {
+        return printConfig.positionalArgumentMode === 'none'
+          ? yargs
+          : yargs.positional('file', {
+              ...(printConfig.positionalArgumentDefault === undefined
+                ? {}
+                : { default: printConfig.positionalArgumentDefault }),
+              describe: 'File or glob pattern to TK',
+              type: 'string',
+            });
+      },
+      command:
+        printConfig.positionalArgumentMode === 'none'
+          ? 'print-config'
+          : printConfig.positionalArgumentMode === 'optional'
+            ? 'print-config [file]'
+            : 'print-config <file>',
+      describe: printConfig.description,
+      async handler(argv) {
+        const fileArgument = (argv.file as string | undefined) ?? undefined;
+        const positionalArguments = fileArgument === undefined ? [] : [fileArgument];
+
+        const exitCode = await executeCommands(
+          logStream,
+          positionalArguments,
+          [],
+          printConfig.commands,
+          verbose,
+          showSummary,
+        );
+        process.exit(exitCode);
+      },
+    });
+  }
+
+  // Parse and execute
+  yargsInstance.alias('h', 'help');
+  yargsInstance.version(version);
+  yargsInstance.alias('v', 'version');
+  yargsInstance.help();
+  yargsInstance.wrap(process.stdout.isTTY ? Math.min(120, yargsInstance.terminalWidth()) : 0);
+
+  await yargsInstance.parseAsync();
+}
+/**
+ * TK
+ */
+export function getCosmicconfigCommand(configName: string): CommandFunction {
+  return {
+    async execute(logStream) {
+      const result = await getCosmicconfigResult(configName);
+
+      if (result === undefined) {
+        return 1;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const { config, filepath: configFilePath, isEmpty } = result;
+
+      logStream.write(`Found ${configName} configuration at "${configFilePath}"\n`);
+
+      if (isEmpty) {
+        logStream.write('Configuration is empty.\n');
+        return 0;
+      }
+
+      const prettyAndColorfulJsonLines = stringify(config).split('\n');
+      for (const line of prettyAndColorfulJsonLines) {
+        logStream.write(`${line}\n`);
+      }
+      return 0;
+    },
+    name: `Cosmicconfig ${configName}`,
+  };
 }
 
-function isErrorExecaError(error: unknown): error is ExecaError {
-  return (
-    error instanceof Error &&
-    'exitCode' in error &&
-    typeof (error as ExecaError).exitCode === 'number'
-  );
+type NullToUndefined<T> = T extends null ? undefined : T;
+
+/**
+ * Convenience wrapper to safely fetch a cosmicconfig result.
+ */
+export async function getCosmicconfigResult(
+  configName: string,
+): Promise<NullToUndefined<CosmiconfigResult>> {
+  const explorer = cosmiconfig(configName, {
+    searchStrategy: 'project',
+    // Alt approach?
+    // searchStrategy: 'global',
+    // stopDir: getCwdOverride('workspace-root')
+  });
+
+  try {
+    const result = await explorer.search();
+
+    if (result === null) {
+      console.error(`No ${configName} configuration found.`);
+      return undefined;
+    }
+  } catch (error) {
+    console.error(`Error while searching for ${configName} configuration:`, error);
+    return undefined;
+  }
 }
 
-export { buildCommands, execute, executeJsonOutput };
-export type { OptionCommands };
+/**
+ * Commonly reused CLI help description strings. Some duplication is intentional for future flexibility.
+ */
+export const DESCRIPTION = {
+  fileRun: 'Matches files below the current working directory by default.',
+  monorepoRun:
+    'In a monorepo, it will also run in all packages below the current working directory.',
+  monorepoSearch: 'Searches up to the root of a monorepo if necessary.',
+  multiArgumentCaveat:
+    'Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.',
+  multiOptionCaveat:
+    'Will use option flags where possible if provided, but some of the invoked tools will ignore them.',
+  optionalFileRun: 'Package-scoped by default, file-scoped if a file argument is provided.',
+  packageRun: 'Package-scoped',
+  packageSearch: 'Package-scoped',
+};

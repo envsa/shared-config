@@ -7,7 +7,10 @@ import type { ArrayMergeOptions, Options } from 'deepmerge';
 import deepmerge from 'deepmerge';
 import jsonStringifyPrettyCompact from 'json-stringify-pretty-compact';
 
-function stringify(object: unknown): string {
+/**
+ * TK
+ */
+export function stringify(object: any): string {
   return jsonColorizer(
     jsonStringifyPrettyCompact(object, {
       indent: 2,
@@ -45,13 +48,13 @@ const combineMerge = (target: any[], source: any[], options: ArrayMergeOptions):
   return destination;
 };
 
-function merge(
+/**
+ * TK
+ */
+export function merge(
   destination: any,
   source: any,
-
   options: Options = { arrayMerge: combineMerge },
 ): any[] {
   return deepmerge(destination, source, options);
 }
-
-export { merge, stringify };
