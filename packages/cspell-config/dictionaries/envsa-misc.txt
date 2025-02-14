@@ -28,7 +28,6 @@ basware
 belair
 benf
 berri
-berri
 bgcolor
 bgset
 bickley
@@ -84,6 +83,7 @@ cooldown
 coorong
 corepack
 cosi
+Cosmicconfig
 cpresources
 crafers
 craftcms
@@ -243,7 +243,7 @@ linkfields
 linkit
 linklist
 longleat
-mailchimp
+lrella
 mailchimp
 malayam
 malle
