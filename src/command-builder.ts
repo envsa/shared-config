@@ -608,10 +608,10 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 /**
  * TK
  */
-export function getCosmicconfigCommand(configName: string): CommandFunction {
+export function getCosmiconfigCommand(configName: string): CommandFunction {
   return {
     async execute(logStream) {
-      const result = await getCosmicconfigResult(configName);
+      const result = await getCosmiconfigResult(configName);
 
       if (result === undefined) {
         return 1;
@@ -640,9 +640,9 @@ export function getCosmicconfigCommand(configName: string): CommandFunction {
 type NullToUndefined<T> = T extends null ? undefined : T;
 
 /**
- * Convenience wrapper to safely fetch a cosmicconfig result.
+ * Convenience wrapper to safely fetch a cosmiconfig result.
  */
-export async function getCosmicconfigResult(
+export async function getCosmiconfigResult(
   configName: string,
 ): Promise<NullToUndefined<CosmiconfigResult>> {
   const explorer = cosmiconfig(configName, {

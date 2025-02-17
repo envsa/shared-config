@@ -66,24 +66,103 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 <!-- cli-help -->
 
-#### Command: `eslint-config`
+#### Command: `envsa-eslint`
 
-ESLint configuration for @envsa/shared-config.
+Envsa's ESLint shared configuration tools.
+
+This section lists top-level commands for `envsa-eslint`.
 
 Usage:
 
 ```txt
-eslint-config [<file|glob> ...]
+envsa-eslint <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `eslint-config`.            |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                                                                                               |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root.                                                                                                          |
+| `lint`         | `<files..>` | Lint your project with ESLint. Matches files below the current working directory by default.                                                                              |
+| `fix`          | `<files..>` | Fix your project with ESLint. Matches files below the current working directory by default.                                                                               |
+| `print-config` | `[file]`    | Print the effective ESLint configuration. Package-scoped by default, file-scoped if a file argument is provided. Use `@eslint/config-inspector` for a more detailed view. |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-eslint init`
+
+Initialize by copying starter config files to your project root.
+
+Usage:
+
+```txt
+envsa-eslint init
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-eslint lint`
+
+Lint your project with ESLint. Matches files below the current working directory by default.
+
+Usage:
+
+```txt
+envsa-eslint lint <files..>
+```
+
+| Positional Argument | Description                                  | Type    | Default |
+| ------------------- | -------------------------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `"."`   |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-eslint fix`
+
+Fix your project with ESLint. Matches files below the current working directory by default.
+
+Usage:
+
+```txt
+envsa-eslint fix <files..>
+```
+
+| Positional Argument | Description                                 | Type    | Default |
+| ------------------- | ------------------------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. _(Required.)_ | `array` | `"."`   |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-eslint print-config`
+
+Print the effective ESLint configuration. Package-scoped by default, file-scoped if a file argument is provided. Use `@eslint/config-inspector` for a more detailed view.
+
+Usage:
+
+```txt
+envsa-eslint print-config [file]
+```
+
+| Positional Argument | Description                | Type     |
+| ------------------- | -------------------------- | -------- |
+| `file`              | File or glob pattern to TK | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

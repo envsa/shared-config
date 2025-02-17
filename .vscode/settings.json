@@ -13,13 +13,27 @@
   "css.validate": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
-    "source.organizeImports": "explicit"
+    "source.organizeImports": "never"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.enable": true,
   "eslint.useFlatConfig": true,
-  "eslint.validate": ["javascript", "typescript", "svelte", "markdown", "html", "twig"],
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "svelte",
+    "markdown",
+    "html",
+    "twig",
+    "astro",
+    "json",
+    "json5",
+    "jsonc",
+    "toml",
+    "xml",
+    "yaml"
+  ],
   "eslint.workingDirectories": ["./"],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
@@ -51,5 +65,7 @@
       "fileMatch": ["tsconfigs/*.json"],
       "url": "https://json.schemastore.org/tsconfig"
     }
-  ]
+  ],
+  "eslint.runtime": "node",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
