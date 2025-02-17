@@ -6,7 +6,7 @@ let originalEmit: typeof process.emit | undefined;
  * Silences the experimental feature warnings. Call `restoreNodeWarnings` after to restore the original behavior.
  */
 export function suppressNodeWarnings(): void {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
+  // eslint-disable-next-line ts/unbound-method
   originalEmit ??= process.emit;
 
   process.emit = function (...args) {

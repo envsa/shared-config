@@ -617,7 +617,7 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
         return 1;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      // eslint-disable-next-line ts/no-unsafe-assignment
       const { config, filepath: configFilePath, isEmpty } = result;
 
       logStream.write(`Found ${configName} configuration at "${configFilePath}"\n`);

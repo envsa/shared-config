@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable ts/no-unsafe-argument */
+/* eslint-disable ts/no-unsafe-assignment */
+/* eslint-disable ts/no-explicit-any */
 
 import jsonColorizer from '@pinojs/json-colorizer';
 import type { ArrayMergeOptions, Options } from 'deepmerge';
@@ -16,7 +16,7 @@ export function stringify(object: any): string {
       indent: 2,
       replacer(_, value) {
         if (typeof value === 'function') {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+          // eslint-disable-next-line ts/no-unsafe-function-type
           return (value as Function).name;
         }
 
