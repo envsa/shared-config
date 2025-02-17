@@ -27,7 +27,7 @@ export async function html(
       files,
       name: 'envsa/html-script',
       plugins: {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line ts/no-unsafe-assignment
         'html-script': pluginHtmlScript,
       },
       rules: {
@@ -55,7 +55,7 @@ export async function html(
         html: pluginHtml,
       },
       rules: {
-        // everything is overridden
+        // Everything is overridden
         ...htmlRecommendedRules,
 
         'html/attrs-newline': 'off', // Overrides recommended
@@ -71,7 +71,7 @@ export async function html(
         'html/no-multiple-h1': 'error',
         'html/no-non-scalable-viewport': 'error',
         'html/no-obsolete-tags': 'error',
-        'html/no-positive-tab-index': 'error',
+        'html/no-positive-tabindex': 'error',
         'html/no-restricted-attr-values': 'error',
         'html/no-restricted-attrs': 'error',
         'html/no-script-style-type': 'error',

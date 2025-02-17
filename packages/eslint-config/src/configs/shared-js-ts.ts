@@ -28,7 +28,7 @@ const envsaSharedDisableTypeCheckedRules: Rules = {
 export const sharedScriptConfig: TypedFlatConfigItem = {
   plugins: {
     depend: pluginDepend,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    // eslint-disable-next-line ts/no-unsafe-assignment
     'eslint-comments': pluginEslintComments,
     ts: pluginTs,
     unicorn: pluginUnicorn,

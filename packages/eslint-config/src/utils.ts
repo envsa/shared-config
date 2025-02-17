@@ -20,7 +20,7 @@ export async function interopDefault<T>(
   m: Awaitable<T>,
 ): Promise<T extends { default: infer U } ? U : T> {
   const resolved = await m;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+  // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-member-access, ts/no-unsafe-return
   return (resolved as any).default || resolved;
 }
 
@@ -118,10 +118,10 @@ export function renamePluginInConfigs(
  * ```
  */
 export function renameRules(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line ts/no-explicit-any
   rules: Record<string, any>,
   map: Record<string, string>,
-): // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): // eslint-disable-next-line ts/no-explicit-any
 Record<string, any> {
   return Object.fromEntries(
     Object.entries(rules).map(([key, value]) => {

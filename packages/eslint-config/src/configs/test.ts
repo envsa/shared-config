@@ -6,7 +6,7 @@ import { testRecommendedRules } from '../presets';
 import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types';
 
 // Hold the reference so we don't redeclare the plugin on each call
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line ts/no-explicit-any
 let _pluginTest: any;
 
 export async function test(
