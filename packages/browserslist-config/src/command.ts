@@ -3,12 +3,6 @@ import { CommandDefinition } from '../../../src/command-builder';
 export const commandDefinition: CommandDefinition = {
   commands: {
     init: {
-      commands: [
-        {
-          name: 'pnpm',
-          optionFlags: ['pkg', 'set', 'browserslist[0]=extends @envsa/browserslist-config'],
-        },
-      ],
       locationOptionFlag: true,
     },
   },

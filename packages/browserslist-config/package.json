@@ -26,11 +26,16 @@
   "bin": {
     "envsa-browserslist": "bin/cli.js"
   },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
+  "main": "./configs/default.cjs",
+  "exports": {
+    ".": {
+      "require": "./configs/default.cjs"
+    }
+  },
   "files": [
     "bin/*",
-    "dist/*"
+    "configs/*",
+    "init/*"
   ],
   "keywords": [
     "shared-config",
@@ -41,7 +46,7 @@
     "envsa-browserslist"
   ],
   "scripts": {
-    "build": "tsc && ../../scripts/build.ts && mv './dist/index.js' './dist/index.cjs'",
+    "build": "../../scripts/build.ts",
     "cli": "node ./bin/cli.js",
     "prepublishOnly": "pnpm run build"
   },
