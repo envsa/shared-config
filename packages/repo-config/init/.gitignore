@@ -1,45 +1,25 @@
 # Git Ignore
-# Also used by CSpell and Stylelint
+# Also used by CSpell, Stylelint, and ESLint
 
 # @envsa/repo-config boilerplate
-# =====
-# Craft
-# =====
+.DS_Store
 .env
 .env.*
 !.env.example
-vendor/
-/web/assets/*
-
-# ======
-# Builds
-# ======
-node_modules/
+.eslint-config-inspector
+.svelte-kit/
+{tmp,temp}/
 **/*.min.js
-
-# =====
-# Tests
-# =====
+/scratch/
+bower_components/
+build/
+coverage/
+dist/
+/web/assets/*
+node_modules/
+vendor/
 /test-results/
 /playwright-report/
 /playwright/.cache/
-
-# ====
-# Misc
-# ====
-.cache
-.DS_Store
-_junk/
-tmp/
-temp/
-.project
-.settings
-*.esproj
-*.sublime-workspace
-*.sublime-project
-*.tmproj
-*.tmproject
-config.codekit3
-prepros-6.config
 
 # Customizations
