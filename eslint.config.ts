@@ -3,6 +3,12 @@ import { eslintConfig } from '@envsa/eslint-config';
 export default eslintConfig(
   {
     svelte: true,
+    ignores: [
+      'bin/',
+      'packages/eslint-config/src/typegen.d.ts',
+      'test/fixtures/input/*',
+      'test/fixtures/output-fixed-auto/*'
+    ],
     ts: {
       overrides: {
         'depend/ban-dependencies': [

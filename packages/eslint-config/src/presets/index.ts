@@ -10,4 +10,5 @@ export * from './svelte';
 export * from './test';
 export * from './toml';
 export * from './unicorn';
+export * from './xo';
 export * from './yaml';

@@ -1,5 +1,6 @@
 import { getLanguageOptions } from '../factory';
 import { GLOB_TS } from '../globs';
+import { xoTypescriptDtsRules } from '../presets';
 import type { OptionsOverrides, OptionsTypeAware, TypedFlatConfigItem } from '../types';
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts';
 
@@ -32,6 +33,7 @@ export async function ts(
           languageOptions: getLanguageOptions(false, true),
           name: 'envsa/ts/disable-type-aware',
           rules: {
+            ...xoTypescriptDtsRules,
             ...sharedScriptDisableTypeCheckedRules,
           },
         }

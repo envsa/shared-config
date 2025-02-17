@@ -11,6 +11,8 @@ import {
   eslintTypescriptStrictTypeCheckedRules,
   eslintTypescriptStylisticTypeCheckedRules,
   unicornRecommendedRules,
+  xoJavascriptRules,
+  xoTypescriptRules
 } from '../presets';
 import type { Rules, TypedFlatConfigItem } from '../types';
 
@@ -39,6 +41,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
     ...eslintTypescriptStrictTypeCheckedRules,
     ...eslintTypescriptStylisticTypeCheckedRules,
     ...unicornRecommendedRules,
+    ...xoJavascriptRules,
+    ...xoTypescriptRules,
     ...eslintCommentsRecommendedRules,
     ...dependRecommendedRules,
     'capitalized-comments': [

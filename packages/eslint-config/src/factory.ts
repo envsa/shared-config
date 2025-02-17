@@ -25,6 +25,7 @@ export const defaultPluginRenaming = {
   '@html-eslint': 'html',
   'package-json': 'json-package',
   '@typescript-eslint': 'ts',
+  n: 'node',
   vitest: 'test',
   yml: 'yaml',
 };
@@ -39,11 +40,10 @@ export type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>;
  */
 export async function eslintConfig(
   options: Omit<TypedFlatConfigItem, 'files'> & OptionsConfig = {},
-  ...userConfigs: Array<
-    Awaitable<
+  ...userConfigs: Awaitable<
+      // eslint-disable-next-line ts/no-explicit-any
       FlatConfigComposer<any, any> | Linter.Config[] | TypedFlatConfigItem | TypedFlatConfigItem[]
-    >
-  >
+    >[]
 ): Promise<FlatConfigComposer<TypedFlatConfigItem, ConfigNames>> {
   const { gitignore: enableGitignore = true, svelte: enableSvelte = isPackageExists('svelte') } =
     options;
@@ -56,7 +56,7 @@ export async function eslintConfig(
     }
   }
 
-  const configs: Array<Awaitable<TypedFlatConfigItem[]>> = [];
+  const configs: Awaitable<TypedFlatConfigItem[]>[] = [];
 
   if (enableGitignore) {
     if (typeof enableGitignore === 'boolean') {
@@ -147,6 +147,7 @@ export async function eslintConfig(
   // User can optionally pass a flat config item to the first argument
   // We pick the known  keys as ESLint would do schema validation
   const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
+    // eslint-disable-next-line ts/no-unsafe-assignment, ts/no-explicit-any
     if (key in options) accumulator[key] = options[key] as any;
     return accumulator;
   }, {});
@@ -171,6 +172,7 @@ export async function eslintConfig(
 
   // console.log(plugins)
 
+  // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-argument
   composer = composer.append(...configs, ...(userConfigs as any));
 
   composer = composer.renamePlugins(defaultPluginRenaming);
@@ -222,6 +224,7 @@ export function getLanguageOptions(typeAware = true, jsx = false): Linter.Langua
  * @param options The options object.
  * @param key The key to get the overrides for.
  */
+
 export function getOverrides<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
@@ -237,6 +240,7 @@ export function getOverrides<K extends keyof OptionsConfig>(
  * @param options The options object.
  * @param key The key to get the overrides for.
  */
+
 export function getOverridesEmbeddedScripts<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
@@ -256,5 +260,6 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
 ): ResolvedOptions<OptionsConfig[K]> {
+  // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-return
   return typeof options[key] === 'boolean' ? ({} as any) : options[key] || {};
 }
