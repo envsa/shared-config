@@ -1,31 +1,16 @@
 {
+  "extends": "@envsa/typescript-config",
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "noEmit": true,
-    "noErrorTruncation": true,
-    "allowJs": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
     "paths": {
       "$root/*": ["./*"]
     }
   },
 
-  "include": ["**/*"],
-  "exclude": ["dist/", "bin/"]
+  "include": ["**/*", "**/**.*"],
+  "exclude": [
+    "**/dist/",
+    "**/bin/",
+    "test/fixtures/input/*/*",
+    "test/fixtures/output-fixed-auto/*.*"
+  ]
 }
