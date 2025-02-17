@@ -30,7 +30,7 @@ export default eslintConfig(
     },
   },
   {
-    // Ignore template package.json frGMENT FILES
+    // Ignore template package.json fragment files
     files: ['packages/*/init/package.json'],
     rules: {
       'json-package/require-author': 'off',
