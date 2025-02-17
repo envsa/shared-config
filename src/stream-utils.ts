@@ -38,6 +38,7 @@ export function createStreamTransform(
       const transformed = lines
         .map(
           (line) =>
+            // eslint-disable-next-line ts/no-unnecessary-condition
             `${logPrefix ? (logColor === undefined ? logPrefix : chalk[logColor](logPrefix)) : ''} ${line}\n`,
         )
         .join('');

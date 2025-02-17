@@ -24,7 +24,7 @@ import { pluralize } from './string-utils.js';
 
 type ChalkColor = (typeof foregroundColorNames)[number];
 
-interface CommandCommon {
+type CommandCommon = {
   /** Customizes color of log prefix string. Default color used if undefined. */
   logColor?: ChalkColor;
   /** Enables a string prefix in the log output. False if undefined */
@@ -62,7 +62,7 @@ export type Command = CommandCli | CommandFunction;
 
 // Init
 // Optionally takes --location option flag
-interface InitCommand {
+type InitCommand = {
   /** Optional additional commands to run */
   commands?: Command[];
   /** Specific config file */
@@ -75,7 +75,7 @@ interface InitCommand {
 
 // Lint
 // Optionally takes files (plural) positional arguments (array of strings, possibly expanded from glob?)
-interface LintCommand {
+type LintCommand = {
   commands: Command[];
   description: string;
   positionalArgumentDefault?: string; // Only applies if arguments mode is not 'none'
@@ -90,7 +90,7 @@ type FixCommand = LintCommand;
 // Same as lint for now, Optionally takes file (singular) positional argument
 type PrintConfigCommand = LintCommand;
 
-export interface Commands {
+export type Commands = {
   fix?: FixCommand;
   init?: InitCommand;
   lint?: LintCommand;
@@ -98,7 +98,7 @@ export interface Commands {
 }
 
 // Exported for aggregation later
-export interface CommandDefinition {
+export type CommandDefinition = {
   commands: Commands;
   description: string;
   logColor: ChalkColor;
@@ -255,7 +255,7 @@ export async function executeCommands(
   verbose?: boolean,
   showSummary?: boolean,
 ): Promise<number> {
-  const exitCodes: { exitCode: number; name: string }[] = [];
+  const exitCodes: Array<{ exitCode: number; name: string }> = [];
 
   for (const command of commands) {
     const exitCode = await (isCommandFunction(command)
@@ -617,7 +617,7 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
         return 1;
       }
 
-      // eslint-disable-next-line ts/no-unsafe-assignment
+       
       const { config, filepath: configFilePath, isEmpty } = result;
 
       logStream.write(`Found ${configName} configuration at "${configFilePath}"\n`);
@@ -637,7 +637,7 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
   };
 }
 
-type NullToUndefined<T> = T extends null ? undefined : T;
+type NullToUndefined<T> = T extends undefined ? undefined : T;
 
 /**
  * Convenience wrapper to safely fetch a cosmiconfig result.

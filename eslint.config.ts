@@ -7,7 +7,7 @@ export default eslintConfig(
       'bin/',
       'packages/eslint-config/src/typegen.d.ts',
       'test/fixtures/input/*',
-      'test/fixtures/output-fixed-auto/*'
+      'test/fixtures/output-fixed-auto/*',
     ],
     ts: {
       overrides: {

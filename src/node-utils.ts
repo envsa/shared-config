@@ -20,6 +20,7 @@ export function suppressNodeWarnings(): void {
       );
     }
 
+    // @ts-expect-error - Missing types
     return originalEmit.call(this, ...args);
   } as typeof process.emit;
 }

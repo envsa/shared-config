@@ -25,6 +25,7 @@ export function stringify(object: any): string {
     }),
     {
       colors: {
+        // eslint-disable-next-line ts/naming-convention
         BRACKET: 'gray',
       },
     },
