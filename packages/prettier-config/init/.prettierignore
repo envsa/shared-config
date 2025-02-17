@@ -1,57 +1,8 @@
 # Prettier Ignore
-# Does not inherit from .gitignore
-
-# @envsa/repo-config boilerplate
-# =====
-# Craft
-# =====
-.env
-.env.*
-!.env.example
-vendor/
-/web/assets/*
-
-# ======
-# Builds
-# ======
-node_modules/
-**/*.min.js
-
-# =====
-# Tests
-# =====
-/test-results/
-/playwright-report/
-/playwright/.cache/
-
-# ====
-# Misc
-# ====
-.cache
-.DS_Store
-_junk/
-tmp/
-temp/
-.project
-.settings
-*.esproj
-*.sublime-workspace
-*.sublime-project
-*.tmproj
-*.tmproject
-config.codekit3
-prepros-6.config
+# Also respects .gitignore
 
 # @envsa/prettier-config boilerplate
 pnpm-lock.yaml
 package-lock.json
-composer.lock
-config/project/**/*
-storage/config-deltas/**/*
-storage/**/*
-web/cpresources/**/*
-web/web.config
-*.svg
-.ddev/
 
 # Customizations
