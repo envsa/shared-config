@@ -54,7 +54,7 @@
   "prettier.enable": true,
   "scss.validate": false,
   "stylelint.enable": true,
-  "stylelint.validate": ["scss", "css", "html"],
+  "stylelint.validate": ["scss", "css", "html", "svelte", "twig"],
   "tailwindCSS.classAttributes": [".*Class.*"],
   "tailwindCSS.experimental.classRegex": [
     ["compDefaults = \\{([^%]*) %\\}", ":\\s*?[\"'`]([^\"'`]*).*?,?"],
