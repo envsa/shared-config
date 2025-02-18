@@ -11,10 +11,7 @@
     "cli"
   ],
   "homepage": "https://github.com/envsa/shared-config/packages/mdat-config",
-  "bugs": {
-    "url": "https://github.com/envsa/shared-config/issues",
-    "email": "DEW.ICTWebServices@sa.gov.au"
-  },
+  "bugs": "https://github.com/envsa/shared-config/issues",
   "repository": {
     "type": "git",
     "url": "git@github.com:envsa/shared-config.git",
@@ -23,7 +20,6 @@
   "license": "MIT",
   "author": {
     "name": "Liam Rella",
-    "email": "DEW.ICTWebServices@sa.gov.au",
     "url": "https://github.com/rellafella"
   },
   "type": "module",

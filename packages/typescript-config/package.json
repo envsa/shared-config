@@ -9,10 +9,7 @@
     "directory": "packages/typescript-config"
   },
   "homepage": "https://github.com/envsa/shared-config/packages/typescript-config",
-  "bugs": {
-    "url": "https://github.com/envsa/shared-config/issues",
-    "email": "DEW.ICTWebServices@sa.gov.au"
-  },
+  "bugs": "https://github.com/envsa/shared-config/issues",
   "author": {
     "name": "Liam Rella",
     "email": "DEW.ICTWebServices@sa.gov.au",

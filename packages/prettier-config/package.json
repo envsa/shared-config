@@ -1,51 +1,47 @@
 {
-    "name": "@envsa/prettier-config",
-    "version": "8.2.0",
-    "description": "Prettier configuration for @envsa/shared-config.",
-    "keywords": [
-      "shared-config",
-      "prettier-config",
-      "prettier",
-      "cli"
-    ],
-    "homepage": "https://github.com/envsa/shared-config/packages/prettier-config",
-    "bugs": {
-      "url": "https://github.com/envsa/shared-config/issues",
-      "email": "DEW.ICTWebServices@sa.gov.au"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git@github.com:envsa/shared-config.git",
-      "directory": "packages/prettier-config"
-    },
-    "license": "MIT",
-    "author": {
-      "name": "Liam Rella",
-      "email": "DEW.ICTWebServices@sa.gov.au",
-      "url": "https://github.com/rellafella"
-    },
-    "type": "module",
-    "exports": {
-      ".": {
-        "import": "./dist/index.js",
-        "types": "./dist/index.d.ts"
-      }
-    },
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "bin": {
-      "envsa-prettier": "bin/cli.js"
-    },
-    "files": [
-      "bin/*",
-      "dist/*",
-      "init/*"
-    ],
-    "scripts": {
-      "build": "tsc && ../../scripts/build.ts",
-      "cli": "node ./bin/cli.js",
-      "prepublishOnly": "pnpm run build"
-    },
+  "name": "@envsa/prettier-config",
+  "version": "8.2.0",
+  "description": "Prettier configuration for @envsa/shared-config.",
+  "keywords": [
+    "shared-config",
+    "prettier-config",
+    "prettier",
+    "cli"
+  ],
+  "homepage": "https://github.com/envsa/shared-config/packages/prettier-config",
+  "bugs": "https://github.com/envsa/shared-config/issues",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:envsa/shared-config.git",
+    "directory": "packages/prettier-config"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Liam Rella",
+    "url": "https://github.com/rellafella"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "envsa-prettier": "bin/cli.js"
+  },
+  "files": [
+    "bin/*",
+    "dist/*",
+    "init/*"
+  ],
+  "scripts": {
+    "build": "tsc && ../../scripts/build.ts",
+    "cli": "node ./bin/cli.js",
+    "prepublishOnly": "pnpm run build"
+  },
   "dependencies": {
     "@pinojs/json-colorizer": "^4.0.0",
     "@prettier/plugin-php": "^0.22.2",

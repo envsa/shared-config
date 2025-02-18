@@ -1,43 +1,7 @@
 {
   "name": "@envsa/cspell-config",
   "version": "8.2.0",
-  "type": "module",
   "description": "CSpell configuration for @envsa/shared-config.",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:envsa/shared-config.git",
-    "directory": "packages/cspell-config"
-  },
-  "homepage": "https://github.com/envsa/shared-config/packages/cspell-config",
-  "bugs": {
-    "url": "https://github.com/envsa/shared-config/issues",
-    "email": "DEW.ICTWebServices@sa.gov.au"
-  },
-  "author": {
-    "name": "Liam Rella",
-    "email": "DEW.ICTWebServices@sa.gov.au",
-    "url": "https://github.com/rellafella"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">=22.0.0",
-    "pnpm": ">=10.0.0"
-  },
-  "bin": {
-    "envsa-cspell": "bin/cli.js"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "files": [
-    "bin/*",
-    "dictionaries/*",
-    "dist/*",
-    "init/*"
-  ],
   "keywords": [
     "shared-config",
     "cspell-config",
@@ -45,6 +9,34 @@
     "cli",
     "envsa",
     "envsa-cspell"
+  ],
+  "homepage": "https://github.com/envsa/shared-config/packages/cspell-config",
+  "bugs": "https://github.com/envsa/shared-config/issues",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:envsa/shared-config.git",
+    "directory": "packages/cspell-config"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Liam Rella",
+    "url": "https://github.com/rellafella"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "bin": {
+    "envsa-cspell": "bin/cli.js"
+  },
+  "files": [
+    "bin/*",
+    "dictionaries/*",
+    "dist/*",
+    "init/*"
   ],
   "scripts": {
     "build": "tsc && ../../scripts/build.ts",
@@ -65,6 +57,10 @@
     "find-workspaces": "^0.3.1",
     "fs-extra": "^11.2.0",
     "prettier": "^3.5.0"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
   },
   "publishConfig": {
     "access": "public"
