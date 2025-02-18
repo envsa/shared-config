@@ -53,7 +53,48 @@ or use the cli
 
 ### CLI
 
-<!-- cli-help {cliCommand: "browserslist-config"} -->
+<!-- cli-help -->
+
+#### Command: `envsa-browserslist`
+
+Envsa's Browserslist shared configuration tool.
+
+This section lists top-level commands for `envsa-browserslist`.
+
+Usage:
+
+```txt
+envsa-browserslist <command>
+```
+
+| Command | Description                                                                                   |
+| ------- | --------------------------------------------------------------------------------------------- |
+| `init`  | Initialize by copying starter config files to your project root or to your package.json file. |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-browserslist init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+envsa-browserslist init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+<!-- /cli-help -->
 
 <!-- license -->
 

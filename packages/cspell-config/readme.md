@@ -65,23 +65,80 @@ Integrate with your `package.json` scripts as you see fit, for example:
 
 <!-- cli-help -->
 
-#### Command: `cspell-config`
+#### Command: `envsa-cspell`
 
-CSpell configuration for @envsa/shared-config.
+Envsa's CSpell shared configuration tools. (Automated fixes are handled by ESLint.)
+
+This section lists top-level commands for `envsa-cspell`.
 
 Usage:
 
 ```txt
-cspell-config [<file|glob> ...]
+envsa-cspell <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `cspell-config`.            |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                                 |
+| -------------- | ----------- | ----------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.               |
+| `lint`         | `<files..>` | Check for spelling mistakes. Matches files below the current working directory by default.                  |
+| `print-config` |             | Print the resolved CSpell configuration. Package-scoped Searches up to the root of a monorepo if necessary. |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-cspell init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+envsa-cspell init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `envsa-cspell lint`
+
+Check for spelling mistakes. Matches files below the current working directory by default.
+
+Usage:
+
+```txt
+envsa-cspell lint <files..>
+```
+
+| Positional Argument | Description                                  | Type    | Default  |
+| ------------------- | -------------------------------------------- | ------- | -------- |
+| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `"**/*"` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-cspell print-config`
+
+Print the resolved CSpell configuration. Package-scoped Searches up to the root of a monorepo if necessary.
+
+Usage:
+
+```txt
+envsa-cspell print-config
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

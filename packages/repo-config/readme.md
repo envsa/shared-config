@@ -91,9 +91,9 @@ Note: Action dependencies have been forked.
 
 | Original                                                                                      | Fork                                                                                                            | Modifications |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------- |
-| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌            |
-| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌            |
-| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅            |
+| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌             |
+| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌             |
+| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅             |
 
 ## Usage
 
@@ -101,22 +101,75 @@ Note: Action dependencies have been forked.
 
 <!-- cli-help -->
 
-#### Command: `repo-config`
+#### Command: `envsa-repo`
 
-Repository configuration and GitHub workflows for @envsa/shared-config.
+Envsa's repository-related shared configuration tools.
+
+This section lists top-level commands for `envsa-repo`.
 
 Usage:
 
 ```txt
-repo-config [<file|glob> ...]
+envsa-repo <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command | Argument    | Description                                                                                                                                                           |
+| ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`  |             | Initialize by copying starter config files to your project root.                                                                                                      |
+| `lint`  | `[files..]` | Check the repo for common issues. Package-scoped In a monorepo, it will also run in all packages below the current working directory.                                 |
+| `fix`   | `[files..]` | Fix common issues like outdated copyright years in license files. Package-scoped In a monorepo, it will also run in all packages below the current working directory. |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-repo init`
+
+Initialize by copying starter config files to your project root.
+
+Usage:
+
+```txt
+envsa-repo init
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-repo lint`
+
+Check the repo for common issues. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+
+Usage:
+
+```txt
+envsa-repo lint [files..]
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-repo fix`
+
+Fix common issues like outdated copyright years in license files. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+
+Usage:
+
+```txt
+envsa-repo fix [files..]
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

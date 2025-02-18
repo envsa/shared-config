@@ -70,24 +70,92 @@ It runs `mdat readme expand` to expand placeholder comments in your readme.md us
 
 <!-- cli-help -->
 
-#### Command: `mdat-config`
+#### Command: `envsa-mdat`
 
-MDAT configuration for @envsa/shared-config.
+Envsa's Mdat shared configuration tools.
+
+This section lists top-level commands for `envsa-mdat`.
 
 Usage:
 
 ```txt
-mdat-config [<file|glob> ...]
+envsa-mdat <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `mdat-config`.              |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                                                                                                                   |
+| -------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                 |
+| `lint`         | `[files..]` | Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped In a monorepo, it will also run in all packages below the current working directory. |
+| `fix`          | `[files..]` | Expand all Mdat content placeholders in your readme.md file(s). Package-scoped In a monorepo, it will also run in all packages below the current working directory.                           |
+| `print-config` |             | Print the effective Mdat configuration. Package-scoped. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.                    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-mdat init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+envsa-mdat init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `envsa-mdat lint`
+
+Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+
+Usage:
+
+```txt
+envsa-mdat lint [files..]
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-mdat fix`
+
+Expand all Mdat content placeholders in your readme.md file(s). Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+
+Usage:
+
+```txt
+envsa-mdat fix [files..]
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-mdat print-config`
+
+Print the effective Mdat configuration. Package-scoped. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.
+
+Usage:
+
+```txt
+envsa-mdat print-config
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 
