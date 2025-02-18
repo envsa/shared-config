@@ -13,5 +13,8 @@
     ["{%\\s+set\\s+.*[Cc]lass(?:es)?\\s+=\\s+['\"](.*)['\"]\\s+%}"],
     ["*[Cc]lass(?:es)?:\\s*['\"](.*)['\"]"]
   ],
-  "tailwindCSS.classAttributes": [".*Class.*"]
+  "tailwindCSS.classAttributes": [".*Class.*"],
+  "[twig]": {
+    "editor.suggest.snippetsPreventQuickSuggestions": true
+  }
 }
