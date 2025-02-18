@@ -1,14 +1,43 @@
+import type { Config as StylelintConfig } from 'stylelint';
 import { propertyGroups } from 'stylelint-config-clean-order';
 
 const propertiesOrder = propertyGroups.map((properties) => ({
   emptyLineBefore: 'never', // Don't add empty lines between order groups.
-  noEmptyLineBetween: true,
+  noEmptyLinesBetween: true,
   properties,
 }));
 
-/** @type {import("stylelint").Config} */
-export default {
-  extends: ['stylelint-config-clean-order'],
+const acceptedAtRules = ['tailwind', 'apply', 'variants', 'responsive', 'screen'];
+
+const sharedStylelintConfig: StylelintConfig = {
+  extends: ['stylelint-config-clean-order', 'stylelint-config-html'],
+  overrides: [
+    {
+      files: ['**/*.css'],
+      extends: ['stylelint-config-standard'],
+      rules: {
+        'at-rule-no-unknown': [
+          true,
+          {
+            ignoreAtRules: [...acceptedAtRules],
+          },
+        ],
+      },
+    },
+    {
+      files: ['**/*.scss'],
+      extends: ['stylelint-config-standard-scss'],
+      rules: {
+        'scss/at-rule-no-unknown': [
+          true,
+          {
+            ignoreAtRules: [...acceptedAtRules],
+          },
+        ],
+        'scss/load-partial-extension': 'never',
+      },
+    },
+  ],
   rules: {
     'at-rule-empty-line-before': [
       'always',
@@ -35,37 +64,37 @@ export default {
         /** This option will resolve nested selectors with & interpolation. - https://stylelint.io/user-guide/rules/selector-class-pattern/#resolvenestedselectors-true--false-default-false */
         resolveNestedSelectors: true,
         /** Custom message */
-        message: function expected(selectorValue) {
+        message(selectorValue: string) {
           return `Expected class selector "${selectorValue}" to match BEM CSS pattern https://en.bem.info/methodology/css. Selector validation tool: https://regexr.com/3apms`;
         },
       },
     ],
     'value-keyword-case': ['lower', { camelCaseSvgKeywords: true }],
   },
-  overrides: [
-    {
-      files: ['**/*.css'],
-      extends: ['stylelint-config-standard'],
-    },
-    {
-      files: ['**/*.scss'],
-      extends: ['stylelint-config-standard-scss'],
-      rules: {
-        'scss/at-rule-no-unknown': [
-          true,
-          {
-            ignoreAtRules: [
-              /* Tailwind */
-              'tailwind',
-              'apply',
-              'variants',
-              'responsive',
-              'screen',
-            ],
-          },
-        ],
-        'scss/load-partial-extension': 'never',
-      },
-    },
-  ],
 };
+
+/**
+ * **\@Envsa's Shared Stylelint Configuration**
+ * @see [@envsa/stylelint-config](https://github.com/envsa/shared-config/tree/main/packages/stylelint-config)
+ * @see [@envsa/shared-config](https://github.com/envsa/shared-config)
+ * @example
+ * ```js
+ * import { stylelintConfig } from '@envsa/stylelint-config'
+ *
+ * export default stylelintConfig({
+ * 	ignoreFiles: ['example.html'],
+ * 	rules: {
+ * 		'alpha-value-notation': 'number',
+ * 		'selector-class-pattern': null,
+ * 	},
+ * })
+ * ```
+ */
+export function stylelintConfig(config?: StylelintConfig): StylelintConfig {
+  return {
+    extends: '@envsa/stylelint-config',
+    ...config,
+  };
+}
+
+export default sharedStylelintConfig;
