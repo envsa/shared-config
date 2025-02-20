@@ -337,11 +337,11 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       fs-extra:
-        specifier: ^11.2.0
+        specifier: ^11.3.0
         version: 11.3.0
       mdat:
-        specifier: ^0.7.1
-        version: 0.7.6(typescript@5.7.3)
+        specifier: ^0.10.0
+        version: 0.10.0(typescript@5.7.3)
       prettier:
         specifier: ^3.5.1
         version: 3.5.1
@@ -1797,9 +1797,6 @@ packages:
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
-  '@types/which@3.0.4':
-    resolution: {integrity: sha512-liyfuo/106JdlgSchJzXEQCVArk0CvevqPote8F8HgWgJ3dRCcTHgJIsLDuee0kxk/mhbInzIZk3QWSZJ8R+2w==}
-
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
 
@@ -2282,13 +2279,13 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
-  cosmiconfig-typescript-loader@5.1.0:
-    resolution: {integrity: sha512-7PtBB+6FdsOvZyJtlF3hEPpACq7RQX6BVGsgC7/lfVXnKMvNCu/XY3ykreqG5w/rBNdu2z8LCIKoF3kpHHdHlA==}
-    engines: {node: '>=v16'}
+  cosmiconfig-typescript-loader@6.1.0:
+    resolution: {integrity: sha512-tJ1w35ZRUiM5FeTzT7DtYWAFFv37ZLqSRkGi2oeCK1gPhvaWjkAtfXvLmvE1pRfxxp9aQo6ba/Pvg1dKj05D4g==}
+    engines: {node: '>=v18'}
     peerDependencies:
       '@types/node': '*'
-      cosmiconfig: '>=8.2'
-      typescript: '>=4'
+      cosmiconfig: '>=9'
+      typescript: '>=5'
 
   cosmiconfig@9.0.0:
     resolution: {integrity: sha512-itvL5h8RETACmOTFc4UfIyB2RfEHi71Ax6E/PivVxq9NseKbOWpeyHEOIbmAw1rs8Ak0VursQNww7lf7YtUwzg==}
@@ -3275,10 +3272,6 @@ packages:
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
-  jiti@1.21.7:
-    resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
-    hasBin: true
-
   jiti@2.4.2:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
@@ -3522,8 +3515,8 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
-  mdat@0.7.6:
-    resolution: {integrity: sha512-6RGyfT7aLaaXhVXiVecyDFhqAnj1qF+1X6KJVIHj7LcnfJo0CcQE6JJEk459U1/h6W9JiY2CiPkR/R7/RjMfww==}
+  mdat@0.10.0:
+    resolution: {integrity: sha512-15VCPiZShfEV1UmHDoxZCbNXbVWQQ0mQ3B4L0sYUuPBhoR4GAdwhX7y3fyN3n47ojiAhGeKD4Vl0yQk44jZMTg==}
     engines: {node: ^18.19.0 || >=20.5.0, pnpm: '>=9.0.0'}
     hasBin: true
 
@@ -4359,6 +4352,10 @@ packages:
   remark-lint@10.0.1:
     resolution: {integrity: sha512-1+PYGFziOg4pH7DDf1uMd4AR3YuO2EMnds/SdIWMPGT7CAfDRSnAmpxPsJD0Ds3IKpn97h3d5KPGf1WFOg6hXQ==}
 
+  remark-mdat@0.7.5:
+    resolution: {integrity: sha512-Q+XnJH+EXGNIXMAaXz0YDBZ842fWixCmD8ptQty4wCkDZ5X013ahnAqhj2C+p86PvStFv0Fgdr98yTs/O+DTOA==}
+    engines: {node: ^18.19.0 || >=20.5.0, pnpm: '>=9.0.0'}
+
   remark-mdx@3.1.0:
     resolution: {integrity: sha512-Ngl/H3YXyBV9RcRNdlYsZujAmhsxwzxpDzpDEhFBVAGthS4GDgnctpDjgFl/ULx5UEDzqtW1cyBSNKqYYrqLBA==}
 
@@ -5101,6 +5098,11 @@ packages:
   which@4.0.0:
     resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
     engines: {node: ^16.13.0 || >=18.0.0}
+    hasBin: true
+
+  which@5.0.0:
+    resolution: {integrity: sha512-JEdGzHwwkrbWoGOlIHqQ5gtprKGOenpDHpxE9zVR1bWbOtYRyPPHMe9FaP6x61CmNaTThSkb0DAJte5jD+DmzQ==}
+    engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
 
   why-is-node-running@2.3.0:
@@ -6096,8 +6098,6 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@types/which@3.0.4': {}
-
   '@types/yargs-parser@21.0.3': {}
 
   '@types/yargs@17.0.33':
@@ -6604,11 +6604,11 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cosmiconfig-typescript-loader@5.1.0(@types/node@18.19.0)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
+  cosmiconfig-typescript-loader@6.1.0(@types/node@18.19.0)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
     dependencies:
       '@types/node': 18.19.0
       cosmiconfig: 9.0.0(typescript@5.7.3)
-      jiti: 1.21.7
+      jiti: 2.4.2
       typescript: 5.7.3
 
   cosmiconfig@9.0.0(typescript@5.7.3):
@@ -7799,8 +7799,6 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jiti@1.21.7: {}
-
   jiti@2.4.2: {}
 
   joycon@3.1.1: {}
@@ -8164,23 +8162,27 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mdat@0.7.6(typescript@5.7.3):
+  mdat@0.10.0(typescript@5.7.3):
     dependencies:
       '@clack/prompts': 0.7.0
       '@kitschpatrol/tldraw-cli': 4.6.30(typescript@5.7.3)
       '@types/mdast': 4.0.4
       '@types/node': 18.19.0
       '@types/unist': 3.0.3
-      '@types/which': 3.0.4
       '@types/yargs': 17.0.33
       cosmiconfig: 9.0.0(typescript@5.7.3)
-      cosmiconfig-typescript-loader: 5.1.0(@types/node@18.19.0)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
+      cosmiconfig-typescript-loader: 6.1.0(@types/node@18.19.0)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       execa: 9.5.2
       globby: 14.1.0
       read-pkg: 9.0.1
-      which: 4.0.0
+      remark-mdat: 0.7.5
+      type-fest: 4.35.0
+      unified-engine: 11.2.2
+      vfile: 6.0.3
+      which: 5.0.0
     transitivePeerDependencies:
       - bare-buffer
+      - bluebird
       - bufferutil
       - supports-color
       - typescript
@@ -9322,6 +9324,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  remark-mdat@0.7.5:
+    dependencies:
+      '@types/mdast': 4.0.4
+      '@types/node': 18.19.0
+      '@types/unist': 3.0.3
+      type-fest: 4.35.0
+      unified: 11.0.5
+      vfile: 6.0.3
+      zod: 3.24.2
+
   remark-mdx@3.1.0:
     dependencies:
       mdast-util-mdx: 3.0.0
@@ -10232,6 +10244,10 @@ snapshots:
       isexe: 2.0.0
 
   which@4.0.0:
+    dependencies:
+      isexe: 3.1.1
+
+  which@5.0.0:
     dependencies:
       isexe: 3.1.1
 
