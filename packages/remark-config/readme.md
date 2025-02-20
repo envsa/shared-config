@@ -19,7 +19,51 @@
 
 <!-- /description -->
 
+## Overview
+
+It's a shared [Remark](https://github.com/remarkjs/remark/blob/main/packages/remark-cli/readme.md#example-config-files-json-yaml-js) config for linting Markdown and MDX files, plus a command-line tool `envsa-remark` to streamline project initialization. Note that linting and fixing is provided separately through [@envsa/eslint-config](https://github.com/envsa/shared-config/tree/main/packages/eslint-config).
+
 <!-- recommendation -->
+
+## Setup
+
+To use just this Remark config in isolation:
+
+1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
+
+   ```sh
+   pnpm dlx @envsa/repo-config init
+   ```
+
+2. Add the package:
+
+   ```sh
+   pnpm add -D @envsa/remark-config
+   ```
+
+3. Add the starter `.remarkrc.js` and files to your project root, and add any customizations you'd like:
+
+   ```sh
+   pnpm exec envsa-remark init
+   ```
+
+## Usage
+
+The Remark binary should be picked up automatically by VS Code plugins.
+
+You can call it directly, but it's recommended to use the `envsa` script bundled with the [@envsa/shared-config](https://github.com/envsa/shared-config) instead to invoke the Remark lint rules through ESLint. The [`eslint-mdx`](https://github.com/mdx-js/eslint-mdx) plugin is used to bridge these rules into ESLint and the VS Code ESLint plugin.
+
+If you really want to call it directly, you can integrate a command to the underlying `remark` CLI tool with your `package.json` scripts as you see fit, for example:
+
+```json
+{
+  "scripts": {
+    "lint": "pnpm envsa-remark . --quiet --frail"
+  }
+}
+```
+
+### CLI
 
 <!-- cli-help -->
 

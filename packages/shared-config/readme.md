@@ -179,31 +179,43 @@ envsa init
 | `--help`<br>`-h`    | Show help           | `boolean`            |          |
 | `--version`<br>`-v` | Show version number | `boolean`            |          |
 
-```txt
-envsa lint <files..>
+#### Subcommand: `envsa lint`
 
 Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
-Positionals:
-  files  Files or glob pattern to lint.  [array] [required] [default: []]
-
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
-```
+Usage:
 
 ```txt
-envsa fix <files..>
+envsa lint <files..>
+```
+
+| Positional Argument | Description                                  | Type    | Default |
+| ------------------- | -------------------------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa fix`
 
 Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
 
-Positionals:
-  files  Files or glob pattern to fix.  [array] [required] [default: []]
+Usage:
 
-Options:
-  -h, --help     Show help  [boolean]
-  -v, --version  Show version number  [boolean]
+```txt
+envsa fix <files..>
 ```
+
+| Positional Argument | Description                                 | Type    | Default |
+| ------------------- | ------------------------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. _(Required.)_ | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 #### Subcommand: `envsa print-config`
 

@@ -19,7 +19,67 @@
 
 <!-- /description -->
 
+## Overview
+
+It's a shared [knip](https://knip.dev) config, plus a command-line tool `envsa-knip` to perform knip-related project initialization, linting and fixing.
+
 <!-- recommendation -->
+
+## Setup
+
+To use just this Knip config in isolation:
+
+1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
+
+```sh
+pnpm dlx @envsa/repo-config init
+```
+
+2. Add the package
+
+```sh
+pnpm add -D @envsa/knip-config
+```
+
+3. Add the starter `knip.config.ts` files to your project root, and add any customizations you'd like:
+
+```sh
+pnpm exec envsa-knip init
+```
+
+## Usave
+
+Integrate with your `package.json` scripts as you see fit, for example:
+
+```json
+{
+  "scripts": {
+    "lint": "envsa-knip lint"
+  }
+}
+```
+
+### Configuration
+
+To create a `knip.config.ts` in your project root:
+
+```sh
+pnpm exec envsa-knip init
+```
+
+(Note that this will delete the `knip` property in your `package.json`)
+
+_Or_
+
+To create a `knip` property in `package.json`:
+
+```sh
+pnpm exec envsa-knip init --location package
+```
+
+(Note that this will delete the `knip.config.ts` file in your project root!)
+
+### CLI
 
 <!-- cli-help -->
 

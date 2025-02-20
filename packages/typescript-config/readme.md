@@ -27,7 +27,7 @@ It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` conf
 
 ## Setup
 
-> \[!NOTE]
+> [!NOTE]
 >
 > The package treats `typescript` as a peer dependency - it expects you to have `typescript` installed in your project.
 

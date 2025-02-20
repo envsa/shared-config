@@ -15,7 +15,7 @@
 
 <!-- description -->
 
-**A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.**
+**A collection of shared configurations, linters and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single command.**
 
 <!-- /description -->
 
@@ -137,24 +137,104 @@ pnpm run format
 
 <!-- cli-help cliCommand: 'shared-config' -->
 
-#### Command: `shared-config`
+#### Command: `envsa`
 
-A collection of shared configurations for various linters and formatting tools. All managed as a single dependency, and invoked via a single command.
+Run aggregated @envsa/shared-config commands.
+
+This section lists top-level commands for `envsa`.
 
 Usage:
 
 ```txt
-shared-config [<file|glob> ...]
+envsa <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `shared-config`.            |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                                                                                                          |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `init`         |             | Initialize configuration files for the entire suite of @envsa/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them. |
+| `lint`         | `<files..>` | Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.        |
+| `fix`          | `<files..>` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.         |
+| `print-config` | `[file]`    | Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.               |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa init`
+
+Initialize configuration files for the entire suite of @envsa/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them.
+
+Usage:
+
+```txt
+envsa init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `envsa lint`
+
+Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+
+Usage:
+
+```txt
+envsa lint <files..>
+```
+
+| Positional Argument | Description                                  | Type    | Default |
+| ------------------- | -------------------------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa fix`
+
+Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+
+Usage:
+
+```txt
+envsa fix <files..>
+```
+
+| Positional Argument | Description                                 | Type    | Default |
+| ------------------- | ------------------------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. _(Required.)_ | `array` | `[]`    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa print-config`
+
+Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.
+
+Usage:
+
+```txt
+envsa print-config [file]
+```
+
+| Positional Argument | Description                | Type     |
+| ------------------- | -------------------------- | -------- |
+| `file`              | File or glob pattern to TK | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 
