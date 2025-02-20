@@ -74,5 +74,8 @@
     }
   ],
   "eslint.runtime": "node",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "[twig]": {
+    "editor.suggest.snippetsPreventQuickSuggestions": true
+  }
 }
