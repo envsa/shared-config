@@ -33,9 +33,9 @@ type CommandCommon = {
 
 type CommandFunction = CommandCommon & {
   execute: (
-    _logStream: NodeJS.WritableStream,
-    _positionalArguments: string[], // Passed by default, but can be ignored in implementation
-    _optionFlags: string[], // Passed by default, but can be ignored in implementation
+    logStream: NodeJS.WritableStream,
+    positionalArguments: string[], // Passed by default, but can be ignored in implementation
+    optionFlags: string[], // Passed by default, but can be ignored in implementation
   ) => Promise<number>;
 };
 
@@ -617,6 +617,7 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
         return 1;
       }
 
+      // eslint-disable-next-line ts/no-unsafe-assignment
       const { config, filepath: configFilePath, isEmpty } = result;
 
       logStream.write(`Found ${configName} configuration at "${configFilePath}"\n`);
