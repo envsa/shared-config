@@ -5,6 +5,7 @@ export * from './eslint-typescript';
 export * from './html';
 export * from './json';
 export * from './json-package';
+export * from './node';
 export * from './prettier';
 export * from './svelte';
 export * from './test';

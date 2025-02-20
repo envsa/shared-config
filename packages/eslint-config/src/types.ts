@@ -4,7 +4,7 @@ import type { RuleOptions } from './typegen';
 
 export type Awaitable<T> = Promise<T> | T;
 
-export interface OptionsConfig {
+export type OptionsConfig = {
   /**
    * Enable gitignore support.
    *
@@ -74,27 +74,27 @@ export interface OptionsConfig {
    * Enable YAML support.
    */
   yaml?: OptionsOverrides;
-}
+};
 
 export { type ConfigNames } from './typegen';
 
-export interface OptionsHasTypescript {
+export type OptionsHasTypescript = {
   typescript?: boolean;
-}
+};
 
-export interface OptionsIsInEditor {
+export type OptionsIsInEditor = {
   isInEditor?: boolean;
-}
+};
 
-export interface OptionsOverrides {
+export type OptionsOverrides = {
   overrides?: TypedFlatConfigItem['rules'];
-}
+};
 
-export interface OptionsOverridesEmbeddedScripts {
+export type OptionsOverridesEmbeddedScripts = {
   overridesEmbeddedScripts?: TypedFlatConfigItem['rules'];
-}
+};
 
-export interface OptionsTypeAware {
+export type OptionsTypeAware = {
   typeAware?: {
     /**
      * Explicitly enable or disable type aware rules.
@@ -111,7 +111,7 @@ export interface OptionsTypeAware {
      */
     ignores: string[];
   };
-}
+};
 
 export type Rules = RuleOptions;
 

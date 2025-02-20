@@ -163,7 +163,7 @@ export const xoJavascriptRules: Rules = {
     'error',
     'always',
     {
-      ignorePattern: 'pragma|ignore|prettier-ignore|webpack\\w+:|c8|type-coverage:',
+      ignorePattern: String.raw`pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:`,
       ignoreInlineComments: true,
       ignoreConsecutiveComments: true,
     },
@@ -554,8 +554,8 @@ export const xoTypescriptRules: Rules = {
   'no-undef': 'off',
   'node/no-unsupported-features/es-syntax': 'off',
   'node/no-unsupported-features/es-builtins': 'off',
-  'import/namespace': 'off',
-  'import/named': 'off',
+  // "import/namespace":"off",
+  // "import/named":"off",
   'no-duplicate-imports': 'off',
   // End expansion
 };

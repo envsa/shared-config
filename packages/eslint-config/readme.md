@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [ESLint](https://eslint.org) config.
+It's a shared [ESLint](https://eslint.org) config, plus a command-line tool `envsa-eslint` to perform ESLint-related project initialization, linting, and fixing.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -32,19 +32,20 @@ To use just this ESLint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @envsa/repo-config --init
+   pnpm dlx @envsa/repo-config init
    ```
 
 2. Add the package:
 
    ```sh
    pnpm add -D @envsa/eslint-config
+   pnpm dlx @envsa/typescript-config init
    ```
 
-3. Add the starter `.eslintrc.cjs` config and `.eslintignore` files to your project root, and add any overrides you'd like:
+3. Add the starter `eslint.config.ts` config file to your project root, and add any overrides you'd like:
 
    ```sh
-   pnpm exec eslint-config --init
+   pnpm exec envsa-eslint init
    ```
 
 ## Usage
@@ -58,8 +59,8 @@ Integrate with your `package.json` scripts as you see fit, for example:
 ```json
 {
   "scripts": {
-    "lint": "eslint-config --check",
-    "fix": "eslint-config --fix"
+    "lint": "eslint-config check",
+    "fix": "eslint-config fix"
   }
 }
 ```
@@ -170,11 +171,18 @@ envsa-eslint print-config [file]
 
 ## Notes
 
-The whole flat file config thing is pending...
+Regrettably the `eslint-config init --location package` option is not supported due to ESLint 9's deprecation of support for putting configuration in `package.json`. See ESLint discussion thread [18131](https://github.com/eslint/eslint/discussions/18131).
 
-ESLint does not inherit files and paths from `.gitignore`. Ignored paths must be specified in `.eslintignore`.
+### Origins
 
-This shared config will also initialize a `tsconfig.json` and a `tsconfig.eslint.json`. These should probably live in a separate configuration package, but they'll reside here for now.
+This config is a heavily modified variation on Anthony Fu's [@antfu/eslint-config](https://github.com/antfu/eslint-config). This package is a somewhat leaner approach intended to work with other tools wrapped behind a monolithic CLI instead of handling everything on its own. It mainly leverages the factory / type generation implementation from the original repo, which itself builds on Kevin Deng's [@sxzz/eslint-config](https://github.com/sxzz/eslint-config).
+
+### References
+
+- [@antfu/eslint-config](https://github.com/antfu/eslint-config)
+- [@sxzz/eslint-config](https://github.com/sxzz/eslint-config)
+- [linting-setup-using-eslint](https://chris.lu/web_development/tutorials/next-js-static-mdx-blog/linting-setup-using-eslint)
+- On [prefer-repository-shorthand](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/223)
 
 ## Credits
 

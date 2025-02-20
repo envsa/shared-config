@@ -27,7 +27,7 @@ type ExpansionConfig = {
  *
  * MANY deprecated rules in prettierEslint, so that is handled in-situ.
  */
-const deprecatedRules: string[] = ['astro/jsx-a11y/label-has-for', '@stylistic/'];
+const deprecatedRules: string[] = ['@stylistic/', 'import/'];
 
 const delimiters = {
   end: '// End expansion',

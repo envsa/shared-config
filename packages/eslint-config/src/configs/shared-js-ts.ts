@@ -2,6 +2,7 @@ import { default as pluginEslintComments } from '@eslint-community/eslint-plugin
 import { default as pluginTs } from '@typescript-eslint/eslint-plugin';
 import * as pluginDepend from 'eslint-plugin-depend';
 import { default as pluginUnicorn } from 'eslint-plugin-unicorn';
+import { default as pluginNode } from 'eslint-plugin-n';
 import {
   dependRecommendedRules,
   eslintCommentsRecommendedRules,
@@ -10,6 +11,7 @@ import {
   eslintTypescriptRecommendedOverridesRules,
   eslintTypescriptStrictTypeCheckedRules,
   eslintTypescriptStylisticTypeCheckedRules,
+  nodeRecommendedRules,
   unicornRecommendedRules,
   xoJavascriptRules,
   xoTypescriptRules,
@@ -32,6 +34,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
     depend: pluginDepend,
     // eslint-disable-next-line ts/no-unsafe-assignment
     'eslint-comments': pluginEslintComments,
+    node: pluginNode,
     ts: pluginTs,
     unicorn: pluginUnicorn,
   },
@@ -41,6 +44,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
     ...eslintTypescriptStrictTypeCheckedRules,
     ...eslintTypescriptStylisticTypeCheckedRules,
     ...unicornRecommendedRules,
+    ...nodeRecommendedRules,
     ...xoJavascriptRules,
     ...xoTypescriptRules,
     ...eslintCommentsRecommendedRules,
@@ -60,19 +64,11 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
     'no-await-in-loop': 'off',
     'no-unreachable': 'warn', // TSConfig must have allowUnreachableCode: false, this is preferable because it will flag but not spontaneously delete unreachable code
     'no-warning-comments': 'off',
-    'ts/no-unused-vars': [
-      'error',
-      {
-        args: 'after-used',
-        argsIgnorePattern: '^_',
-        caughtErrors: 'all',
-        caughtErrorsIgnorePattern: '^_',
-        destructuredArrayIgnorePattern: '^_',
-        ignoreRestSiblings: true,
-        vars: 'all',
-        varsIgnorePattern: '^_',
-      },
-    ],
+    'node/hashbang': 'off',
+    'node/no-extraneous-import': 'off',
+    'node/no-missing-import': 'off', // Trouble resolving in ts
+    'node/no-process-exit': 'off', // Duplicated in unicorn
+    'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
     'ts/naming-convention': [
       // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
       'error',
@@ -114,6 +110,20 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
         modifiers: ['const', 'exported'],
         // Allow UPPER_CASE const exports
         selector: 'variable',
+      },
+    ],
+    'ts/no-non-null-assertion': 'off',
+    'ts/no-unused-vars': [
+      'error',
+      {
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'all',
+        caughtErrorsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        ignoreRestSiblings: true,
+        vars: 'all',
+        varsIgnorePattern: '^_',
       },
     ],
     'unicorn/no-array-reduce': 'off',

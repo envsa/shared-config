@@ -6,7 +6,7 @@ import type { Awaitable, TypedFlatConfigItem } from './types';
  * @pram configs - An array of configs or a single config.
  */
 export async function combine(
-  ...configs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[]>[]
+  ...configs: Array<Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[]>>
 ): Promise<TypedFlatConfigItem[]> {
   const resolved = await Promise.all(configs);
   return resolved.flat();
