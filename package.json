@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "shared-config-monorepo",
   "version": "8.2.0",
   "private": true,
   "description": "A single dependency and single command to configure and run various code linters and tools.",
