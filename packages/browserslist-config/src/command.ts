@@ -1,4 +1,4 @@
-import { CommandDefinition } from '../../../src/command-builder';
+import { type CommandDefinition } from '../../../src/command-builder';
 
 export const commandDefinition: CommandDefinition = {
   commands: {
@@ -10,5 +10,5 @@ export const commandDefinition: CommandDefinition = {
   logColor: 'white',
   logPrefix: 'Browserslist',
   name: 'envsa-browserslist',
-  order: 7,
+  order: 10,
 };
