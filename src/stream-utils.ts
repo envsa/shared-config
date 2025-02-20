@@ -26,7 +26,7 @@ export function createStreamFilter(matcher: (_text: string) => boolean): Transfo
  */
 export function createStreamTransform(
   logPrefix: string | undefined,
-  logColor: ChalkColor,
+  logColor?: ChalkColor,
 ): Transform {
   return new Transform({
     transform(chunk: string | Uint8Array, _: BufferEncoding, callback) {
@@ -38,7 +38,6 @@ export function createStreamTransform(
       const transformed = lines
         .map(
           (line) =>
-            // eslint-disable-next-line ts/no-unnecessary-condition
             `${logPrefix ? (logColor === undefined ? logPrefix : chalk[logColor](logPrefix)) : ''} ${line}\n`,
         )
         .join('');

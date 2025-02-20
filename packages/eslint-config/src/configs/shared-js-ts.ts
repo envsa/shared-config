@@ -12,7 +12,7 @@ import {
   eslintTypescriptStylisticTypeCheckedRules,
   unicornRecommendedRules,
   xoJavascriptRules,
-  xoTypescriptRules
+  xoTypescriptRules,
 } from '../presets';
 import type { Rules, TypedFlatConfigItem } from '../types';
 
@@ -71,6 +71,49 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
         ignoreRestSiblings: true,
         vars: 'all',
         varsIgnorePattern: '^_',
+      },
+    ],
+    'ts/naming-convention': [
+      // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+      'error',
+      {
+        format: ['camelCase'],
+        // Matches everything
+        selector: 'default',
+      },
+      {
+        format: null,
+        modifiers: ['requiresQuotes'],
+        // Forgive quoted things
+        selector: 'default',
+      },
+      {
+        format: ['StrictPascalCase'],
+        // Matches the same as class, enum, interface, typeAlias, typeParameter
+        selector: 'typeLike',
+      },
+      {
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+        // Matches the same as function, parameter and variable
+        selector: 'variableLike',
+        trailingUnderscore: 'allow',
+      },
+      {
+        format: ['camelCase', 'StrictPascalCase'],
+        selector: 'import',
+      },
+      {
+        format: ['camelCase', 'StrictPascalCase'],
+        modifiers: ['destructured'],
+        // Allow Component import
+        selector: 'variable',
+      },
+      {
+        format: ['UPPER_CASE', 'camelCase'],
+        modifiers: ['const', 'exported'],
+        // Allow UPPER_CASE const exports
+        selector: 'variable',
       },
     ],
     'unicorn/no-array-reduce': 'off',

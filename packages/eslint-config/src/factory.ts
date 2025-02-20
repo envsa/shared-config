@@ -1,3 +1,4 @@
+/* eslint-disable ts/no-unnecessary-type-parameters */
 import type { Linter } from 'eslint';
 import { FlatConfigComposer } from 'eslint-flat-config-utils';
 import globals from 'globals';
@@ -16,7 +17,7 @@ const flatConfigProperties = [
   'plugins',
   'rules',
   'settings',
-] satisfies (keyof TypedFlatConfigItem)[];
+] satisfies Array<keyof TypedFlatConfigItem>;
 
 // Order matters
 export const defaultPluginRenaming = {
@@ -40,10 +41,12 @@ export type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>;
  */
 export async function eslintConfig(
   options: Omit<TypedFlatConfigItem, 'files'> & OptionsConfig = {},
-  ...userConfigs: Awaitable<
+  ...userConfigs: Array<
+    Awaitable<
       // eslint-disable-next-line ts/no-explicit-any
       FlatConfigComposer<any, any> | Linter.Config[] | TypedFlatConfigItem | TypedFlatConfigItem[]
-    >[]
+    >
+  >
 ): Promise<FlatConfigComposer<TypedFlatConfigItem, ConfigNames>> {
   const { gitignore: enableGitignore = true, svelte: enableSvelte = isPackageExists('svelte') } =
     options;
@@ -52,11 +55,11 @@ export async function eslintConfig(
   if (isInEditor === undefined) {
     isInEditor = isInEditorEnvironment();
     if (isInEditor) {
-      console.log('[]@envsa/eslint-config] Detected running in editor, some rules are disabled.');
+      console.log('[@envsa/eslint-config] Detected running in editor, some rules are disabled.');
     }
   }
 
-  const configs: Awaitable<TypedFlatConfigItem[]>[] = [];
+  const configs: Array<Awaitable<TypedFlatConfigItem[]>> = [];
 
   if (enableGitignore) {
     if (typeof enableGitignore === 'boolean') {
@@ -224,7 +227,6 @@ export function getLanguageOptions(typeAware = true, jsx = false): Linter.Langua
  * @param options The options object.
  * @param key The key to get the overrides for.
  */
-
 export function getOverrides<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
@@ -240,7 +242,6 @@ export function getOverrides<K extends keyof OptionsConfig>(
  * @param options The options object.
  * @param key The key to get the overrides for.
  */
-
 export function getOverridesEmbeddedScripts<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
@@ -252,6 +253,16 @@ export function getOverridesEmbeddedScripts<K extends keyof OptionsConfig>(
 }
 
 /**
+ * Construct an array of ESLint flat config items.
+ * @param options
+ *  The options for generating the ESLint configurations.
+ * @param userConfigs
+ *  The user configurations to be merged with the generated configurations.
+ * @returns
+ *  The merged ESLint configurations.
+ */
+
+/**
  * Resolve the sub options for a specific key.
  * @param options The options object.
  * @param key The key to resolve the sub options for.
@@ -260,6 +271,6 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
 ): ResolvedOptions<OptionsConfig[K]> {
-  // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-return
+  // eslint-disable-next-line ts/no-unsafe-return, ts/no-explicit-any
   return typeof options[key] === 'boolean' ? ({} as any) : options[key] || {};
 }

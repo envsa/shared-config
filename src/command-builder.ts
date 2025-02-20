@@ -1,11 +1,9 @@
 #!/usr/bin/env node
-
 import type internal from 'node:stream';
 // eslint-disable-next-line unicorn/import-style
 import chalk, { type foregroundColorNames } from 'chalk';
 import { cosmiconfig, type CosmiconfigResult } from 'cosmiconfig';
 import { execa } from 'execa';
-
 import fse from 'fs-extra';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -31,7 +29,7 @@ type CommandCommon = {
   logPrefix?: string;
   /** CLI command name to execute, or function name to be used in logs */
   name: string;
-}
+};
 
 type CommandFunction = CommandCommon & {
   execute: (
@@ -71,7 +69,7 @@ type InitCommand = {
   /** Optional, just used for top-level shared-config command */
   description?: string;
   locationOptionFlag: boolean;
-}
+};
 
 // Lint
 // Optionally takes files (plural) positional arguments (array of strings, possibly expanded from glob?)
@@ -80,7 +78,7 @@ type LintCommand = {
   description: string;
   positionalArgumentDefault?: string; // Only applies if arguments mode is not 'none'
   positionalArgumentMode: 'none' | 'optional' | 'required';
-}
+};
 
 // Fix
 // Same as lint for now
@@ -95,7 +93,7 @@ export type Commands = {
   init?: InitCommand;
   lint?: LintCommand;
   printConfig?: PrintConfigCommand;
-}
+};
 
 // Exported for aggregation later
 export type CommandDefinition = {
@@ -107,7 +105,7 @@ export type CommandDefinition = {
   order: number;
   showSummary?: boolean;
   verbose?: boolean;
-}
+};
 
 async function executeFunctionCommand(
   logStream: NodeJS.WritableStream,
@@ -200,9 +198,11 @@ async function executeCliCommand(
       cwd,
       env: {
         // Use colorful output unless NO_COLOR is set
+        // eslint-disable-next-line ts/naming-convention
         ...(process.env.NO_COLOR === undefined ? { FORCE_COLOR: 'true' } : {}),
         // Quiet node for when processing *.config.js files in Node 22
         // Suppress experimental type stripping warning with --no-warnings
+        // eslint-disable-next-line ts/naming-convention
         NODE_OPTIONS: '--experimental-strip-types --disable-warning=ExperimentalWarning',
       },
       preferLocal: true,
@@ -617,7 +617,6 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
         return 1;
       }
 
-       
       const { config, filepath: configFilePath, isEmpty } = result;
 
       logStream.write(`Found ${configName} configuration at "${configFilePath}"\n`);
@@ -637,7 +636,8 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
   };
 }
 
-type NullToUndefined<T> = T extends undefined ? undefined : T;
+// eslint-disable-next-line ts/no-restricted-types
+type NullToUndefined<T> = T extends null ? undefined : T;
 
 /**
  * Convenience wrapper to safely fetch a cosmiconfig result.
@@ -659,6 +659,8 @@ export async function getCosmiconfigResult(
       console.error(`No ${configName} configuration found.`);
       return undefined;
     }
+
+    return result;
   } catch (error) {
     console.error(`Error while searching for ${configName} configuration:`, error);
     return undefined;
