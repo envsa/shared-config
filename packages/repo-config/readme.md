@@ -91,9 +91,9 @@ Note: Action dependencies have been forked.
 
 | Original                                                                                      | Fork                                                                                                            | Modifications |
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------- |
-| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌             |
-| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌             |
-| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅             |
+| [bullrich/generate-release-changelog](https://github.com/bullrich/generate-release-changelog) | [kitschpatrol/github-action-release-changelog](https://github.com/kitschpatrol/github-action-release-changelog) | ❌            |
+| [softprops/action-gh-release](https://github.com/softprops/action-gh-release)                 | [kitschpatrol/github-action-release](https://github.com/kitschpatrol/github-action-release)                     | ❌            |
+| [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) | [kitschpatrol/github-action-repo-sync](https://github.com/kitschpatrol/github-action-repo-sync)                 | ✅            |
 
 ## Usage
 
@@ -113,11 +113,11 @@ Usage:
 envsa-repo <command>
 ```
 
-| Command | Argument    | Description                                                                                                                                                           |
-| ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`  |             | Initialize by copying starter config files to your project root.                                                                                                      |
-| `lint`  | `[files..]` | Check the repo for common issues. Package-scoped In a monorepo, it will also run in all packages below the current working directory.                                 |
-| `fix`   | `[files..]` | Fix common issues like outdated copyright years in license files. Package-scoped In a monorepo, it will also run in all packages below the current working directory. |
+| Command | Description                                                                                                                                                            |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`  | Initialize by copying starter config files to your project root.                                                                                                       |
+| `lint`  | Check the repo for common issues. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.                                 |
+| `fix`   | Fix common issues like outdated copyright years in license files. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -143,12 +143,12 @@ envsa-repo init
 
 #### Subcommand: `envsa-repo lint`
 
-Check the repo for common issues. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+Check the repo for common issues. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-envsa-repo lint [files..]
+envsa-repo lint
 ```
 
 | Option              | Description         | Type      |
@@ -158,12 +158,12 @@ envsa-repo lint [files..]
 
 #### Subcommand: `envsa-repo fix`
 
-Fix common issues like outdated copyright years in license files. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+Fix common issues like outdated copyright years in license files. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-envsa-repo fix [files..]
+envsa-repo fix
 ```
 
 | Option              | Description         | Type      |

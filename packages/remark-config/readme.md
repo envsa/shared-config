@@ -87,10 +87,10 @@ Usage:
 envsa-remark <command>
 ```
 
-| Command        | Description                                                                                                  |
-| -------------- | ------------------------------------------------------------------------------------------------------------ |
-| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                |
-| `print-config` | Print the effective Remark configuration. Package-scoped Searches up to the root of a monorepo if necessary. |
+| Command        | Description                                                                                                   |
+| -------------- | ------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                 |
+| `print-config` | Print the effective Remark configuration. Package-scoped. Searches up to the root of a monorepo if necessary. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -117,7 +117,7 @@ envsa-remark init
 
 #### Subcommand: `envsa-remark print-config`
 
-Print the effective Remark configuration. Package-scoped Searches up to the root of a monorepo if necessary.
+Print the effective Remark configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 

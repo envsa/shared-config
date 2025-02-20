@@ -103,12 +103,12 @@ Usage:
 envsa-knip <command>
 ```
 
-| Command        | Argument    | Description                                                                                                                                            |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                          |
-| `lint`         | `[files..]` | Check for unused code and dependencies. Package-scoped In a monorepo, it will also run in all packages below the current working directory.            |
-| `fix`          | `[files..]` | Automatically remove unused code and dependencies. Package-scoped In a monorepo, it will also run in all packages below the current working directory. |
-| `print-config` |             | Print the effective Knip configuration. Package-scoped Searches up to the root of a monorepo if necessary.                                             |
+| Command        | Description                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                           |
+| `lint`         | Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.            |
+| `fix`          | Automatically remove unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `print-config` | Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.                                             |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -135,12 +135,12 @@ envsa-knip init
 
 #### Subcommand: `envsa-knip lint`
 
-Check for unused code and dependencies. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+Check for unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-envsa-knip lint [files..]
+envsa-knip lint
 ```
 
 | Option              | Description         | Type      |
@@ -150,12 +150,12 @@ envsa-knip lint [files..]
 
 #### Subcommand: `envsa-knip fix`
 
-Automatically remove unused code and dependencies. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+Automatically remove unused code and dependencies. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-envsa-knip fix [files..]
+envsa-knip fix
 ```
 
 | Option              | Description         | Type      |
@@ -165,7 +165,7 @@ envsa-knip fix [files..]
 
 #### Subcommand: `envsa-knip print-config`
 
-Print the effective Knip configuration. Package-scoped Searches up to the root of a monorepo if necessary.
+Print the effective Knip configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 

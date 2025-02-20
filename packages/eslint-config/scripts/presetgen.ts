@@ -1,17 +1,17 @@
 #!/usr/bin/env tsx
 
-import { getProperty } from 'dot-prop'
-import { renamePluginsInRules } from 'eslint-flat-config-utils'
-import fs, { glob } from 'node:fs/promises'
-import process from 'node:process'
-import { formatTextAndSaveFile } from '../../../src/prettier-utils'
-import { defaultPluginRenaming } from '../src/factory'
-import { interopDefault } from '../src/utils'
+import { getProperty } from 'dot-prop';
+import { renamePluginsInRules } from 'eslint-flat-config-utils';
+import fs, { glob } from 'node:fs/promises';
+import process from 'node:process';
+import { formatTextAndSaveFile } from '../../../src/prettier-utils';
+import { defaultPluginRenaming } from '../src/factory';
+import { interopDefault } from '../src/utils';
 
-interface ExpansionConfig {
-	dotPath: string
-	library: string
-}
+type ExpansionConfig = {
+  dotPath: string;
+  library: string;
+};
 
 /**
  * Unused
@@ -27,12 +27,12 @@ interface ExpansionConfig {
  *
  * MANY deprecated rules in prettierEslint, so that is handled in-situ.
  */
-const deprecatedRules: string[] = ['astro/jsx-a11y/label-has-for', '@stylistic/']
+const deprecatedRules: string[] = ['astro/jsx-a11y/label-has-for', '@stylistic/'];
 
 const delimiters = {
-	end: '// End expansion',
-	start: '// Begin expansion',
-} as const
+  end: '// End expansion',
+  start: '// Begin expansion',
+} as const;
 
 /**
  * Adds new rule expansions where indicated by delimiter comments:
@@ -46,23 +46,23 @@ const delimiters = {
  * @returns Array of lines with expansions added
  */
 async function addNewExpansions(lines: string[]): Promise<string[]> {
-	const result: string[] = []
+  const result: string[] = [];
 
-	for (const line of lines) {
-		result.push(line)
+  for (const line of lines) {
+    result.push(line);
 
-		if (line.includes(delimiters.start)) {
-			try {
-				const config = parseExpansionConfig(line)
-				const expansionLines = await generateExpansionLines(config)
-				result.push(...expansionLines)
-			} catch (error) {
-				console.error(`Error processing expansion in line: ${line}`, error)
-			}
-		}
-	}
+    if (line.includes(delimiters.start)) {
+      try {
+        const config = parseExpansionConfig(line);
+        const expansionLines = await generateExpansionLines(config);
+        result.push(...expansionLines);
+      } catch (error) {
+        console.error(`Error processing expansion in line: ${line}`, error);
+      }
+    }
+  }
 
-	return result
+  return result;
 }
 
 /**
@@ -71,71 +71,71 @@ async function addNewExpansions(lines: string[]): Promise<string[]> {
  * @returns Array of expanded rule lines
  */
 async function generateExpansionLines(expansionConfig: ExpansionConfig): Promise<string[]> {
-	const { dotPath, library } = expansionConfig
+  const { dotPath, library } = expansionConfig;
 
-	const importedLibrary = (await interopDefault(import(library))) as
-		| Record<string, unknown>
-		| unknown[]
+  const importedLibrary = (await interopDefault(import(library))) as
+    | Record<string, unknown>
+    | unknown[];
 
-	// Attempt some common paths... infer 'rules' key for final object
-	const rules: Record<string, unknown> | undefined =
-		getProperty(importedLibrary, dotPath) ??
-		getProperty(importedLibrary, `${dotPath}.rules`) ??
-		getProperty(importedLibrary, `configs.${dotPath}.rules`) ??
-		getProperty(importedLibrary, `flatConfigs.${dotPath}.rules`)
+  // Attempt some common paths... infer 'rules' key for final object
+  const rules: Record<string, unknown> | undefined =
+    getProperty(importedLibrary, dotPath) ??
+    getProperty(importedLibrary, `${dotPath}.rules`) ??
+    getProperty(importedLibrary, `configs.${dotPath}.rules`) ??
+    getProperty(importedLibrary, `flatConfigs.${dotPath}.rules`);
 
-	if (rules === undefined) {
-		throw new Error(`Couldn't find rules for module "${library}" at path: "${dotPath}"`)
-	}
+  if (rules === undefined) {
+    throw new Error(`Couldn't find rules for module "${library}" at path: "${dotPath}"`);
+  }
 
-	const renamedRules = renamePluginsInRules(rules, defaultPluginRenaming)
-	const renamedDeprecatedRules = Object.keys(
-		renamePluginsInRules(
-			Object.fromEntries(deprecatedRules.map((key) => [key, undefined])),
-			defaultPluginRenaming,
-		),
-	)
+  const renamedRules = renamePluginsInRules(rules, defaultPluginRenaming);
+  const renamedDeprecatedRules = Object.keys(
+    renamePluginsInRules(
+      Object.fromEntries(deprecatedRules.map((key) => [key, undefined])),
+      defaultPluginRenaming,
+    ),
+  );
 
-	const jsonLines: string[] = []
-	for (const [key, value] of Object.entries(renamedRules)) {
-		// eslint-disable-next-line ts/no-unsafe-assignment
-		const line = `${JSON.stringify({ [key]: value }).slice(1, -1)},`
+  const jsonLines: string[] = [];
+  for (const [key, value] of Object.entries(renamedRules)) {
+    // eslint-disable-next-line ts/no-unsafe-assignment
+    const line = `${JSON.stringify({ [key]: value }).slice(1, -1)},`;
 
-		const isDeprecated = renamedDeprecatedRules.some((deprecatedRulePrefix) =>
-			key.startsWith(deprecatedRulePrefix),
-		)
+    const isDeprecated = renamedDeprecatedRules.some((deprecatedRulePrefix) =>
+      key.startsWith(deprecatedRulePrefix),
+    );
 
-		if (isDeprecated) {
-			jsonLines.push(`// ${line}`)
-		} else {
-			jsonLines.push(line)
-		}
-	}
+    if (isDeprecated) {
+      jsonLines.push(`// ${line}`);
+    } else {
+      jsonLines.push(line);
+    }
+  }
 
-	// Remove the opening and closing braces and add trailing comma to make prettier happy
-	return [...jsonLines]
+  // Remove the opening and closing braces and add trailing comma to make prettier happy
+  return [...jsonLines];
 }
 
 /**
  * Main function to process all TypeScript files
  */
 async function main() {
-	try {
-		for await (const file of glob('src/**/*.ts')) {
-			try {
-				const ruleCount = await processFile(file)
+  try {
+    for await (const file of glob('src/**/*.ts')) {
+      try {
+        const ruleCount = await processFile(file);
 
-				if (ruleCount !== undefined) {
-					console.log(`Expanded ${String(ruleCount)} preset rules in file ${file}`)
-				}
-			} catch (error) {
-				console.error(`Error processing file ${file}:`, error)
-			}
-		}
-	} catch (error) {
-		console.error('Fatal error:', error)
-		process.exit(1)
-	}
+        if (ruleCount !== undefined) {
+          console.log(`Expanded ${String(ruleCount)} preset rules in file ${file}`);
+        }
+      } catch (error) {
+        console.error(`Error processing file ${file}:`, error);
+      }
+    }
+  } catch (error) {
+    console.error('Fatal error:', error);
+    process.exit(1);
+  }
 }
 
 /**
@@ -145,17 +145,17 @@ async function main() {
  * @throws {Error} If the line doesn't contain proper quote-wrapped strings
  */
 function parseExpansionConfig(line: string): ExpansionConfig {
-	const quoteRegex = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/g
-	const matches = line.match(quoteRegex)
+  const quoteRegex = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/g;
+  const matches = line.match(quoteRegex);
 
-	if (matches?.length === undefined || matches.length < 2) {
-		throw new Error(`Invalid expansion config in line: ${line}`)
-	}
+  if (matches?.length === undefined || matches.length < 2) {
+    throw new Error(`Invalid expansion config in line: ${line}`);
+  }
 
-	return {
-		dotPath: matches[1].replaceAll(/['"]/g, ''),
-		library: matches[0].replaceAll(/['"]/g, ''),
-	}
+  return {
+    dotPath: matches[1].replaceAll(/['"]/g, ''),
+    library: matches[0].replaceAll(/['"]/g, ''),
+  };
 }
 
 /**
@@ -164,27 +164,27 @@ function parseExpansionConfig(line: string): ExpansionConfig {
  * @returns Number of rules processed, or undefined if no processing was needed
  */
 async function processFile(filePath: string): Promise<number | undefined> {
-	const content = await fs.readFile(filePath, 'utf8')
+  const content = await fs.readFile(filePath, 'utf8');
 
-	if (!content.includes(delimiters.start) || !content.includes(delimiters.end)) {
-		return undefined
-	}
+  if (!content.includes(delimiters.start) || !content.includes(delimiters.end)) {
+    return undefined;
+  }
 
-	const lines = content.split('\n')
-	let ruleCount = 0
+  const lines = content.split('\n');
+  let ruleCount = 0;
 
-	// First pass: Remove existing expansion content
-	const cleanedLines = removeExistingExpansions(lines)
+  // First pass: Remove existing expansion content
+  const cleanedLines = removeExistingExpansions(lines);
 
-	// Second pass: Add new expansions
-	const expandedLines = await addNewExpansions(cleanedLines)
+  // Second pass: Add new expansions
+  const expandedLines = await addNewExpansions(cleanedLines);
 
-	ruleCount = expandedLines.length - cleanedLines.length
+  ruleCount = expandedLines.length - cleanedLines.length;
 
-	// Format and save the file
-	await formatTextAndSaveFile(filePath, expandedLines.join('\n'))
+  // Format and save the file
+  await formatTextAndSaveFile(filePath, expandedLines.join('\n'));
 
-	return ruleCount
+  return ruleCount;
 }
 
 /**
@@ -193,26 +193,26 @@ async function processFile(filePath: string): Promise<number | undefined> {
  * @returns Cleaned array of lines
  */
 function removeExistingExpansions(lines: string[]): string[] {
-	const result: string[] = []
-	let inExpansion = false
+  const result: string[] = [];
+  let inExpansion = false;
 
-	for (const line of lines) {
-		if (line.includes(delimiters.end)) {
-			inExpansion = false
-			result.push(line)
-			continue
-		}
+  for (const line of lines) {
+    if (line.includes(delimiters.end)) {
+      inExpansion = false;
+      result.push(line);
+      continue;
+    }
 
-		if (!inExpansion) {
-			result.push(line)
-		}
+    if (!inExpansion) {
+      result.push(line);
+    }
 
-		if (line.includes(delimiters.start)) {
-			inExpansion = true
-		}
-	}
+    if (line.includes(delimiters.start)) {
+      inExpansion = true;
+    }
+  }
 
-	return result
+  return result;
 }
 
-await main()
+await main();

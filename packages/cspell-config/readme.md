@@ -23,7 +23,7 @@
 
 It's a shared [CSpell](https://cspell.org) config.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -77,11 +77,11 @@ Usage:
 envsa-cspell <command>
 ```
 
-| Command        | Argument    | Description                                                                                                 |
-| -------------- | ----------- | ----------------------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.               |
-| `lint`         | `<files..>` | Check for spelling mistakes. Matches files below the current working directory by default.                  |
-| `print-config` |             | Print the resolved CSpell configuration. Package-scoped Searches up to the root of a monorepo if necessary. |
+| Command        | Argument    | Description                                                                                                  |
+| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------ |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                |
+| `lint`         | `[files..]` | Check for spelling mistakes. Matches files below the current working directory by default.                   |
+| `print-config` |             | Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -113,12 +113,12 @@ Check for spelling mistakes. Matches files below the current working directory b
 Usage:
 
 ```txt
-envsa-cspell lint <files..>
+envsa-cspell lint [files..]
 ```
 
-| Positional Argument | Description                                  | Type    | Default  |
-| ------------------- | -------------------------------------------- | ------- | -------- |
-| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `"**/*"` |
+| Positional Argument | Description                    | Type    | Default  |
+| ------------------- | ------------------------------ | ------- | -------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"**/*"` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -127,7 +127,7 @@ envsa-cspell lint <files..>
 
 #### Subcommand: `envsa-cspell print-config`
 
-Print the resolved CSpell configuration. Package-scoped Searches up to the root of a monorepo if necessary.
+Print the resolved CSpell configuration. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 

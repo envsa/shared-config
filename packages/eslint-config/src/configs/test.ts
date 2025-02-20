@@ -20,7 +20,7 @@ export async function test(
     rules: {
       ...pluginTest.rules,
       // Extend `test/no-only-tests` rule
-			// eslint-disable-next-line ts/no-unsafe-member-access
+      // eslint-disable-next-line ts/no-unsafe-member-access
       ...pluginNoOnlyTests.rules,
     },
   };

@@ -83,9 +83,9 @@ envsa-prettier <command>
 | Command        | Argument    | Description                                                                                                                            |
 | -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                          |
-| `lint`         | `<files..>` | Check that files are formatted according to your Prettier configuration. Matches files below the current working directory by default. |
-| `fix`          | `<files..>` | Format files according to your Prettier configuration. Matches files below the current working directory by default.                   |
-| `print-config` |             | Print the effective Prettier configuration. Package-scoped. Searches up to the root of a monorepo if necessary..                       |
+| `lint`         | `[files..]` | Check that files are formatted according to your Prettier configuration. Matches files below the current working directory by default. |
+| `fix`          | `[files..]` | Format files according to your Prettier configuration. Matches files below the current working directory by default.                   |
+| `print-config` |             | Print the effective Prettier configuration. Package-scoped.. Searches up to the root of a monorepo if necessary..                      |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -117,12 +117,12 @@ Check that files are formatted according to your Prettier configuration. Matches
 Usage:
 
 ```txt
-envsa-prettier lint <files..>
+envsa-prettier lint [files..]
 ```
 
-| Positional Argument | Description                                  | Type    | Default |
-| ------------------- | -------------------------------------------- | ------- | ------- |
-| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `"."`   |
+| Positional Argument | Description                    | Type    | Default |
+| ------------------- | ------------------------------ | ------- | ------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"."`   |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -136,12 +136,12 @@ Format files according to your Prettier configuration. Matches files below the c
 Usage:
 
 ```txt
-envsa-prettier fix <files..>
+envsa-prettier fix [files..]
 ```
 
-| Positional Argument | Description                                 | Type    | Default |
-| ------------------- | ------------------------------------------- | ------- | ------- |
-| `files`             | Files or glob pattern to fix. _(Required.)_ | `array` | `"."`   |
+| Positional Argument | Description                   | Type    | Default |
+| ------------------- | ----------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. | `array` | `"."`   |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -150,7 +150,7 @@ envsa-prettier fix <files..>
 
 #### Subcommand: `envsa-prettier print-config`
 
-Print the effective Prettier configuration. Package-scoped. Searches up to the root of a monorepo if necessary..
+Print the effective Prettier configuration. Package-scoped.. Searches up to the root of a monorepo if necessary..
 
 Usage:
 

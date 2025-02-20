@@ -109,11 +109,11 @@ Usage:
 Envsa-typescript <command>
 ```
 
-| Command        | Argument    | Description                                                                                                                            |
-| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize by copying starter config files to your project root.                                                                       |
-| `lint`         | `[files..]` | Run type checking on your project. Package-scoped In a monorepo, it will also run in all packages below the current working directory. |
-| `print-config` |             | Print the TypeScript configuration for the project. Package-scoped Searches up to the root of a monorepo if necessary.                 |
+| Command        | Description                                                                                                                             |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root.                                                                        |
+| `lint`         | Run type checking on your project. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `print-config` | Print the TypeScript configuration for the project. Package-scoped. Searches up to the root of a monorepo if necessary.                 |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -139,12 +139,12 @@ Envsa-typescript init
 
 #### Subcommand: `Envsa-typescript lint`
 
-Run type checking on your project. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+Run type checking on your project. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-Envsa-typescript lint [files..]
+Envsa-typescript lint
 ```
 
 | Option              | Description         | Type      |
@@ -154,7 +154,7 @@ Envsa-typescript lint [files..]
 
 #### Subcommand: `Envsa-typescript print-config`
 
-Print the TypeScript configuration for the project. Package-scoped Searches up to the root of a monorepo if necessary.
+Print the TypeScript configuration for the project. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 

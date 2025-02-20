@@ -224,8 +224,8 @@ envsa <command>
 | Command        | Argument    | Description                                                                                                                                                                          |
 | -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `init`         |             | Initialize configuration files for the entire suite of @envsa/shared-config tools. Will use option flags where possible if provided, but some of the invoked tools will ignore them. |
-| `lint`         | `<files..>` | Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.        |
-| `fix`          | `<files..>` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.         |
+| `lint`         | `[files..]` | Lint your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.        |
+| `fix`          | `[files..]` | Fix your project with multiple tools in one go. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.         |
 | `print-config` | `[file]`    | Print aggregated tool configuration data. Will use file arguments / globs where possible if provided, but some of the invoked tools only operate at the package-scope.               |
 
 | Option              | Description         | Type      |
@@ -258,12 +258,12 @@ Lint your project with multiple tools in one go. Will use file arguments / globs
 Usage:
 
 ```txt
-envsa lint <files..>
+envsa lint [files..]
 ```
 
-| Positional Argument | Description                                  | Type    | Default |
-| ------------------- | -------------------------------------------- | ------- | ------- |
-| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `[]`    |
+| Positional Argument | Description                    | Type    | Default |
+| ------------------- | ------------------------------ | ------- | ------- |
+| `files`             | Files or glob pattern to lint. | `array` | `[]`    |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -277,12 +277,12 @@ Fix your project with multiple tools in one go. Will use file arguments / globs 
 Usage:
 
 ```txt
-envsa fix <files..>
+envsa fix [files..]
 ```
 
-| Positional Argument | Description                                 | Type    | Default |
-| ------------------- | ------------------------------------------- | ------- | ------- |
-| `files`             | Files or glob pattern to fix. _(Required.)_ | `array` | `[]`    |
+| Positional Argument | Description                   | Type    | Default |
+| ------------------- | ----------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. | `array` | `[]`    |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -299,9 +299,9 @@ Usage:
 envsa print-config [file]
 ```
 
-| Positional Argument | Description                | Type     |
-| ------------------- | -------------------------- | -------- |
-| `file`              | File or glob pattern to TK | `string` |
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

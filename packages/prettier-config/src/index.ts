@@ -1,6 +1,6 @@
-import type { Config as PrettierConfig} from 'prettier';
-import { deepmerge} from 'deepmerge-ts';
-import {sortOrder as sortPackageJsonSortOrder} from 'sort-package-json';
+import type { Config as PrettierConfig } from 'prettier';
+import { deepmerge } from 'deepmerge-ts';
+import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json';
 
 /**
  * Merge custom keys into the `sort-package-json` `order` array. Where
@@ -48,14 +48,14 @@ const sharedPrettierConfig: PrettierConfig = {
       files: ['*rc', '*ignore', '*.sh', '*.zsh', '*.bash', '*.fish'],
       options: {
         parser: 'sh',
-        plugins: ["prettier-plugin-sh"]
+        plugins: ['prettier-plugin-sh'],
       },
     },
     {
       files: '*.svelte',
       options: {
         parser: 'svelte',
-        plugins: ["prettier-plugin-svelte"]
+        plugins: ['prettier-plugin-svelte'],
       },
     },
     {
@@ -72,8 +72,8 @@ const sharedPrettierConfig: PrettierConfig = {
       },
     },
     // Make this match eslint 'json-package/order-properties'
-		// https://github.com/matzkoh/prettier-plugin-packagejson/issues/188
-		// This must stay in sync with packages/eslint-config/src/configs/json.ts
+    // https://github.com/matzkoh/prettier-plugin-packagejson/issues/188
+    // This must stay in sync with packages/eslint-config/src/configs/json.ts
     {
       files: 'package.json',
       options: {
@@ -83,10 +83,10 @@ const sharedPrettierConfig: PrettierConfig = {
           'mdat',
           'prettier',
           'remarkConfig',
-          'stylelint'
-        ])
-      }
-    }
+          'stylelint',
+        ]),
+      },
+    },
   ],
   plugins: [
     '@prettier/plugin-php',
@@ -102,8 +102,7 @@ const sharedPrettierConfig: PrettierConfig = {
   tabWidth: 2,
   trailingComma: 'all',
   useTabs: false,
-}
-
+};
 
 /**
  * **\@Kitschpatrol's Shared Prettier Configuration**
@@ -117,7 +116,7 @@ const sharedPrettierConfig: PrettierConfig = {
  * ```
  */
 export function prettierConfig(config?: PrettierConfig): PrettierConfig {
-	return deepmerge(sharedPrettierConfig, config)
+  return deepmerge(sharedPrettierConfig, config);
 }
 
 export default sharedPrettierConfig;

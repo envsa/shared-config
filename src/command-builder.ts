@@ -14,10 +14,10 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { version } from '../package.json';
 import { isErrorExecaError } from './execa-utils.js';
-import { merge, stringify } from './json-utils.ts';
+import { merge, stringify } from './json-utils.js';
 import { type CwdOverrideOptions, getCwdOverride } from './path-utils.js';
 import { formatFileInPlace } from './prettier-utils.js';
-import { createStreamTransform, streamToString } from './stream-utils.ts';
+import { createStreamTransform, streamToString } from './stream-utils.js';
 import { pluralize } from './string-utils.js';
 
 type ChalkColor = (typeof foregroundColorNames)[number];
@@ -25,7 +25,7 @@ type ChalkColor = (typeof foregroundColorNames)[number];
 type CommandCommon = {
   /** Customizes color of log prefix string. Default color used if undefined. */
   logColor?: ChalkColor;
-  /** Enables a string prefix in the log output. False if undefined */
+  /** Enables a string prefix in the log output.  False if undefined. */
   logPrefix?: string;
   /** CLI command name to execute, or function name to be used in logs */
   name: string;
@@ -46,9 +46,9 @@ export type CommandCli = CommandCommon & {
   optionFlags?: string[];
   /** Command-local fixed positional arguments. */
   positionalArguments?: string[];
-  /** Formats and colorizes output if JSON. False if undefined */
+  /** Formats and colorizes output if JSON. False if undefined. */
   prettyJsonOutput?: boolean;
-  /** If true, option flags are passed from the parent command. False if undefined. */
+  /** If true, option flags are passed in from the parent command. False if undefined. */
   receiveOptionFlags?: boolean;
   /** If true, positional arguments are passed in from the parent command. False if undefined. */
   receivePositionalArguments?: boolean;
@@ -154,7 +154,7 @@ async function executeCliCommand(
 ): Promise<number> {
   let exitCode = 1; // Assume failure
 
-  // Add the log stream if desired
+  // Add to the log stream if desired
   let targetStream: NodeJS.WritableStream;
 
   if (command.logPrefix === undefined) {
@@ -200,7 +200,7 @@ async function executeCliCommand(
         // Use colorful output unless NO_COLOR is set
         // eslint-disable-next-line ts/naming-convention
         ...(process.env.NO_COLOR === undefined ? { FORCE_COLOR: 'true' } : {}),
-        // Quiet node for when processing *.config.js files in Node 22
+        // Quiet node for when processing *.config.ts files in Node 22
         // Suppress experimental type stripping warning with --no-warnings
         // eslint-disable-next-line ts/naming-convention
         NODE_OPTIONS: '--experimental-strip-types --disable-warning=ExperimentalWarning',
@@ -210,7 +210,7 @@ async function executeCliCommand(
       stdin: 'inherit',
     });
 
-    // End false is required here, otherwise the stream will close before the process is done
+    // End false is required here, otherwise the stream will close before the subprocess is done
     subprocess.stdout.pipe(cliTargetStream, { end: false });
     subprocess.stderr.pipe(cliTargetStream, { end: false });
 
@@ -277,7 +277,7 @@ export async function executeCommands(
     if (successfulCommands.length > 0) {
       logStream.write(
         `✅ ${chalk.green.bold(
-          `${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded: `,
+          `${successfulCommands.length} / ${totalCommands} ${pluralize('Command', successfulCommands.length)} Succeeded:`,
         )} ${chalk.green(successfulCommands.join(', '))}\n`,
       );
     }
@@ -285,7 +285,7 @@ export async function executeCommands(
     if (failedCommands.length > 0) {
       logStream.write(
         `❌ ${chalk.red.bold(
-          `${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed: `,
+          `${failedCommands.length} / ${totalCommands} ${pluralize('Command', failedCommands.length)} Failed:`,
         )} ${chalk.red(failedCommands.join(', '))}\n`,
       );
     }
@@ -301,7 +301,7 @@ async function copyAndMergeInitFiles(
   configFile: string | undefined,
   configPackageJson: Record<string, unknown> | undefined,
 ): Promise<number> {
-  // By default, copies files in the script package's /init directory to the root of the package it's called from
+  // By default, copies files in script package's /init directory to the root of the package it's called from
   // For files in .vscode, if both the source and destination files are json, then merge them instead of overwriting
 
   // Copy files
@@ -330,18 +330,34 @@ async function copyAndMergeInitFiles(
       const configKey = Object.keys(configPackageJson)[0];
 
       if (location === 'package') {
-        const destinationPackageJson = fse.readJSONSync(destinationPackage) as Record<
+        const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
           string,
           unknown
         >;
 
         // Merge json into package.json
         logStream.write(
-          `Merging: \nPackage config key "${configKey} → "${destination}" (Because --location is set to "package")\n`,
+          `Merging: \nPackage config key "${configKey}" → "${destination}" (Because --location is set to "package")\n`,
         );
         const mergedPackageJson = merge(destinationPackageJson, configPackageJson);
         fse.writeJSONSync(destinationPackage, mergedPackageJson, { spaces: 2 });
         await formatFileInPlace(destinationPackage);
+      } else {
+        // Removing configuration key from package.json
+        const destinationPackageJson = fse.readJsonSync(destinationPackage) as Record<
+          string,
+          unknown
+        >;
+
+        if (Object.keys(destinationPackageJson).includes(configKey)) {
+          logStream.write(
+            `Deleting: \nPackage config key "${configKey}" in "${destination}" (Because --location is set to "file")\n`,
+          );
+          // eslint-disable-next-line ts/no-dynamic-delete
+          delete destinationPackageJson[configKey];
+          fse.writeJSONSync(destinationPackage, destinationPackageJson, { spaces: 2 });
+          await formatFileInPlace(destinationPackage);
+        }
       }
     }
 
@@ -454,13 +470,13 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
           ? yargs.option('location', {
               choices: ['file', 'package'],
               default: 'file',
-              description: 'TK',
+              describe: 'TK',
               type: 'string',
             })
           : yargs;
       },
       command: 'init',
-      // Command: init.locationOptionFlag ? 'init [--location]' : init
+      // Command: init.locationOptionFlag ? 'init [--location]' : 'init',
       describe:
         init.description ??
         `Initialize by copying starter config files to your project root${init.locationOptionFlag ? ' or to your package.json file.' : '.'}`,
@@ -510,7 +526,12 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
               type: 'string',
             });
       },
-      command: lint.positionalArgumentMode === 'none' ? 'lint [files..]' : 'lint <files..>',
+      command:
+        lint.positionalArgumentMode === 'none'
+          ? 'lint'
+          : lint.positionalArgumentMode === 'optional'
+            ? 'lint [files..]'
+            : 'lint <files..>',
       describe: lint.description,
       async handler(argv) {
         const positionalArguments = (argv.files as string[] | undefined) ?? [];
@@ -527,7 +548,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
     });
   }
 
-  // Duplicate of above, but whatever
+  // Duplicative of above, but whatever
   if (fix !== undefined) {
     yargsInstance.command({
       builder(yargs) {
@@ -542,18 +563,16 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
               type: 'string',
             });
       },
-      command: fix.positionalArgumentMode === 'none' ? 'fix [files..]' : 'fix <files..>',
+      command:
+        fix.positionalArgumentMode === 'none'
+          ? 'fix'
+          : fix.positionalArgumentMode === 'optional'
+            ? 'fix [files..]'
+            : 'fix <files..>',
       describe: fix.description,
       async handler(argv) {
         const positionalArguments = (argv.files as string[] | undefined) ?? [];
-        const exitCode = await executeCommands(
-          logStream,
-          positionalArguments,
-          [],
-          fix.commands,
-          verbose,
-          showSummary,
-        );
+        const exitCode = await executeCommands(logStream, positionalArguments, [], fix.commands);
         process.exit(exitCode);
       },
     });
@@ -568,7 +587,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
               ...(printConfig.positionalArgumentDefault === undefined
                 ? {}
                 : { default: printConfig.positionalArgumentDefault }),
-              describe: 'File or glob pattern to TK',
+              describe: 'File or glob pattern to TK.',
               type: 'string',
             });
       },
@@ -605,6 +624,7 @@ export async function buildCommands(commandDefinition: CommandDefinition) {
 
   await yargsInstance.parseAsync();
 }
+
 /**
  * TK
  */
@@ -618,9 +638,9 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
       }
 
       // eslint-disable-next-line ts/no-unsafe-assignment
-      const { config, filepath: configFilePath, isEmpty } = result;
+      const { config, filepath: configFilepath, isEmpty } = result;
 
-      logStream.write(`Found ${configName} configuration at "${configFilePath}"\n`);
+      logStream.write(`Found ${configName} configuration at "${configFilepath}"\n`);
 
       if (isEmpty) {
         logStream.write('Configuration is empty.\n');
@@ -633,7 +653,7 @@ export function getCosmiconfigCommand(configName: string): CommandFunction {
       }
       return 0;
     },
-    name: `Cosmicconfig ${configName}`,
+    name: `Cosmiconfig ${configName}`,
   };
 }
 
@@ -650,7 +670,7 @@ export async function getCosmiconfigResult(
     searchStrategy: 'project',
     // Alt approach?
     // searchStrategy: 'global',
-    // stopDir: getCwdOverride('workspace-root')
+    // stopDir: getCwdOverride('workspace-root'),
   });
 
   try {
@@ -681,6 +701,6 @@ export const DESCRIPTION = {
   multiOptionCaveat:
     'Will use option flags where possible if provided, but some of the invoked tools will ignore them.',
   optionalFileRun: 'Package-scoped by default, file-scoped if a file argument is provided.',
-  packageRun: 'Package-scoped',
-  packageSearch: 'Package-scoped',
+  packageRun: 'Package-scoped.',
+  packageSearch: 'Package-scoped.',
 };

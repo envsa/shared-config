@@ -82,12 +82,12 @@ Usage:
 envsa-mdat <command>
 ```
 
-| Command        | Argument    | Description                                                                                                                                                                                   |
-| -------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                 |
-| `lint`         | `[files..]` | Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped In a monorepo, it will also run in all packages below the current working directory. |
-| `fix`          | `[files..]` | Expand all Mdat content placeholders in your readme.md file(s). Package-scoped In a monorepo, it will also run in all packages below the current working directory.                           |
-| `print-config` |             | Print the effective Mdat configuration. Package-scoped. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.                    |
+| Command        | Description                                                                                                                                                                                    |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                  |
+| `lint`         | Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `fix`          | Expand all Mdat content placeholders in your readme.md file(s). Package-scoped. In a monorepo, it will also run in all packages below the current working directory.                           |
+| `print-config` | Print the effective Mdat configuration. Package-scoped.. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.                    |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -114,12 +114,12 @@ envsa-mdat init
 
 #### Subcommand: `envsa-mdat lint`
 
-Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-envsa-mdat lint [files..]
+envsa-mdat lint
 ```
 
 | Option              | Description         | Type      |
@@ -129,12 +129,12 @@ envsa-mdat lint [files..]
 
 #### Subcommand: `envsa-mdat fix`
 
-Expand all Mdat content placeholders in your readme.md file(s). Package-scoped In a monorepo, it will also run in all packages below the current working directory.
+Expand all Mdat content placeholders in your readme.md file(s). Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-envsa-mdat fix [files..]
+envsa-mdat fix
 ```
 
 | Option              | Description         | Type      |
@@ -144,7 +144,7 @@ envsa-mdat fix [files..]
 
 #### Subcommand: `envsa-mdat print-config`
 
-Print the effective Mdat configuration. Package-scoped. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.
+Print the effective Mdat configuration. Package-scoped.. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.
 
 Usage:
 

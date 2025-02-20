@@ -83,8 +83,8 @@ envsa-eslint <command>
 | Command        | Argument    | Description                                                                                                                                                               |
 | -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `init`         |             | Initialize by copying starter config files to your project root.                                                                                                          |
-| `lint`         | `<files..>` | Lint your project with ESLint. Matches files below the current working directory by default.                                                                              |
-| `fix`          | `<files..>` | Fix your project with ESLint. Matches files below the current working directory by default.                                                                               |
+| `lint`         | `[files..]` | Lint your project with ESLint. Matches files below the current working directory by default.                                                                              |
+| `fix`          | `[files..]` | Fix your project with ESLint. Matches files below the current working directory by default.                                                                               |
 | `print-config` | `[file]`    | Print the effective ESLint configuration. Package-scoped by default, file-scoped if a file argument is provided. Use `@eslint/config-inspector` for a more detailed view. |
 
 | Option              | Description         | Type      |
@@ -116,12 +116,12 @@ Lint your project with ESLint. Matches files below the current working directory
 Usage:
 
 ```txt
-envsa-eslint lint <files..>
+envsa-eslint lint [files..]
 ```
 
-| Positional Argument | Description                                  | Type    | Default |
-| ------------------- | -------------------------------------------- | ------- | ------- |
-| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `"."`   |
+| Positional Argument | Description                    | Type    | Default |
+| ------------------- | ------------------------------ | ------- | ------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"."`   |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -135,12 +135,12 @@ Fix your project with ESLint. Matches files below the current working directory 
 Usage:
 
 ```txt
-envsa-eslint fix <files..>
+envsa-eslint fix [files..]
 ```
 
-| Positional Argument | Description                                 | Type    | Default |
-| ------------------- | ------------------------------------------- | ------- | ------- |
-| `files`             | Files or glob pattern to fix. _(Required.)_ | `array` | `"."`   |
+| Positional Argument | Description                   | Type    | Default |
+| ------------------- | ----------------------------- | ------- | ------- |
+| `files`             | Files or glob pattern to fix. | `array` | `"."`   |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -157,9 +157,9 @@ Usage:
 envsa-eslint print-config [file]
 ```
 
-| Positional Argument | Description                | Type     |
-| ------------------- | -------------------------- | -------- |
-| `file`              | File or glob pattern to TK | `string` |
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

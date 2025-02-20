@@ -81,8 +81,8 @@ envsa-stylelint <command>
 | Command        | Argument    | Description                                                                                                          |
 | -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
 | `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                        |
-| `lint`         | `<files..>` | Lint your project with Stylelint. Matches files below the current working directory by default.                      |
-| `fix`          | `<files..>` | Fix your project with Stylelint. Matches files below the current working directory by default.                       |
+| `lint`         | `[files..]` | Lint your project with Stylelint. Matches files below the current working directory by default.                      |
+| `fix`          | `[files..]` | Fix your project with Stylelint. Matches files below the current working directory by default.                       |
 | `print-config` | `[file]`    | Print the effective Stylelint configuration. Package-scoped by default, file-scoped if a file argument is provided.. |
 
 | Option              | Description         | Type      |
@@ -115,12 +115,12 @@ Lint your project with Stylelint. Matches files below the current working direct
 Usage:
 
 ```txt
-envsa-stylelint lint <files..>
+envsa-stylelint lint [files..]
 ```
 
-| Positional Argument | Description                                  | Type    | Default                                                    |
-| ------------------- | -------------------------------------------- | ------- | ---------------------------------------------------------- |
-| `files`             | Files or glob pattern to lint. _(Required.)_ | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
+| Positional Argument | Description                    | Type    | Default                                                    |
+| ------------------- | ------------------------------ | ------- | ---------------------------------------------------------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -134,12 +134,12 @@ Fix your project with Stylelint. Matches files below the current working directo
 Usage:
 
 ```txt
-envsa-stylelint fix <files..>
+envsa-stylelint fix [files..]
 ```
 
-| Positional Argument | Description                                 | Type    | Default                                                    |
-| ------------------- | ------------------------------------------- | ------- | ---------------------------------------------------------- |
-| `files`             | Files or glob pattern to fix. _(Required.)_ | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
+| Positional Argument | Description                   | Type    | Default                                                    |
+| ------------------- | ----------------------------- | ------- | ---------------------------------------------------------- |
+| `files`             | Files or glob pattern to fix. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -156,9 +156,9 @@ Usage:
 envsa-stylelint print-config [file]
 ```
 
-| Positional Argument | Description                | Type     |
-| ------------------- | -------------------------- | -------- |
-| `file`              | File or glob pattern to TK | `string` |
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |

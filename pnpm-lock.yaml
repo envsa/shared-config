@@ -358,8 +358,8 @@ importers:
         specifier: ^3.4.1
         version: 3.4.1(prettier@3.5.1)
       '@zackad/prettier-plugin-twig':
-        specifier: ^0.13.0
-        version: 0.13.0
+        specifier: ^0.15.2
+        version: 0.15.2
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.7.3)
@@ -376,20 +376,20 @@ importers:
         specifier: ^11.2.0
         version: 11.3.0
       prettier:
-        specifier: ^3.3.1
+        specifier: ^3.5.0
         version: 3.5.1
       prettier-plugin-packagejson:
         specifier: ^2.5.8
         version: 2.5.8(prettier@3.5.1)
       prettier-plugin-sh:
-        specifier: ^0.14.0
-        version: 0.14.0(prettier@3.5.1)
+        specifier: ^0.15.0
+        version: 0.15.0(prettier@3.5.1)
       prettier-plugin-svelte:
         specifier: ^3.3.2
         version: 3.3.3(prettier@3.5.1)(svelte@5.20.2)
       prettier-plugin-tailwindcss:
         specifier: ^0.6.9
-        version: 0.6.11(@zackad/prettier-plugin-twig@0.13.0)(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.20.2))(prettier@3.5.1)
+        version: 0.6.11(@zackad/prettier-plugin-twig@0.15.2)(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.20.2))(prettier@3.5.1)
       sort-package-json:
         specifier: ^2.14.0
         version: 2.14.0
@@ -1753,8 +1753,8 @@ packages:
   '@xml-tools/parser@1.0.11':
     resolution: {integrity: sha512-aKqQ077XnR+oQtHJlrAflaZaL7qZsulWc/i/ZEooar5JiWj1eLt0+Wg28cpa+XLney107wXqneC+oG1IZvxkTA==}
 
-  '@zackad/prettier-plugin-twig@0.13.0':
-    resolution: {integrity: sha512-4dnLVw/F1QM9iI2HcXsAgLeZM/9yj21N5xMppUSKeb7N6bq/JeD+l6Gb8lfkbcsykgKQ2WiwlLneefFYKRqtRA==}
+  '@zackad/prettier-plugin-twig@0.15.2':
+    resolution: {integrity: sha512-05PtlP+SWBXeLGVp8J9qCzYpjlSazeZ2Gayc7uZA9LmtFFRLaQahz/u3yLwAWXDUHFZ4xra0ZpDq0JAdqWLGHA==}
     engines: {node: '>=18'}
 
   abbrev@2.0.0:
@@ -3911,8 +3911,8 @@ packages:
       prettier:
         optional: true
 
-  prettier-plugin-sh@0.14.0:
-    resolution: {integrity: sha512-hfXulj5+zEl/ulrO5kMuuTPKmXvOg0bnLHY1hKFNN/N+/903iZbNp8NyZBTsgI8dtkSgFfAEIQq0IQTyP1ZVFQ==}
+  prettier-plugin-sh@0.15.0:
+    resolution: {integrity: sha512-U0PikJr/yr2bzzARl43qI0mApBj0C1xdAfA04AZa6LnvIKawXHhuy2fFo6LNA7weRzGlAiNbaEFfKMFo0nZr/A==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       prettier: ^3.0.3
@@ -6011,7 +6011,7 @@ snapshots:
     dependencies:
       chevrotain: 7.1.1
 
-  '@zackad/prettier-plugin-twig@0.13.0':
+  '@zackad/prettier-plugin-twig@0.15.2':
     dependencies:
       '@babel/template': 7.26.9
       '@babel/types': 7.26.9
@@ -8612,7 +8612,7 @@ snapshots:
     optionalDependencies:
       prettier: 3.5.1
 
-  prettier-plugin-sh@0.14.0(prettier@3.5.1):
+  prettier-plugin-sh@0.15.0(prettier@3.5.1):
     dependencies:
       mvdan-sh: 0.10.1
       prettier: 3.5.1
@@ -8623,11 +8623,11 @@ snapshots:
       prettier: 3.5.1
       svelte: 5.20.2
 
-  prettier-plugin-tailwindcss@0.6.11(@zackad/prettier-plugin-twig@0.13.0)(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.20.2))(prettier@3.5.1):
+  prettier-plugin-tailwindcss@0.6.11(@zackad/prettier-plugin-twig@0.15.2)(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.20.2))(prettier@3.5.1):
     dependencies:
       prettier: 3.5.1
     optionalDependencies:
-      '@zackad/prettier-plugin-twig': 0.13.0
+      '@zackad/prettier-plugin-twig': 0.15.2
       prettier-plugin-svelte: 3.3.3(prettier@3.5.1)(svelte@5.20.2)
 
   prettier@3.5.1: {}
