@@ -49,7 +49,7 @@ export async function html(
       },
     },
     {
-      // All files get the rules, to include templates like html
+      // All files get the rules, to include templates like html`` found in JS and TS files
       name: 'envsa/html',
       plugins: {
         html: pluginHtml,

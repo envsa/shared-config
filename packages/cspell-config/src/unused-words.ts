@@ -29,7 +29,7 @@ export async function checkForUnusedWords(fileGlobs: string[] = ['.']): Promise<
         unusedWords = unusedWords.filter(
           (word) =>
             !(
-              word.toLowerCase() == text.toLowerCase().replace(/['\u2019\u2018]s$/, '') &&
+              word.toLowerCase() === text.toLowerCase().replace(/['\u2019\u2018]s$/, '') &&
               uri !== url.href
             ),
         );
