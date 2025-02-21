@@ -114,11 +114,11 @@ For example, do disable the `envsa-acronyms` and `envsa-misc` dictionaries:
 ```jsonc
 {
   "dictionaries": [
-    '!envsa-acronyms',
-    '!envsa-misc'
+    "!envsa-acronyms",
+    "!envsa-misc",
     // ...Addtional !-prefixed dicitonary names
   ],
-};
+}
 ```
 
 #### Adding project-scoped words

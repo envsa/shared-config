@@ -21,7 +21,7 @@
 
 ## Overview
 
-It's a `pnpm`-flavored shared config with some essential files for a fresh repo.
+It's a `pnpm`-flavored shared config with some essential files for a fresh repo, plus automated linting for things like copyright notice dates, all accessible via a bundled command like tool named `envsa-repo`.
 
 This includes the following:
 
@@ -35,7 +35,7 @@ This includes the following:
 
 In order to work around some hoisting issues related to plugin resolution in the other `@envsa/shared-config` packages, it's critical that it is applied _before_ any other `@envsa/shared-config` packages are installed.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -44,7 +44,7 @@ In order to work around some hoisting issues related to plugin resolution in the
 If you just need to set up your `.npmrc` in anticipation of installing another shared config, you can run the script via `dlx` to copy the `.npmrc` to your home folder:
 
 ```sh
-pnpm dlx @envsa/repo-config --init
+pnpm dlx @envsa/repo-config init
 ```
 
 ### Installation approach
@@ -60,7 +60,7 @@ Optionally, you can install the package if you think you'll ever want to regener
 2. If / when you need to regenerate the repo config files, you can run the bundled script:
 
    ```sh
-   pnpm exec repo-config --init
+   pnpm exec envsa-repo init
    ```
 
 ### GitHub Configuration
@@ -83,7 +83,15 @@ If you want releases to come from your account instead of `github_actions`, then
    | Contents       | Read and write |
    | Metadata       | Read-only      |
 
-2. Add the token as a secret to the repository under the key `PERSONAL_ACCESS_TOKEN`.
+2. Add the token as a secret to your new GitHub repository.
+
+   You can do this through the GitHub website under the _Settings → Secrets and variables → Actions_ page under the key `PERSONAL_ACCESS_TOKEN`.
+
+   Alternately, you can do this locally with the [GitHub CLI](https://cli.github.com/) and a credential manager like [1Password CLI](https://developer.1password.com/docs/cli/get-started/):
+
+   ```sh
+   gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $(op read 'op://Personal/GitHub/PERSONAL_ACCESS_TOKEN_ACTIONS')
+   ```
 
 ### GitHub Actions
 

@@ -21,9 +21,9 @@
 
 ## Overview
 
-It's a shared [Prettier](https://prettier.io) config.
+It's a shared [Prettier](https://prettier.io) config, plus a command-line tool `envsa-prettier` to perform Prettier-related project initialization, linting, and fixing.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -32,7 +32,7 @@ To use just this Prettier config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @envsa/repo-config --init
+   pnpm dlx @envsa/repo-config init
    ```
 
 2. Add the package:
@@ -41,10 +41,10 @@ To use just this Prettier config in isolation:
    pnpm add -D @envsa/prettier-config
    ```
 
-3. Add the starter `.prettierrc.js` and `.prettierignore` files to your project root, and add any customizations you'd like:
+3. Add the starter `prettier.config.js` and `.prettierignore` files to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec prettier-config --init
+   pnpm exec envsa-prettier init
    ```
 
 ## Usage
@@ -56,13 +56,35 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "lint": "prettier-config --check"
-  "format": "prettier-config --fix"
+{
+  "scripts": {
+    "lint": "envsa-prettier lint",
+    "fix": "envsa-prettier fix"
+  }
 }
 ```
 
-You might need to pass certain plugins in explicitly. The `shared-config --fix` and `shared-config --lint` scripts take care of this for you.
+You might need to pass certain plugins in explicitly if you're calling `prettier` directly. The `envsa-prettier fix` and `envsa-prettier lint` scripts take care of this for you.
+
+### Configuration
+
+To create a `prettier.config.js` in your project root:
+
+```sh
+pnpm exec envsa-prettier init
+```
+
+(Note that this will delete the `prettier` property in your `package.json`!)
+
+_Or_
+
+To create a `prettier` property in `package.json`:
+
+```sh
+pnpm exec envsa-prettier init --location package
+```
+
+(Note that this will delete the `prettier.config.js` file in your project root!)
 
 ### CLI
 
