@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 Liam Rella
+Copyright (c) 2024-2025 Liam Rella
 
 Based on the MIT-licensed "@kitschpatrol/shared-config" project by Eric Mika
 
