@@ -21,9 +21,17 @@
 
 ## Overview
 
-It's a shared [CSpell](https://cspell.org) config.
+It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `envsa-cspell` to perform CSpell-related project initialization and linting. Note that automated fixes are handled via an ESLint integration provided in [@envsa/eslint-config](https://github.com/envsa/shared-config/tree/main/packages/eslint-config).
 
 <!-- recommendation -->
+
+> [!IMPORTANT]
+>
+> **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config), which also automatically invokes the command line functionality in this package via its `envsa` command
+
+<!-- /recommendation -->
 
 ## Setup
 
@@ -32,7 +40,7 @@ To use just this CSpell config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @envsa/repo-config --init
+   pnpm dlx @envsa/repo-config init
    ```
 
 2. Add the package:
@@ -44,7 +52,7 @@ To use just this CSpell config in isolation:
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec cspell-config --init
+   pnpm exec kpi-cspell init
    ```
 
 ## Usage
@@ -56,8 +64,76 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "spellcheck": "cspell-config --check"
+{
+  "scripts": {
+    "spellcheck": "envsa-cspell lint"
+  }
+}
+```
+
+### Configuration
+
+To create a `cspell.config.js` in your project root:
+
+```sh
+pnpm exec envsa-cspell init
+```
+
+(Note that this will delete the `cspell` property in your `package.json`!)
+
+_Or_
+
+To create a `cspell` property in `package.json`:
+
+```sh
+pnpm exec envsa-cspell init --location package
+```
+
+(Note that this will delete the `cspell.config.js` file in your project root!)
+
+#### Disabling bundled dictionaries
+
+In additional to CSpell's default dictionary configuration, this shared configuration enables a number of dictionaries that ship with CSpell for all file types:
+
+- [`lorem-ipsum`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/lorem-ipsum/dict/lorem.txt)
+- [`git`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/git/cspell-ext.json)
+- [`npm`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/npm/dict/npm.txt)
+- [`fullstack`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/fullstack/dict/fullstack.txt)
+- [`software-terms`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/software-terms/cspell.config.yaml)
+
+It also includes a number of _custom_ dictionaries distributed with this package, all of which are enabled by default:
+
+- `envsa-acronyms` Contains acronyms
+- `envsa-files` Contains file extensions and types
+- `envsa-misc` Contains words that are not acronyms or file extensions/types
+
+In your project's root `cspell.config.js`, you can disable any combination of these dictionaries by adding them to the `dictionaries` array with a `!` prefix.
+
+For example, do disable the `envsa-acronyms` and `envsa-misc` dictionaries:
+
+```jsonc
+{
+  "dictionaries": [
+    '!envsa-acronyms',
+    '!envsa-misc'
+    // ...Addtional !-prefixed dicitonary names
+  ],
+};
+```
+
+#### Adding project-scoped words
+
+In your project's root `.cspell.json`:
+
+```jsonc
+{
+  "words": [
+    "mountweazel",
+    "steinlaus",
+    "jungftak",
+    "esquivalience",
+    // ...Additional words
+  ],
 }
 ```
 
@@ -142,64 +218,13 @@ envsa-cspell print-config
 
 <!-- /cli-help -->
 
-## Configuration
-
-### Disabling bundled dictionaries
-
-In additional to CSpell's default dictionary configuration, this shared configuration enables a number of dictionaries that ship with CSpell for all file types:
-
-- [`lorem-ipsum`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/lorem-ipsum/dict/lorem.txt)
-- [`git`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/git/cspell-ext.json)
-- [`gaming-terms`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/gaming-terms/dict/gaming-terms.txt)
-- [`npm`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/npm/dict/npm.txt)
-- [`data-science`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/data-science/dict/data-science.txt)
-- [`fullstack`](https://github.com/streetsidesoftware/cspell-dicts/blob/main/dictionaries/fullstack/dict/fullstack.txt)
-
-It also includes a number of _custom_ dictionaries distributed with this package, all of which are enabled by default:
-
-- `envsa-acronyms` Contains acronyms
-- `envsa-files` File extensions and types
-- `envsa-misc` Contains general and miscellaneous words
-- `envsa-names` Human names and usernames
-- `envsa-tech` Tech-specific terminology
-
-In your project's root `.cspell.json`, you can disable any combination of these dictionaries by adding them to the `dictionaries` array with a `!` prefix.
-
-For example, do disable the `envsa-acronyms` and `envsa-names` dictionaries:
-
-```json
-{
-  "import": "@envsa/cspell-config",
-  "dictionaries": [
-    "!envsa-acronyms",
-    "!envsa-names"
-    // ...Addtional !-prefixed dicitonary names
-  ]
-}
-```
-
-### Adding project-scoped words
-
-In your project's root `.cspell.json`:
-
-```json
-{
-  "import": "@envsa/cspell-config",
-  "words": [
-    "mountweazel",
-    "steinlaus",
-    "jungftak",
-    "esquivalience"
-    // ...Additional words
-  ]
-}
-```
-
 ## Notes
 
 This config includes a bunch of words I've happened to have needed to use. Your preferences will vary.
 
 CSpell is configured to automatically ignore files and paths in `.gitignore` (via `"useGitignore": true`), and to ignore words inside of ` ``` ` code fences in markdown and mdx files.
+
+As part of the `lint` command process, `@envsa/cspell-config` also runs a check to identify any words in your config file's `"words"` array that _do not_ actually appear anywhere else in your projcet. This was inspired by [Zamiell's](https://github.com/Zamiell) [cspell-check-unused-words](https://github.com/complete-ts/cspell-check-unused-words) project.
 
 ## Credits
 

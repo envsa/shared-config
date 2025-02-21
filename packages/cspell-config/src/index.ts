@@ -28,11 +28,8 @@ const sharedCspellConfig: CspellConfig = {
     'fullstack',
     'softwareTerms',
     'envsa-acronyms',
-    'envsa-brands',
     'envsa-files',
     'envsa-misc',
-    'envsa-names',
-    'envsa-tech',
   ],
   languageSettings: [
     {
