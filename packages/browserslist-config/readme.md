@@ -25,6 +25,14 @@ It's a shared [Browserslist](https://browsersl.ist) config.
 
 <!-- recommendation -->
 
+> [!IMPORTANT]
+>
+> **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config), which also automatically invokes the command line functionality in this package via its `envsa` command
+
+<!-- /recommendation -->
+
 ## Setup
 
 To use just this browserslist config in isolation:
@@ -70,9 +78,9 @@ Usage:
 envsa-browserslist <command>
 ```
 
-| Command | Description                                                                                   |
-| ------- | --------------------------------------------------------------------------------------------- |
-| `init`  | Initialize by copying starter config files to your project root or to your package.json file. |
+| Command | Description                                                      |
+| ------- | ---------------------------------------------------------------- |
+| `init`  | Initialize by copying starter config files to your project root. |
 
 | Option              | Description         | Type      |
 | ------------------- | ------------------- | --------- |
@@ -83,7 +91,7 @@ _See the sections below for more information on each subcommand._
 
 #### Subcommand: `envsa-browserslist init`
 
-Initialize by copying starter config files to your project root or to your package.json file.
+Initialize by copying starter config files to your project root.
 
 Usage:
 
@@ -91,11 +99,10 @@ Usage:
 envsa-browserslist init
 ```
 
-| Option              | Description         | Type                 | Default  |
-| ------------------- | ------------------- | -------------------- | -------- |
-| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
-| `--help`<br>`-h`    | Show help           | `boolean`            |          |
-| `--version`<br>`-v` | Show version number | `boolean`            |          |
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 
