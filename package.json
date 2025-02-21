@@ -48,7 +48,6 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@envsa/browserslist-config": "workspace:*",
     "@envsa/cspell-config": "workspace:*",
     "@envsa/eslint-config": "workspace:*",
     "@envsa/mdat-config": "workspace:*",
@@ -64,7 +63,6 @@
     "bumpp": "^10.0.3",
     "chalk": "^5.4.1",
     "cosmiconfig": "^9.0.0",
-    "decircular": "^1.0.0",
     "deepmerge": "^4.3.1",
     "esbuild": "^0.25.0",
     "execa": "^9.5.2",

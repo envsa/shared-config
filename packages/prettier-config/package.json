@@ -48,7 +48,6 @@
     "@pinojs/json-colorizer": "^4.0.0",
     "@prettier/plugin-php": "^0.22.2",
     "@prettier/plugin-xml": "^3.4.1",
-    "@zackad/prettier-plugin-twig": "^0.15.2",
     "cosmiconfig": "^9.0.0",
     "deepmerge-ts": "^7.1.4",
     "execa": "^9.5.2",

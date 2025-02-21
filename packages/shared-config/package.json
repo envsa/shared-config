@@ -42,7 +42,6 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@envsa/browserslist-config": "workspace:*",
     "@envsa/cspell-config": "workspace:*",
     "@envsa/eslint-config": "workspace:*",
     "@envsa/knip-config": "workspace:*",
