@@ -3,7 +3,7 @@ import { type CommandDefinition } from '../../../src/command-builder';
 export const commandDefinition: CommandDefinition = {
   commands: {
     init: {
-      locationOptionFlag: true,
+      locationOptionFlag: false,
     },
   },
   description: "Envsa's Browserslist shared configuration tool.",

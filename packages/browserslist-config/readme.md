@@ -23,7 +23,7 @@
 
 It's a shared [Browserslist](https://browsersl.ist) config.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
 
 ## Setup
 
@@ -32,13 +32,14 @@ To use just this browserslist config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @envsa/repo-config --init
+   pnpm dlx @envsa/repo-config init
    ```
 
 2. Add the package:
 
    ```sh
    pnpm add -D @envsa/browserslist-config
+   pnpm envsa-browserslist init
    ```
 
 ## Usage
@@ -46,7 +47,9 @@ To use just this browserslist config in isolation:
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"browserslist": ["extends @envsa/browserslist-config"]
+{
+  "browserslist": ["extends @envsa/browserslist-config"]
+}
 ```
 
 or use the cli
