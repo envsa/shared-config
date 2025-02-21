@@ -45,6 +45,7 @@ botanicgardens
 brandle
 brissenden
 brownhill
+browserslistrc
 brushcutting
 buffel
 bullrich
