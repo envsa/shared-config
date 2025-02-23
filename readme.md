@@ -2,19 +2,20 @@
 
 <!-- title { prefix: "🔬 " } -->
 
-# 🔬 shared-config-monorepo
+# 🔬 @envsa/shared-config
 
 <!-- /title -->
 
 <!-- badges -->
 
+[![NPM Package @envsa/shared-config](https://img.shields.io/npm/v/@envsa/shared-config.svg)](https://npmjs.com/package/@envsa/shared-config)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <!-- /badges -->
 
 <!-- description -->
 
-**A single dependency and single command to configure and run various code linters and tools.**
+**A collection of shared configurations, linters and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single command.**
 
 <!-- /description -->
 
