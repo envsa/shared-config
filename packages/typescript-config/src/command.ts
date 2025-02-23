@@ -33,6 +33,6 @@ export const commandDefinition: CommandDefinition = {
   description: "Envsa's TypeScript shared configuration tools.",
   logColor: 'blueBright',
   logPrefix: '[TypeScript Config]',
-  name: 'Envsa-typescript',
+  name: 'envsa-typescript',
   order: 3,
 };

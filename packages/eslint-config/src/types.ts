@@ -100,7 +100,7 @@ export type OptionsTypeAware = {
      * Explicitly enable or disable type aware rules.
      *
      * If undefined, the type aware rules will be enabled automatically in TS if a
-     * tsconfig is found, and will be enabled in JS if typeScript is detected
+     * tsconfig is found, and will be enabled in JS if TypeScript is detected
      * _and_ `checkJs` is enabled in your tsconfig.
      * @default undefined
      */
