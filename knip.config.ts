@@ -9,6 +9,7 @@ export default knipConfig({
     '@prettier/plugin-php',
     '@prettier/plugin-xml',
     '@types/eslint-config-prettier',
+    '@zackad/prettier-plugin-twig',
     'case-police',
     'chalk',
     'cspell-lib',
