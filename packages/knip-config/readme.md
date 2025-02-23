@@ -55,7 +55,7 @@ pnpm add -D @envsa/knip-config
 pnpm exec envsa-knip init
 ```
 
-## Usave
+## Usage
 
 Integrate with your `package.json` scripts as you see fit, for example:
 
