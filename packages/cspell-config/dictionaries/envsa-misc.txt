@@ -15,6 +15,7 @@ aroona
 ashbys
 assetbundles
 assetusage
+attw
 autocommit
 autoheight
 autohide
@@ -85,7 +86,7 @@ cooldown
 coorong
 corepack
 cosi
-Cosmicconfig
+cosmicconfig
 cpresources
 crafers
 craftcms
@@ -153,12 +154,14 @@ fishwatch
 fleurieu
 flipboxfactory
 florasa
+flowtype
 fnames
 fontawesome
 fontfaceobserver
 formie
 franssen
 freeforms
+freelist
 frutiger
 ftypes
 fullscreen
@@ -228,6 +231,7 @@ kitschpatrol
 koalalife
 koonalda
 kowalick
+ksdiff
 kurangk
 kylekatarnls
 labelledby
@@ -258,6 +262,7 @@ matrixmate
 maxresdefault
 maxxia
 mcfarlane
+mdast
 mdat
 mdatrc
 menlo
@@ -274,6 +279,7 @@ mousedown
 movember
 mozallowfullscreen
 mstile
+multilines
 multirow
 munjal
 murraylands
@@ -290,7 +296,9 @@ ngadjuri
 ngarrindjeri
 nilpena
 nomster
+nonblock
 nonconstructor
+nonoctal
 noopener
 noreferrer
 noscript
@@ -302,6 +310,7 @@ novated
 nullarbor
 nums
 nunito
+NVIM
 nystudio
 obrien
 offc
@@ -385,6 +394,7 @@ seomatic
 servertype
 showinfo
 simplemap
+sindresorhus
 sitemodule
 sitewide
 slickcarousel
@@ -408,6 +418,7 @@ sublicensable
 superpdf
 swiffy
 swiffyslider
+sxzz
 tabindex
 tablemaker
 tablespaces
@@ -420,6 +431,7 @@ templatecachecriteria
 templatecacheelements
 templatecachequeries
 templatecaches
+thenables
 thura
 timewise
 tldr
@@ -478,4 +490,5 @@ yorke
 yoursay
 yvie
 zackad
+zamiell
 zeldman

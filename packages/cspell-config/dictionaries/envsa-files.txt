@@ -4,3 +4,4 @@ cjpeg
 dfont
 flac
 gif
+remarkrc
