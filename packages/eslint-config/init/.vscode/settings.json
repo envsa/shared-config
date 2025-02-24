@@ -1,9 +1,26 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll": "explicit",
+    "source.organizeImports": "never"
   },
   "eslint.enable": true,
+  "eslint.runtime": "node",
+  "eslint.validate": [
+    "html",
+    "javascript",
+    "json",
+    "json5",
+    "jsonc",
+    "markdown",
+    "mdx",
+    "svelte",
+    "toml",
+    "typescript",
+    "twig",
+    "xml",
+    "yaml"
+  ],
   "eslint.useFlatConfig": true,
-  "eslint.validate": ["html", "javascript", "markdown", "svelte", "typescript", "twig"],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -23,7 +23,15 @@
 
 It's a shared [Browserslist](https://browsersl.ist) config.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
+
+> [!IMPORTANT]
+>
+> **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config), which also automatically invokes the command line functionality in this package via its `envsa` command
+
+<!-- /recommendation -->
 
 ## Setup
 
@@ -32,13 +40,14 @@ To use just this browserslist config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @envsa/repo-config --init
+   pnpm dlx @envsa/repo-config init
    ```
 
 2. Add the package:
 
    ```sh
    pnpm add -D @envsa/browserslist-config
+   pnpm envsa-browserslist init
    ```
 
 ## Usage
@@ -46,30 +55,54 @@ To use just this browserslist config in isolation:
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"browserslist": ["extends @envsa/browserslist-config"]
+{
+  "browserslist": ["extends @envsa/browserslist-config"]
+}
 ```
 
 or use the cli
 
 ### CLI
 
-<!-- cli-help {cliCommand: "browserslist-config"} -->
+<!-- cli-help -->
 
-#### Subcommand: `browserslist-config --init`
+#### Command: `envsa-browserslist`
 
-Browserslist configuration for @envsa/shared-config.
+Envsa's Browserslist shared configuration tool.
+
+This section lists top-level commands for `envsa-browserslist`.
 
 Usage:
 
 ```txt
-browserslist-config --init
+envsa-browserslist <command>
 ```
 
-| Option              | Description                             |
-| ------------------- | --------------------------------------- |
-| `--init`<br>`-i`    | Add browserslist key to `package.json`. |
-| `--help`<br>`-h`    | Print this help info.                   |
-| `--version`<br>`-v` | Print the package version.              |
+| Command | Description                                                      |
+| ------- | ---------------------------------------------------------------- |
+| `init`  | Initialize by copying starter config files to your project root. |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-browserslist init`
+
+Initialize by copying starter config files to your project root.
+
+Usage:
+
+```txt
+envsa-browserslist init
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

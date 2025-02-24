@@ -21,9 +21,17 @@
 
 ## Overview
 
-It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config.
+It's a shared [MDAT (Markdown Autophagic Template)](https://github.com/kitschpatrol/mdat) system config, plus a command-line tool `envsa-mdat` to perform mdat-related project initialization, linting, and fixing.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
+
+> [!IMPORTANT]
+>
+> **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config), which also automatically invokes the command line functionality in this package via its `envsa` command
+
+<!-- /recommendation -->
 
 ## Setup
 
@@ -32,7 +40,7 @@ To use just `mdat-config` in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @envsa/repo-config --init
+   pnpm dlx @envsa/repo-config init
    ```
 
 2. Add the package:
@@ -41,10 +49,10 @@ To use just `mdat-config` in isolation:
    pnpm add -D @envsa/mdat-config
    ```
 
-3. Add the starter `.mdatrc.ts` file to your project root, and add any customizations you'd like:
+3. Add the starter `mdat.config.ts` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec mdat-config --init
+   pnpm exec envsa-mdat init
    ```
 
 ## Usage
@@ -56,38 +64,128 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "lint": "mdat-config --check"
-  "format": "mdat-config --fix"
+{
+  "scripts": {
+    "lint": "envsa-mdat lint",
+    "fix": "envsa-mdat fix"
+  }
 }
 ```
 
 "Fix" in this case is a slight misnomer for consistency with the other shared-config tools.
 
-It runs `mdat readme expand` to expand placeholder comments in your readme.md using the bundled [`mdat readme`](https://github.com/kitschpatrol/mdat/blob/main/packages/mdat/readme.md#the-mdat-readme-subcommand) expansion rules, plus custom rules provided by `mdat-config`'s `mdat.config.ts` file, plus any additional rules specified in the repository-specific `.mdatrc.ts` file.
+It runs `mdat readme expand` to expand placeholder comments in your readme.md using the bundled [`mdat readme`](https://github.com/kitschpatrol/mdat/blob/main/packages/mdat/readme.md#the-mdat-readme-subcommand) expansion rules, plus custom rules provided by `mdat-config`'s `mdat.config.ts` file, plus any additional rules specified in the repository-specific `mdat.config.ts` file.
+
+### Configuration
+
+To create a `mdat.config.ts` in your project root:
+
+```sh
+pnpm exec envsa-mdat init
+```
+
+(Note that this will delete the `mdat` property in your `package.json`!)
+
+_Or_
+
+To create a `mdat` property in `package.json`:
+
+```sh
+pnpm exec envsa-mdat init --location package
+```
+
+(Note that this will delete the `mdat.config.ts` file in your project root!)
 
 ### CLI
 
 <!-- cli-help -->
 
-#### Command: `mdat-config`
+#### Command: `envsa-mdat`
 
-MDAT configuration for @envsa/shared-config.
+Envsa's Mdat shared configuration tools.
+
+This section lists top-level commands for `envsa-mdat`.
 
 Usage:
 
 ```txt
-mdat-config [<file|glob> ...]
+envsa-mdat <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `mdat-config`.              |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Description                                                                                                                                                                                    |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init`         | Initialize by copying starter config files to your project root or to your package.json file.                                                                                                  |
+| `lint`         | Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped. In a monorepo, it will also run in all packages below the current working directory. |
+| `fix`          | Expand all Mdat content placeholders in your readme.md file(s). Package-scoped. In a monorepo, it will also run in all packages below the current working directory.                           |
+| `print-config` | Print the effective Mdat configuration. Package-scoped.. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.                    |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-mdat init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+envsa-mdat init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `envsa-mdat lint`
+
+Validate that all Mdat content placeholders in your readme.md file(s) have been expanded. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
+
+Usage:
+
+```txt
+envsa-mdat lint
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-mdat fix`
+
+Expand all Mdat content placeholders in your readme.md file(s). Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
+
+Usage:
+
+```txt
+envsa-mdat fix
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-mdat print-config`
+
+Print the effective Mdat configuration. Package-scoped.. Searches up to the root of a monorepo if necessary.. Includes configuration provided by the `mdat readme` command.
+
+Usage:
+
+```txt
+envsa-mdat print-config
+```
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

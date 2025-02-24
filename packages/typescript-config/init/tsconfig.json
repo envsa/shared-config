@@ -1,0 +1,7 @@
+{
+  "extends": "@envsa/typescript-config",
+
+  // Includes project dit-files files for typescript-eslint integration
+  "include": ["**/*", "**/**.*"],
+  "exclude": ["**/dist/", "**/bin/"]
+}

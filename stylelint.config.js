@@ -1,5 +1,5 @@
-/** @type {import("stylelint").Config} */
-export default {
-  extends: ['@envsa/stylelint-config'],
-  // Overrides
-};
+import { stylelintConfig } from '@envsa/stylelint-config';
+
+export default stylelintConfig({
+  ignoreFiles: ['test/fixtures/input/*.*', 'test/fixtures/output-fixed-auto/*.*'],
+});

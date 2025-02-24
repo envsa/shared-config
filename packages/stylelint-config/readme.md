@@ -21,9 +21,17 @@
 
 ## Overview
 
-It's a shared [Stylelint](https://stylelint.io) config.
+It's a shared [Stylelint](https://stylelint.io) config, plus a command-line tool `envsa-stylelint` to perform Stylelint-related project initialization, linting, and fixing.
 
-**See [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) for the recommended single-package approach.**
+<!-- recommendation -->
+
+> [!IMPORTANT]
+>
+> **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
+>
+> This package is included as a dependency in [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config), which also automatically invokes the command line functionality in this package via its `envsa` command
+
+<!-- /recommendation -->
 
 ## Setup
 
@@ -32,7 +40,7 @@ To use just this Stylelint config in isolation:
 1. Install the `.npmrc` in your project root. This is required for correct PNPM behavior:
 
    ```sh
-   pnpm dlx @envsa/repo-config --init
+   pnpm dlx @envsa/repo-config init
    ```
 
 2. Add the package:
@@ -41,11 +49,20 @@ To use just this Stylelint config in isolation:
    pnpm add -D @envsa/stylelint-config
    ```
 
-3. Add the starter `.stylelintrc.cjs` file to your project root, and add any customizations you'd like:
+3. Add the starter `stylelint.config.js` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec stylelint-config --init
+   pnpm exec envsa-stylelint init
    ```
+
+## Rules
+
+- [stylelint-config-recommended](https://github.com/stylelint/stylelint-config-recommended) _([Rules](https://github.com/stylelint/stylelint-config-recommended/blob/main/index.js))_
+- [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) _(Extends the above with [additional rules](https://github.com/stylelint/stylelint-config-standard/blob/main/index.js))_
+- [stylelint-config-standard-scss](https://github.com/stylelint-scss/stylelint-config-standard-scss) For projects still using scss
+- [stylelint-config-clean-order](https://github.com/kutsan/stylelint-config-clean-order)
+- [stylelint-config-html](https://www.npmjs.com/package/stylelint-config-html) _(Parses HTML, XML, Vue, Svelte, Astro, and PHP files)_
+- [Additional customizations](./src/index.ts)
 
 ## Usage
 
@@ -56,34 +73,158 @@ You can call it directly, or use the script bundled with the config.
 Integrate with your `package.json` scripts as you see fit, for example:
 
 ```json
-"scripts": {
-  "lint": "stylelint-config --check"
-  "format": "stylelint-config --fix"
+{
+  "scripts": {
+    "lint": "envas-stylelint lint",
+    "fix": "envas-stylelint fix"
+  }
 }
 ```
+
+### Configuration
+
+To create a `stylelint.config.js` in your project root:
+
+```sh
+pnpm exec envas-stylelint init
+```
+
+(Note that this will delete the `stylelint` property in your `package.json`!)
+
+_Or_
+
+To create a `stylelint` property in `package.json`:
+
+```sh
+pnpm exec envas-stylelint init --location package
+```
+
+(Note that this will delete the `stylelint.config.js` file in your project root!)
+
+#### Ignoring files
+
+Ignores all files in `.gitignore` by default.
+
+Additional tool-specific ignores may be added to the config via the [`ignoreFiles`](https://stylelint.io/user-guide/configure#ignorefiles) key.
+
+#### Ignoring code
+
+See [the Stylelint documentation](https://stylelint.io/user-guide/ignore-code).
+
+Blocks:
+
+`/* stylelint-disable */ ...  /* stylelint-enable */`
+
+Inline:
+
+`/* stylelint-disable-line */`
+
+Next line:
+
+`/* stylelint-disable-next-line`
 
 ### CLI
 
 <!-- cli-help -->
 
-#### Command: `stylelint-config`
+#### Command: `envsa-stylelint`
 
-Stylelint configuration for @envsa/shared-config.
+Envsa's Stylelint shared configuration tools.
+
+This section lists top-level commands for `envsa-stylelint`.
 
 Usage:
 
 ```txt
-stylelint-config [<file|glob> ...]
+envsa-stylelint <command>
 ```
 
-| Option                   | Argument | Description                                                      |
-| ------------------------ | -------- | ---------------------------------------------------------------- |
-| `--check`<br>`-c`        |          | Check for and report issues. Same as `stylelint-config`.         |
-| `--fix`<br>`-f`          |          | Fix all auto-fixable issues, and report the un-fixable.          |
-| `--init`<br>`-i`         |          | Initialize by copying starter config files to your project root. |
-| `--print-config`<br>`-p` | `<path>` | Print the effective configuration at a certain path.             |
-| `--help`<br>`-h`         |          | Print this help info.                                            |
-| `--version`<br>`-v`      |          | Print the package version.                                       |
+| Command        | Argument    | Description                                                                                                          |
+| -------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| `init`         |             | Initialize by copying starter config files to your project root or to your package.json file.                        |
+| `lint`         | `[files..]` | Lint your project with Stylelint. Matches files below the current working directory by default.                      |
+| `fix`          | `[files..]` | Fix your project with Stylelint. Matches files below the current working directory by default.                       |
+| `print-config` | `[file]`    | Print the effective Stylelint configuration. Package-scoped by default, file-scoped if a file argument is provided.. |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+_See the sections below for more information on each subcommand._
+
+#### Subcommand: `envsa-stylelint init`
+
+Initialize by copying starter config files to your project root or to your package.json file.
+
+Usage:
+
+```txt
+envsa-stylelint init
+```
+
+| Option              | Description         | Type                 | Default  |
+| ------------------- | ------------------- | -------------------- | -------- |
+| `--location`        | TK                  | `"file"` `"package"` | `"file"` |
+| `--help`<br>`-h`    | Show help           | `boolean`            |          |
+| `--version`<br>`-v` | Show version number | `boolean`            |          |
+
+#### Subcommand: `envsa-stylelint lint`
+
+Lint your project with Stylelint. Matches files below the current working directory by default.
+
+Usage:
+
+```txt
+envsa-stylelint lint [files..]
+```
+
+| Positional Argument | Description                    | Type    | Default                                                    |
+| ------------------- | ------------------------------ | ------- | ---------------------------------------------------------- |
+| `files`             | Files or glob pattern to lint. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-stylelint fix`
+
+Fix your project with Stylelint. Matches files below the current working directory by default.
+
+Usage:
+
+```txt
+envsa-stylelint fix [files..]
+```
+
+| Positional Argument | Description                   | Type    | Default                                                    |
+| ------------------- | ----------------------------- | ------- | ---------------------------------------------------------- |
+| `files`             | Files or glob pattern to fix. | `array` | `"**/*.{css,scss,sass,svelte,html,astro,tsx,jsx,php,vue}"` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
+
+#### Subcommand: `envsa-stylelint print-config`
+
+Print the effective Stylelint configuration. Package-scoped by default, file-scoped if a file argument is provided..
+
+Usage:
+
+```txt
+envsa-stylelint print-config [file]
+```
+
+| Positional Argument | Description                 | Type     |
+| ------------------- | --------------------------- | -------- |
+| `file`              | File or glob pattern to TK. | `string` |
+
+| Option              | Description         | Type      |
+| ------------------- | ------------------- | --------- |
+| `--help`<br>`-h`    | Show help           | `boolean` |
+| `--version`<br>`-v` | Show version number | `boolean` |
 
 <!-- /cli-help -->
 

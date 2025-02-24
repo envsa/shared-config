@@ -3,6 +3,8 @@
     "svelte.svelte-vscode",
     "bradlc.vscode-tailwindcss",
     "EditorConfig.EditorConfig",
-    "moetelo.twiggy"
+    "zepich.twig-braces-helper",
+    "mblode.twig-language-2",
+    "Chaxwell.twig-link-resolver"
   ]
 }

@@ -1,19 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable ts/no-unsafe-argument */
+/* eslint-disable ts/no-unsafe-assignment */
+/* eslint-disable ts/no-explicit-any */
 
 import jsonColorizer from '@pinojs/json-colorizer';
 import type { ArrayMergeOptions, Options } from 'deepmerge';
+import decircular from 'decircular';
 import deepmerge from 'deepmerge';
 import jsonStringifyPrettyCompact from 'json-stringify-pretty-compact';
 
-function stringify(object: unknown): string {
+/**
+ * TK
+ */
+export function stringify(object: any): string {
   return jsonColorizer(
-    jsonStringifyPrettyCompact(object, {
+    jsonStringifyPrettyCompact(decircular(object), {
       indent: 2,
       replacer(_, value) {
         if (typeof value === 'function') {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+          // eslint-disable-next-line ts/no-unsafe-function-type
           return (value as Function).name;
         }
 
@@ -22,6 +26,7 @@ function stringify(object: unknown): string {
     }),
     {
       colors: {
+        // eslint-disable-next-line ts/naming-convention
         BRACKET: 'gray',
       },
     },
@@ -45,13 +50,13 @@ const combineMerge = (target: any[], source: any[], options: ArrayMergeOptions):
   return destination;
 };
 
-function merge(
+/**
+ * TK
+ */
+export function merge(
   destination: any,
   source: any,
-
   options: Options = { arrayMerge: combineMerge },
 ): any[] {
   return deepmerge(destination, source, options);
 }
-
-export { merge, stringify };
