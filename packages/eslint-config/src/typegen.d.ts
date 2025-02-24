@@ -544,10 +544,6 @@ export interface RuleOptions {
    */
   'json-package/require-author'?: Linter.RuleEntry<[]>;
   /**
-   * Requires the `files` property to be present.
-   */
-  'json-package/require-files'?: Linter.RuleEntry<[]>;
-  /**
    * Requires the `keywords` property to be present.
    */
   'json-package/require-keywords'?: Linter.RuleEntry<[]>;
