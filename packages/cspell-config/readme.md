@@ -118,14 +118,14 @@ export default cspellConfig({
   dictionaries: [
     '!envsa-acronyms',
     '!envsa-misc',
-    // ...Addtional !-prefixed dicitonary names
+    // ...Additional !-prefixed dicitonary names
   ],
 });
 ```
 
 #### Adding project-scoped words
 
-In your project's root `.cspell.json`:
+In your project's root `cspell.config.js`:
 
 ```js
 import { cspellConfig } from '@envsa/cspell-config';
