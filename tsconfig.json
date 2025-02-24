@@ -3,5 +3,10 @@
 
   // Includes project dit-files files for typescript-eslint integration
   "include": ["**/*", "**/**.*"],
-  "exclude": ["**/dist/", "**/bin/"]
+  "exclude": [
+    "**/dist/",
+    "**/bin/",
+    "test/fixtures/input/*.*",
+    "test/fixtures/output-fixed-auto/*.*"
+  ]
 }
