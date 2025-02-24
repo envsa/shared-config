@@ -25,7 +25,7 @@ It's a shared [CSpell](https://cspell.org) config, plus a command-line tool `env
 
 <!-- recommendation -->
 
-> \[!IMPORTANT]
+> [!IMPORTANT]
 >
 > **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
@@ -52,7 +52,7 @@ To use just this CSpell config in isolation:
 3. Add the starter `.cspell.json` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpi-cspell init
+   pnpm exec envsa-cspell init
    ```
 
 ## Usage

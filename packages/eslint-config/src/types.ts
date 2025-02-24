@@ -37,7 +37,7 @@ export type OptionsConfig = {
   json?: OptionsOverrides;
 
   /**
-   * Enable linting for Markdown
+   * Enable linting for Markdown via Remark, and Markdown code snippets.
    * @default true
    */
   md?: OptionsOverrides & OptionsOverridesEmbeddedScripts;

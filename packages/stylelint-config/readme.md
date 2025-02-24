@@ -25,7 +25,7 @@ It's a shared [Stylelint](https://stylelint.io) config, plus a command-line tool
 
 <!-- recommendation -->
 
-> \[!IMPORTANT]
+> [!IMPORTANT]
 >
 > **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
@@ -52,7 +52,7 @@ To use just this Stylelint config in isolation:
 3. Add the starter `stylelint.config.js` file to your project root, and add any customizations you'd like:
 
    ```sh
-   pnpm exec kpi-stylelint init
+   pnpm exec envsa-stylelint init
    ```
 
 ## Rules

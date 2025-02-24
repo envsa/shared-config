@@ -12,6 +12,7 @@ import { commandDefinition as eslintCommand } from '../../eslint-config/src/comm
 import { commandDefinition as knipCommand } from '../../knip-config/src/command.js';
 import { commandDefinition as mdatCommand } from '../../mdat-config/src/command.js';
 import { commandDefinition as prettierCommand } from '../../prettier-config/src/command.js';
+import { commandDefinition as remarkCommand } from '../../remark-config/src/command.js';
 import { commandDefinition as repoCommand } from '../../repo-config/src/command.js';
 import { commandDefinition as stylelintCommand } from '../../stylelint-config/src/command.js';
 import { commandDefinition as typescriptCommand } from '../../typescript-config/src/command.js';
@@ -22,6 +23,7 @@ const subcommandDefinitions = [
   knipCommand,
   mdatCommand,
   prettierCommand,
+  remarkCommand,
   repoCommand,
   stylelintCommand,
   typescriptCommand,

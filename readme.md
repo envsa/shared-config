@@ -56,6 +56,7 @@ It takes care of dependencies, configuration, invocation, and reporting for the 
 - [Knip](https://knip.dev/)
 - [VS Code](https://code.visualstudio.com) (extension recommendations, extension settings and useful snippets)
 - [mdat](https://github.com/kitschpatrol/mdat) (markdown templating and expansion tool)
+- [remarklint](https://github.com/remarkjs/remark-lint)
 - [browserslist](https://browsersl.ist/) for unified browser support across projects
 - Minimal repo boilerplate (`.npmrc`, `.gitignore`, etc.)
 
@@ -75,11 +76,12 @@ This particular readme is for the [`@envsa/shared-config`](https://www.npmjs.com
 - [`@envsa/knip-config`](https://github.com/envsa/shared-config/blob/main/packages/knip-config/readme.md) (`envsa-knip` command)
 - [`@envsa/mdat-config`](https://github.com/envsa/shared-config/blob/main/packages/mdat-config/readme.md) (`envsa-mdat` command)
 - [`@envsa/prettier-config`](https://github.com/envsa/shared-config/blob/main/packages/prettier-config/readme.md) (`envsa-prettier` command)
+- [`@envsa/remark-config`](https://github.com/envsa/shared-config/blob/main/packages/remark-config/readme.md) (`envsa-remark` command)
 - [`@envsa/repo-config`](https://github.com/envsa/shared-config/blob/main/packages/repo-config/readme.md) (`envsa-repo` command)
 - [`@envsa/stylelint-config`](https://github.com/envsa/shared-config/blob/main/packages/stylelint-config/readme.md) (`envsa-stylelint` command)
 - [`@envsa/typescript-config`](https://github.com/envsa/shared-config/blob/main/packages/typescript-config/readme.md) (`envsa-typescript` command)
 
-> \[!IMPORTANT]
+> [!IMPORTANT]
 >
 > Any of these packages may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@envsa/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
@@ -103,6 +105,7 @@ envsa-eslint init
 envsa-stylelint init
 envsa-cspell init
 envsa-knip init
+envsa-remark init
 envsa-prettier init
 envsa-browserslist init
 ```
@@ -307,7 +310,7 @@ envsa print-config [file]
 
 <!-- /cli-help -->
 
-Recall that the `@kitschpatrol/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `kpi` effectively runs the same command against all the tool-specific packages.
+Recall that the `@envsa/shared-config` package aggregates integration and invocation of the other tool-specific packages in this monorepo. Running a cli command on `envsa` effectively runs the same command against all the tool-specific packages.
 
 ## Implementation notes
 
@@ -327,7 +330,7 @@ The monorepo must be kept intact, as the sub-packages depend on scripts in the p
 
 The pnpm authors consider module hoisting harmful, and I tend to agree, but certain exceptions are carved out as necessary and accommodated via the `.npmrc` file included in `@envsa/repo-config`:
 
-- CSpell, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
+- CSpell, remark, mdat, ESLint, and Prettier all need to be hoisted via `public-hoist-pattern` to be accessible in `pnpm exec` scripts and to VS Code plugins.
 
 - Even basic file-only packages like `repo-config` seem to need to be hoisted via for their bin scripts to be accessible via `pnpm exec`
 

@@ -20,6 +20,7 @@ function isDirectoryBelow(directory: string, parent: string): boolean {
  * '/Users/lrella/Code/shared-config/packages/knip-config',
  * '/Users/lrella/Code/shared-config/packages/mdat-config',
  * '/Users/lrella/Code/shared-config/packages/prettier-config',
+ * '/Users/lrella/Code/shared-config/packages/remark-config',
  * '/Users/lrella/Code/shared-config/packages/repo-config',
  * '/Users/lrella/Code/shared-config/packages/shared-config',
  * '/Users/lrella/Code/shared-config/packages/stylelint-config',
