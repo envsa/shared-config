@@ -1,5 +1,5 @@
 import { default as pluginHtml } from '@html-eslint/eslint-plugin';
-import { default as parserHtml, TEMPLATE_ENGINE_SYNTAX } from '@html-eslint/parser';
+import { default as htmlParser } from '@html-eslint/parser';
 import { default as pluginHtmlScript } from 'eslint-plugin-html';
 import type {
   OptionsOverrides,
@@ -12,7 +12,7 @@ import { GLOB_HTML } from '../globs';
 import { htmlRecommendedRules } from '../presets/html';
 
 // eslint-plugin-html lints scripts inside HTML files
-// @html-eslint/parser and @html-eslint/plugin are used to lintHTML files themselves
+// @html-eslint/parser and @html-eslint/plugin are used to lint HTML files themselves
 
 export async function html(
   options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
@@ -34,16 +34,13 @@ export async function html(
         ...overridesEmbeddedScripts,
       },
     },
+    // Only HTML files get the HTML parser
     {
-      // Only HTML files get the HTML parser
       files,
-      name: 'envsa/html/setup',
       languageOptions: {
-        parser: parserHtml,
-        parserOptions: {
-          templateEngineSyntax: TEMPLATE_ENGINE_SYNTAX.TWIG,
-        },
+        parser: htmlParser,
       },
+      name: 'envsa/html/setup',
       plugins: {
         html: pluginHtml,
       },
