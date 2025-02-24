@@ -1,6 +1,6 @@
 import * as parserMdx from 'eslint-mdx';
 import * as pluginMdx from 'eslint-plugin-mdx';
-import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE } from '../globs';
+import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MDX } from '../globs';
 import type {
   OptionsOverrides,
   OptionsOverridesEmbeddedScripts,
@@ -19,7 +19,12 @@ export async function md(
       files,
       // Need to ignore both Markdown and MDX files to successfully ignore
       // nested Markdown / MDX blocks
-      ignores: [`${GLOB_MARKDOWN}/*.md`, `${GLOB_MARKDOWN}/*.mdx`],
+      ignores: [
+        `${GLOB_MARKDOWN}/*.md`,
+        `${GLOB_MARKDOWN}/*.mdx`,
+        `${GLOB_MDX}/*.md`,
+        `${GLOB_MDX}/*.mdx`,
+      ],
       languageOptions: {
         ecmaVersion: 'latest',
         parser: parserMdx,
