@@ -86,7 +86,7 @@ cooldown
 coorong
 corepack
 cosi
-cosmicconfig
+cosmiconfig
 cpresources
 crafers
 craftcms
