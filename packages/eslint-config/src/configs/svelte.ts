@@ -1,13 +1,15 @@
+import type { OptionsOverrides, TypedFlatConfigItem } from '../types';
 import { GLOB_SVELTE } from '../globs';
 import { tsParser } from '../parsers';
 import { svelteRecommendedRules } from '../presets';
-import type { OptionsOverrides, TypedFlatConfigItem } from '../types';
 import { interopDefault } from '../utils';
 import { sharedScriptConfig } from './shared-js-ts';
 
 export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
   const { overrides = {} } = options;
+
   const files = [GLOB_SVELTE];
+
   const [pluginSvelte, parserSvelte] = await Promise.all([
     interopDefault(import('eslint-plugin-svelte')),
     interopDefault(import('svelte-eslint-parser')),
@@ -21,7 +23,7 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
       },
     },
     {
-      // TODO inherit? or is this just the markup part?
+      // TODO inherit? Or is this just the markup part?
       ...sharedScriptConfig,
       files,
       languageOptions: {
@@ -35,12 +37,13 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
       processor: pluginSvelte.processors['.svelte'],
       rules: {
         ...svelteRecommendedRules,
+        'import/no-mutable-exports': 'off', // Allow prop export
         'no-sequences': 'off', // Reactive statements
         // https://github.com/typescript-eslint/typescript-eslint/blob/1cf9243/docs/getting-started/linting/FAQ.md#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
-        'no-undef-int': 'off', // Initialize props to undefined
+        'no-undef-init': 'off', // Initialize props to undefined
         'prefer-const': 'off', // Needed for let props
         // TODO revisit, what's template and what's code?
-        // TODO import shared?
+        // TOdO import shared?
         'ts/no-confusing-void-expression': 'off', // Reactive statements
         'ts/no-unused-expressions': 'off', // Needed for reactive statements
         'unicorn/filename-case': [
@@ -58,9 +61,10 @@ export async function svelte(options: OptionsOverrides = {}): Promise<TypedFlatC
       },
     },
     {
-      files: ['**/routes/**/*.ts'],
+      // TODO is this the right spot?
+      files: ['**/routes/**/+*.ts'],
       rules: {
-        // Error often imported from '@sveltejs/kit' in SvelteKit files
+        // Error often imported from from '@sveltejs/kit' in SvelteKit files
         'ts/no-throw-literal': 'off',
       },
     },

@@ -1,9 +1,9 @@
 import { default as pluginTest } from '@vitest/eslint-plugin';
 import { default as pluginNoOnlyTests } from 'eslint-plugin-no-only-tests';
 import globals from 'globals';
+import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types';
 import { GLOB_TESTS } from '../globs';
 import { testRecommendedRules, xoTypescriptTestRules } from '../presets';
-import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types';
 
 // Hold the reference so we don't redeclare the plugin on each call
 // eslint-disable-next-line ts/no-explicit-any

@@ -27,13 +27,19 @@ export async function ts(
         ...overrides,
       },
     },
+    {
+      files: ['**/*.d.?([cm])ts'],
+      name: 'envsa/ts/dts',
+      rules: {
+        ...xoTypescriptDtsRules,
+      },
+    },
     typeAware.enabled && typeAware.ignores.length > 0
       ? {
           files: typeAware.ignores,
-          languageOptions: getLanguageOptions(false, true),
+          languageOptions: getLanguageOptions(false, false),
           name: 'envsa/ts/disable-type-aware',
           rules: {
-            ...xoTypescriptDtsRules,
             ...sharedScriptDisableTypeCheckedRules,
           },
         }

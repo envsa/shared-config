@@ -1,8 +1,9 @@
 import { default as pluginEslintComments } from '@eslint-community/eslint-plugin-eslint-comments';
 import { default as pluginTs } from '@typescript-eslint/eslint-plugin';
 import * as pluginDepend from 'eslint-plugin-depend';
-import { default as pluginUnicorn } from 'eslint-plugin-unicorn';
 import { default as pluginNode } from 'eslint-plugin-n';
+import { default as pluginUnicorn } from 'eslint-plugin-unicorn';
+import type { Rules, TypedFlatConfigItem } from '../types';
 import {
   dependRecommendedRules,
   eslintCommentsRecommendedRules,
@@ -16,18 +17,35 @@ import {
   xoJavascriptRules,
   xoTypescriptRules,
 } from '../presets';
-import type { Rules, TypedFlatConfigItem } from '../types';
 
 // ---------
 
-const envsaSharedDisableTypeCheckedRules: Rules = {
-  // 'jsdoc/check-tag-names': ['error', { typed: false }],
-  // 'jsdoc/no-types': 'off'
-};
+/**
+ * Recommended rules from the readme, but no preset config is exported from the
+ * plugin. Using built-in approach instead pending
+ * https://github.com/sweepline/eslint-plugin-unused-imports/issues/50
+ * TODO What about react?
+ * @see https://github.com/sweepline/eslint-plugin-unused-imports
+ */
+// const envsaUnusedImportsRules: Rules = {
+//   'no-unused-vars': 'off', // Or "@typescript-eslint/no-unused-vars": "off",
+//   'unused-imports/no-unused-imports': 'error',
+//   'unused-imports/no-unused-vars': [
+//     'warn',
+//     {
+//       args: 'after-used',
+//       argsIgnorePattern: '^_',
+//       vars: 'all',
+//       varsIgnorePattern: '^_',
+//     },
+//   ],
+// }
+
+const envsaSharedDisableTypeCheckedRules: Rules = {};
 
 /**
  * Rules shared by JS and TS scripts
- * Partial rule set requires `files` and `languageOptions` keys to be set appropriately in file-specific configs
+ * Partial rule set requires `files` and `languageOptions` keys to be set appropriately in file-specific configs.
  */
 export const sharedScriptConfig: TypedFlatConfigItem = {
   plugins: {
@@ -43,8 +61,8 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
     ...eslintTypescriptRecommendedOverridesRules,
     ...eslintTypescriptStrictTypeCheckedRules,
     ...eslintTypescriptStylisticTypeCheckedRules,
-    ...unicornRecommendedRules,
     ...nodeRecommendedRules,
+    ...unicornRecommendedRules,
     ...xoJavascriptRules,
     ...xoTypescriptRules,
     ...eslintCommentsRecommendedRules,
@@ -56,7 +74,7 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
         ignoreConsecutiveComments: true,
         ignoreInlineComments: true,
         // Forgive some additional common patterns arising from temporarily commenting out lines of code
-        ignorePattern: String.raw`if|else|await|const|let|var|import|export|pragma|ignore|prettier-ignore|c8|type-coverage`,
+        ignorePattern: String.raw`if|else|await|const|let|var|import|export|pragma|ignore|prettier-ignore|c8|type-coverage:`,
       },
     ],
     'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
@@ -69,9 +87,12 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
     'node/no-missing-import': 'off', // Trouble resolving in ts
     'node/no-process-exit': 'off', // Duplicated in unicorn
     'node/no-unsupported-features/node-builtins': ['error', { ignores: ['fs/promises.glob'] }],
+    'sort-imports': 'off', // Conflicts with perfectionist/sort-imports (but never enabled)
+    'ts/adjacent-overload-signatures': 'off', // Conflicts with perfectionist/sort-interfaces
     'ts/naming-convention': [
       // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
       'error',
+      // Group selectors
       {
         format: ['camelCase'],
         // Matches everything
@@ -119,13 +140,14 @@ export const sharedScriptConfig: TypedFlatConfigItem = {
         args: 'after-used',
         argsIgnorePattern: '^_',
         caughtErrors: 'all',
-        caughtErrorsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_$',
         destructuredArrayIgnorePattern: '^_',
         ignoreRestSiblings: true,
         vars: 'all',
         varsIgnorePattern: '^_',
       },
     ],
+    'ts/sort-type-constituents': 'off', // Conflicts with perfectionist/sort-intersection-types
     'unicorn/no-array-reduce': 'off',
     'unicorn/no-object-as-default-parameter': 'off',
     'unicorn/prefer-top-level-await': 'off',

@@ -2,6 +2,7 @@ import { default as pluginJson } from 'eslint-plugin-jsonc';
 import pluginJsonPackage from 'eslint-plugin-package-json';
 import { default as parserJson } from 'jsonc-eslint-parser';
 import { sortOrder as sortPackageJsonSortOrder } from 'sort-package-json';
+import type { OptionsOverrides, TypedFlatConfigItem } from '../types';
 import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs';
 import {
   jsonPackageRecommendedRules,
@@ -11,7 +12,6 @@ import {
   jsonRecommendedWithJsoncRules,
   jsonRecommendedWithJsonRules,
 } from '../presets';
-import type { OptionsOverrides, TypedFlatConfigItem } from '../types';
 
 export async function json(options: OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
   const { overrides = {} } = options;
@@ -63,8 +63,8 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
         ...jsonPrettierRules,
       },
     },
+    // VS Code settings
     {
-      // VS Code settings
       files: ['.vscode/**.json'],
       name: 'envsa/json/rules-settings',
       rules: {
@@ -72,8 +72,8 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
         'json/no-comments': 'off',
       },
     },
+    // Package json
     {
-      // Package json
       // TODO parser situation? Fine since it's already inheriting parser from above?
       files: ['**/package.json'],
       name: 'envsa/json/rules-package',
@@ -85,8 +85,8 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
           {
             // Put shared-config keys at the end...
             // otherwise sortPackageJsonSortOrder scatters them in the
-            // middle of package.json
-            // This mus stay in sync with packages/prettier-config/src/index.ts
+            // middle of package.json.
+            // This must stay in sync with packages/prettier-config/src/index.ts
             order: customizeSortOrder(sortPackageJsonSortOrder, [
               'cspell',
               'knip',
@@ -98,10 +98,11 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
           },
         ],
         'json-package/require-author': 'error',
+        'json-package/require-keywords': 'error',
       },
     },
+    // Sort tsconfig
     {
-      // Sort tsconfig
       files: [
         '**/tsconfig.json',
         '**/tsconfig.*.json',

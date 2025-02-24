@@ -1,17 +1,18 @@
 import * as parserMdx from 'eslint-mdx';
 import * as pluginMdx from 'eslint-plugin-mdx';
-import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MDX } from '../globs';
 import type {
   OptionsOverrides,
   OptionsOverridesEmbeddedScripts,
   TypedFlatConfigItem,
 } from '../types';
+import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MDX } from '../globs';
 import { sharedScriptConfig, sharedScriptDisableTypeCheckedRules } from './shared-js-ts';
 
 export async function md(
   options: OptionsOverrides & OptionsOverridesEmbeddedScripts = {},
 ): Promise<TypedFlatConfigItem[]> {
   const { overrides = {}, overridesEmbeddedScripts = {} } = options;
+
   const files = [GLOB_MARKDOWN];
 
   return [
@@ -41,8 +42,8 @@ export async function md(
       }),
       // These apply to the remark-lint pass only!
       rules: {
-        // TODO there's some issue accessing the recommended config
-        // "Error: Could not find the ESLint Linter in require cache"
+        // TODO there's some issue accessing the recommended config:
+        // "Error: Could not find ESLint Linter in require cache"
         'mdx/remark': 'warn',
         'unicorn/filename-case': 'error', // No shouting
         ...overrides,
@@ -54,7 +55,7 @@ export async function md(
       files: [GLOB_MARKDOWN_CODE],
       languageOptions: {
         parserOptions: {
-          projectServices: false,
+          projectService: false,
         },
       },
       name: 'envsa/markdown/code-blocks',
@@ -65,6 +66,26 @@ export async function md(
         'ts/no-unused-expressions': 'off',
         'ts/no-unused-vars': 'off',
         'unicorn/filename-case': 'off', // Don't enforce on internal code block file names
+        // TODO revisit
+        // 'import/newline-after-import': 'off',
+        // 'no-alert': 'off',
+        // 'no-console': 'off',
+        // 'no-labels': 'off',
+        // 'no-lone-blocks': 'off',
+        // 'no-restricted-syntax': 'off',
+        // 'no-undef': 'off',
+        // 'no-unused-labels': 'off',
+        // 'node/prefer-global/process': 'off',
+        // 'style/comma-dangle': 'off',
+        // 'style/eol-last': 'off',
+        // 'ts/consistent-type-imports': 'off',
+        // 'ts/explicit-function-return-type': 'off',
+        // 'ts/no-namespace': 'off',
+        // 'ts/no-redeclare': 'off',
+        // 'ts/no-require-imports': 'off',
+        // 'ts/no-unused-expressions': 'off',
+        // 'ts/no-use-before-define': 'off',
+        // 'unicode-bom': 'off',
         ...overridesEmbeddedScripts,
       },
     },
