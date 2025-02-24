@@ -111,30 +111,34 @@ In your project's root `cspell.config.js`, you can disable any combination of th
 
 For example, do disable the `envsa-acronyms` and `envsa-misc` dictionaries:
 
-```jsonc
-{
-  "dictionaries": [
-    "!envsa-acronyms",
-    "!envsa-misc",
+```js
+import { cspellConfig } from '@envsa/cspell-config';
+
+export default cspellConfig({
+  dictionaries: [
+    '!envsa-acronyms',
+    '!envsa-misc',
     // ...Addtional !-prefixed dicitonary names
   ],
-}
+});
 ```
 
 #### Adding project-scoped words
 
 In your project's root `.cspell.json`:
 
-```jsonc
-{
-  "words": [
-    "mountweazel",
-    "steinlaus",
-    "jungftak",
-    "esquivalience",
+```js
+import { cspellConfig } from '@envsa/cspell-config';
+
+export default cspellConfig({
+  words: [
+    'mountweazel',
+    'steinlaus',
+    'jungftak',
+    'esquivalience',
     // ...Additional words
   ],
-}
+});
 ```
 
 ### CLI
