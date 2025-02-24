@@ -25,7 +25,7 @@ It's a shared [Prettier](https://prettier.io) config, plus a command-line tool `
 
 <!-- recommendation -->
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 >
 > **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >

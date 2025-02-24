@@ -25,7 +25,7 @@ It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` conf
 
 <!-- recommendation -->
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 >
 > **You can use this package on its own, but it's recommended to use [`@envsa/shared-config`](https://www.npmjs.com/package/@envsa/shared-config) instead for a single-dependency and single-package approach to linting and fixing your project.**
 >
@@ -35,7 +35,7 @@ It's a shared [TypeScript](https://www.typescriptlang.org/) `tsconfig.json` conf
 
 ## Setup
 
-> [!NOTE]
+> \[!NOTE]
 >
 > The package treats `typescript` as a peer dependency - it expects you to have `typescript` installed in your project.
 
@@ -97,16 +97,16 @@ or
 
 <!-- cli-help -->
 
-#### Command: `Envsa-typescript`
+#### Command: `envsa-typescript`
 
 Envsa's TypeScript shared configuration tools.
 
-This section lists top-level commands for `Envsa-typescript`.
+This section lists top-level commands for `envsa-typescript`.
 
 Usage:
 
 ```txt
-Envsa-typescript <command>
+envsa-typescript <command>
 ```
 
 | Command        | Description                                                                                                                             |
@@ -122,14 +122,14 @@ Envsa-typescript <command>
 
 _See the sections below for more information on each subcommand._
 
-#### Subcommand: `Envsa-typescript init`
+#### Subcommand: `envsa-typescript init`
 
 Initialize by copying starter config files to your project root.
 
 Usage:
 
 ```txt
-Envsa-typescript init
+envsa-typescript init
 ```
 
 | Option              | Description         | Type      |
@@ -137,14 +137,14 @@ Envsa-typescript init
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `Envsa-typescript lint`
+#### Subcommand: `envsa-typescript lint`
 
 Run type checking on your project. Package-scoped. In a monorepo, it will also run in all packages below the current working directory.
 
 Usage:
 
 ```txt
-Envsa-typescript lint
+envsa-typescript lint
 ```
 
 | Option              | Description         | Type      |
@@ -152,14 +152,14 @@ Envsa-typescript lint
 | `--help`<br>`-h`    | Show help           | `boolean` |
 | `--version`<br>`-v` | Show version number | `boolean` |
 
-#### Subcommand: `Envsa-typescript print-config`
+#### Subcommand: `envsa-typescript print-config`
 
 Print the TypeScript configuration for the project. Package-scoped. Searches up to the root of a monorepo if necessary.
 
 Usage:
 
 ```txt
-Envsa-typescript print-config
+envsa-typescript print-config
 ```
 
 | Option              | Description         | Type      |

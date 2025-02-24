@@ -79,7 +79,7 @@ This particular readme is for the [`@envsa/shared-config`](https://www.npmjs.com
 - [`@envsa/stylelint-config`](https://github.com/envsa/shared-config/blob/main/packages/stylelint-config/readme.md) (`envsa-stylelint` command)
 - [`@envsa/typescript-config`](https://github.com/envsa/shared-config/blob/main/packages/typescript-config/readme.md) (`envsa-typescript` command)
 
-> [!IMPORTANT]
+> \[!IMPORTANT]
 >
 > Any of these packages may be installed and run on their own via CLI if desired. However, in general, the idea is to use `@envsa/shared-config` to easily run them all simultaneously over a repo with a single command with options to either check or (where possible) fix problems, with output aggregated into a single report.
 
