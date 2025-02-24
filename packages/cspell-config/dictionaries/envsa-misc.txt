@@ -101,6 +101,7 @@ darkgreen
 darkmode
 datetime
 ddev
+decircular
 deepmerge
 defaultstatus
 deployignore
