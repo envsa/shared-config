@@ -92,7 +92,6 @@ export async function json(options: OptionsOverrides = {}): Promise<TypedFlatCon
               'knip',
               'mdat',
               'prettier',
-              'remarkConfig',
               'stylelint',
             ]),
           },

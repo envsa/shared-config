@@ -20,7 +20,6 @@ export default knipConfig({
     'mdat',
     'prettier-plugin-packagejson',
     'prettier-plugin-sh',
-    'prettier-plugin-toml',
     'prettier-plugin-yaml',
     'prettier-plugin-tailwindcss',
     'prettier-plugin-svelte',

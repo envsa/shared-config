@@ -1,6 +1,6 @@
 import type { Linter } from 'eslint';
 import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore';
-import type { RuleOptions } from './typegen';
+import type { ConfigNames, RuleOptions } from './typegen';
 
 export type Awaitable<T> = Promise<T> | T;
 
@@ -21,13 +21,13 @@ export type OptionsConfig = {
   html?: OptionsOverrides & OptionsOverridesEmbeddedScripts;
 
   /**
-   * Control to disable some rules in editors
+   * Control to disable some rules in editors.
    * @default auto-detect based on the process.env
    */
   isInEditor?: boolean;
 
   /**
-   * Core rules. Can't be disabled
+   * Core rules. Can't be disabled.
    */
   js?: OptionsOverrides & OptionsTypeAware;
 
@@ -37,7 +37,7 @@ export type OptionsConfig = {
   json?: OptionsOverrides;
 
   /**
-   * Enable linting for Markdown via Remark, and Markdown code snippets
+   * Enable linting for Markdown
    * @default true
    */
   md?: OptionsOverrides & OptionsOverridesEmbeddedScripts;
@@ -52,12 +52,6 @@ export type OptionsConfig = {
    * Enable test support.
    */
   test?: OptionsOverrides;
-
-  /**
-   * Enable TOML support.
-   * @default true
-   */
-  toml?: OptionsOverrides;
 
   /**
    * TypeScript rules. Can't be disabled.
@@ -76,9 +70,10 @@ export type OptionsConfig = {
   yaml?: OptionsOverrides;
 };
 
-export { type ConfigNames } from './typegen';
+// eslint-disable-next-line unicorn/prefer-export-from
+export type { ConfigNames };
 
-export type OptionsHasTypescript = {
+export type OptionsHasTypeScript = {
   typescript?: boolean;
 };
 

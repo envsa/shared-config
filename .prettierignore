@@ -6,3 +6,6 @@ pnpm-lock.yaml
 package-lock.json
 
 # Customizations
+bin/
+/test/fixtures/input/
+/test/fixtures/output-fixed-auto/

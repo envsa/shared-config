@@ -7,6 +7,5 @@ export * from './md';
 export * from './shared-js-ts';
 export * from './svelte';
 export * from './test';
-export * from './toml';
 export * from './ts';
 export * from './yaml';

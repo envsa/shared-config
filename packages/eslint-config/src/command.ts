@@ -72,9 +72,9 @@ export const commandDefinition: CommandDefinition = {
       positionalArgumentMode: 'optional',
     },
   },
-  description: `Envsa's ESLint shared configuration tools.`,
+  description: "Envsa's ESLint shared configuration tools.",
   logColor: 'magenta',
-  logPrefix: '[ESLint]',
+  logPrefix: `[ESLint]`,
   name: 'envsa-eslint',
   order: 4,
 };

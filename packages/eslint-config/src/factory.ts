@@ -3,11 +3,11 @@ import type { Linter } from 'eslint';
 import { FlatConfigComposer } from 'eslint-flat-config-utils';
 import globals from 'globals';
 import { isPackageExists } from 'local-pkg';
-import { disables, html, ignores, js, json, md, svelte, test, toml, ts, yaml } from './configs';
-import { tsParser } from './parsers';
 import type { RuleOptions } from './typegen';
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types';
-import { interopDefault, isInEditorEnvironment } from './utils';
+import { disables, html, ignores, js, json, md, svelte, test, ts, yaml } from './configs';
+import { tsParser } from './parsers';
+import { interopDefault, isInEditorEnv as isInEditorEnvironment } from './utils';
 
 const flatConfigProperties = [
   'name',
@@ -34,10 +34,9 @@ export const defaultPluginRenaming = {
 export type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>;
 
 /**
- * Construct an array of ESLint flat config items
+ * Construct an array of ESLint flat config items.
  * @param options The options for generating the ESLint configurations.
  * @param userConfigs The user configurations to be merged with the generated configurations.
- * @returns The merged ESLint configurations.
  */
 export async function eslintConfig(
   options: Omit<TypedFlatConfigItem, 'files'> & OptionsConfig = {},
@@ -54,9 +53,8 @@ export async function eslintConfig(
   let { isInEditor } = options;
   if (isInEditor === undefined) {
     isInEditor = isInEditorEnvironment();
-    if (isInEditor) {
+    if (isInEditor)
       console.log('[@envsa/eslint-config] Detected running in editor, some rules are disabled.');
-    }
   }
 
   const configs: Array<Awaitable<TypedFlatConfigItem[]>> = [];
@@ -65,7 +63,10 @@ export async function eslintConfig(
     if (typeof enableGitignore === 'boolean') {
       configs.push(
         interopDefault(import('eslint-config-flat-gitignore')).then((r) => [
-          r({ name: 'envsa/gitignore', strict: false }),
+          r({
+            name: 'envsa/gitignore',
+            strict: false,
+          }),
         ]),
       );
     } else {
@@ -116,9 +117,6 @@ export async function eslintConfig(
     yaml({
       overrides: getOverrides(options, 'yaml'),
     }),
-    toml({
-      overrides: getOverrides(options, 'toml'),
-    }),
     md({
       overrides: getOverrides(options, 'md'),
       overridesEmbeddedScripts: getOverridesEmbeddedScripts(options, 'md'),
@@ -148,9 +146,10 @@ export async function eslintConfig(
   }
 
   // User can optionally pass a flat config item to the first argument
-  // We pick the known  keys as ESLint would do schema validation
+  // We pick the known keys as ESLint would do schema validation
+
   const fusedConfig = flatConfigProperties.reduce<TypedFlatConfigItem>((accumulator, key) => {
-    // eslint-disable-next-line ts/no-unsafe-assignment, ts/no-explicit-any
+    // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-assignment
     if (key in options) accumulator[key] = options[key] as any;
     return accumulator;
   }, {});
@@ -175,7 +174,7 @@ export async function eslintConfig(
 
   // console.log(plugins)
 
-  // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-argument
+  // eslint-disable-next-line ts/no-unsafe-argument, ts/no-explicit-any
   composer = composer.append(...configs, ...(userConfigs as any));
 
   composer = composer.renamePlugins(defaultPluginRenaming);

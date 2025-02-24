@@ -13,7 +13,6 @@ const sharedKnipConfig: KnipConfig = {
     // Customized entries
     'src/{bin,lib,cli}/{index,cli,main}.{js,mjs,cjs,ts,mts,cts}!',
     'scripts/**/*.ts',
-    '.remarkrc.js',
     'cspell.config.js',
     'eslint.config.ts',
     'mdat.config.ts',
@@ -26,7 +25,6 @@ const sharedKnipConfig: KnipConfig = {
     '@envsa/knip-config',
     '@envsa/mdat-config',
     '@envsa/prettier-config',
-    '@envsa/remark-config',
     '@envsa/stylelint-config',
   ],
 };

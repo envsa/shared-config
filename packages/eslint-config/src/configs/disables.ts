@@ -1,5 +1,5 @@
-import { prettierRules } from '../presets/prettier';
 import type { Rules, TypedFlatConfigItem } from '../types';
+import { prettierRules } from '../presets/prettier';
 
 /**
  * Final configuration pass to disable specific rules in specific contexts.

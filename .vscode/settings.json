@@ -33,6 +33,7 @@
     "json5",
     "jsonc",
     "markdown",
+    "mdx",
     "svelte",
     "toml",
     "typescript",
@@ -66,5 +67,6 @@
     "**/.prettierignore",
     "**/*.svelte"
   ],
-  "prettier.enable": true
+  "prettier.enable": true,
+  "references.preferredLocation": "view"
 }

@@ -82,7 +82,6 @@ const sharedPrettierConfig: PrettierConfig = {
           'knip',
           'mdat',
           'prettier',
-          'remarkConfig',
           'stylelint',
         ]),
       },

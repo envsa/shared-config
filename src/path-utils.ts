@@ -14,13 +14,12 @@ function isDirectoryBelow(directory: string, parent: string): boolean {
  * ```ts
  * [
  * '/Users/lrella/Code/shared-config',
- * '/Users/lrella/Code/shared-config/packages/browsers-config',
+ * '/Users/lrella/Code/shared-config/packages/browserslist-config',
  * '/Users/lrella/Code/shared-config/packages/cspell-config',
  * '/Users/lrella/Code/shared-config/packages/eslint-config',
  * '/Users/lrella/Code/shared-config/packages/knip-config',
  * '/Users/lrella/Code/shared-config/packages/mdat-config',
  * '/Users/lrella/Code/shared-config/packages/prettier-config',
- * '/Users/lrella/Code/shared-config/packages/remark-config',
  * '/Users/lrella/Code/shared-config/packages/repo-config',
  * '/Users/lrella/Code/shared-config/packages/shared-config',
  * '/Users/lrella/Code/shared-config/packages/stylelint-config',

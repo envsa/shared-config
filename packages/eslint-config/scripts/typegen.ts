@@ -2,20 +2,7 @@
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
 import { builtinRules } from 'eslint/use-at-your-own-risk';
 import fs from 'node:fs/promises';
-import {
-  combine,
-  disables,
-  html,
-  ignores,
-  js,
-  json,
-  md,
-  svelte,
-  test,
-  toml,
-  ts,
-  yaml,
-} from '../src';
+import { combine, disables, html, ignores, js, json, md, svelte, test, ts, yaml } from '../src';
 
 const configs = await combine(
   {
@@ -33,13 +20,13 @@ const configs = await combine(
   md(),
   svelte(),
   test(),
-  toml(),
   ts(),
   yaml(),
 );
 
 const configNames = configs.map((index) => index.name).filter(Boolean) as string[];
 
+console.log(configNames);
 let dts = await flatConfigsToRulesDTS(configs, {
   includeAugmentation: false,
 });

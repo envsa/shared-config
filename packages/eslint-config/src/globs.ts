@@ -1,4 +1,4 @@
-export const GLOB_SRC_EXT = '?([cm][jt]s)';
+export const GLOB_SRC_EXT = '?([cm])[jt]s';
 export const GLOB_SRC = `**/*.${GLOB_SRC_EXT}`;
 
 export const GLOB_JS = '**/*.?([cm])js';
@@ -19,7 +19,6 @@ export const GLOB_MARKDOWN = '**/*.md';
 
 export const GLOB_SVELTE = '**/*.svelte';
 export const GLOB_YAML = '**/*.y?(a)ml';
-export const GLOB_TOML = '**/*.toml';
 export const GLOB_XML = '**/*.xml';
 export const GLOB_SVG = '**/*.svg';
 export const GLOB_HTML = '**/*.{htm?(l),twig}';
@@ -50,10 +49,9 @@ export const GLOB_ALL_SRC = [
 export const GLOB_EXCLUDE = [
   '**/node_modules',
   '**/dist',
-  '**/web/assets',
   '**/package-lock.json',
-  '**/yarn-lock',
-  '**/yarn-lock.yaml',
+  '**/yarn.lock',
+  '**/pnpm-lock.yaml',
   '**/bun.lockb',
   '**/bin',
 
@@ -61,6 +59,8 @@ export const GLOB_EXCLUDE = [
   '**/coverage',
   '**/temp',
   '**/.temp',
+  '**/tmp',
+  '**/.tmp',
   '**/.history',
   '**/.vitepress/cache',
   '**/.svelte-kit',
@@ -71,7 +71,7 @@ export const GLOB_EXCLUDE = [
   '**/.output',
   '**/.vite-inspect',
   '**/.yarn',
-  '**/vite.config/*.timestamp-*',
+  '**/vite.config.*.timestamp-*',
 
   '**/CHANGELOG*.md',
   '**/*.min.*',

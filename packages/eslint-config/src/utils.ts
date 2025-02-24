@@ -3,7 +3,7 @@ import type { Awaitable, TypedFlatConfigItem } from './types';
 
 /**
  * Combine array and non-array configs into a single array.
- * @pram configs - An array of configs or a single config.
+ * @param configs - An array of configs or a single config.
  */
 export async function combine(
   ...configs: Array<Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[]>>
@@ -20,7 +20,7 @@ export async function interopDefault<T>(
   m: Awaitable<T>,
 ): Promise<T extends { default: infer U } ? U : T> {
   const resolved = await m;
-  // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-member-access, ts/no-unsafe-return
+  // eslint-disable-next-line ts/no-unsafe-return, ts/no-unsafe-member-access, ts/no-explicit-any
   return (resolved as any).default || resolved;
 }
 
@@ -29,15 +29,15 @@ export async function interopDefault<T>(
  *
  * This function checks various environment variables to detect if the code
  * is being executed within a code editor or IDE. It accounts for common
- * editors like VS Code, JetBrains IDEs, VIM and Neovim.
- * @returns true if running in an editor environment, false otherwise
+ * editors like VS Code, JetBrains IDEs, VIM, and Neovim.
+ * @returns True if running in an editor environment, false otherwise
  */
-export function isInEditorEnvironment(): boolean {
+export function isInEditorEnv(): boolean {
   // Skip editor detection if running in CI or git hooks
   if (process.env.CI) return false;
   if (isInGitHooksOrLintStaged()) return false;
 
-  const editorEnvironmentVariables = [
+  const editorEnvVariables = [
     process.env.VSCODE_PID,
     process.env.VSCODE_CWD,
     process.env.JETBRAINS_IDE,
@@ -45,26 +45,22 @@ export function isInEditorEnvironment(): boolean {
     process.env.NVIM,
   ];
 
-  return editorEnvironmentVariables.some(Boolean);
+  return editorEnvVariables.some(Boolean);
 }
 
 /**
- * Checks if the code is running with Git hooks or lint-staged.
+ * Checks if the code is running within Git hooks or lint-staged.
  *
  * This function detects if the current execution context is within
  * Git hooks, VS Code Git operations, or lint-staged npm scripts.
- * @returns true if running in Git hooks or lint-staged, false otherwise
+ * @returns True if running in Git hooks or lint-staged, false otherwise
  */
 export function isInGitHooksOrLintStaged(): boolean {
-  const isLintStaged = process.env.npm_lifestyle_script?.startsWith('lint-staged');
+  const isLintStaged = process.env.npm_lifecycle_script?.startsWith('lint-staged');
 
-  const gitEnvironmentVariables = [
-    process.env.GIT_PARAMS,
-    process.env.VSCODE_GIT_COMMAND,
-    isLintStaged,
-  ];
+  const gitEnvVariables = [process.env.GIT_PARAMS, process.env.VSCODE_GIT_COMMAND, isLintStaged];
 
-  return gitEnvironmentVariables.some(Boolean);
+  return gitEnvVariables.some(Boolean);
 }
 
 /**

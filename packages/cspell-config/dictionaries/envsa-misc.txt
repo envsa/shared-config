@@ -365,7 +365,6 @@ redactorcustomstyles
 relatedsub
 rella
 rellafella
-remarklint
 renmark
 renxt
 retcon
