@@ -26,7 +26,6 @@ const configs = await combine(
 
 const configNames = configs.map((index) => index.name).filter(Boolean) as string[];
 
-console.log(configNames);
 let dts = await flatConfigsToRulesDTS(configs, {
   includeAugmentation: false,
 });
