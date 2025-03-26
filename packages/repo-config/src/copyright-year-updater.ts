@@ -44,6 +44,7 @@ async function copyrightYear(logStream: NodeJS.WritableStream, fix = false): Pro
     '**/License.txt',
     '**/LICENSE',
     '!node_modules/**',
+    '!vendor/**',
   ];
 
   suppressNodeWarnings();
