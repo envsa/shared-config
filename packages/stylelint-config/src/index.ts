@@ -22,6 +22,12 @@ const sharedStylelintConfig: StylelintConfig = {
             ignoreAtRules: [...acceptedAtRules],
           },
         ],
+        'at-rule-no-deprecated': [
+          true,
+          {
+            ignoreAtRules: ['apply'],
+          },
+        ],
       },
     },
     {
