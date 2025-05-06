@@ -46,4 +46,11 @@ export default eslintConfig(
       'json-package/valid-package-definition': 'off',
     },
   },
+  {
+    // Ignore comments in vscode json files even if they aren't in the root
+    files: ['**/.vscode/**/*.json'],
+    rules: {
+      'json/no-comments': 'off',
+    },
+  },
 );
