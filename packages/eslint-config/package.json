@@ -1,6 +1,6 @@
 {
   "name": "@envsa/eslint-config",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "description": "ESLint configuration for @envsa/shared-config.",
   "keywords": [
     "shared-config",

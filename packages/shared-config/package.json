@@ -1,6 +1,6 @@
 {
   "name": "@envsa/shared-config",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "description": "A collection of shared configurations, linters and formatting tools for TypeScript projects. All managed as a single dependency, and invoked via a single command.",
   "keywords": [
     "shared-config",

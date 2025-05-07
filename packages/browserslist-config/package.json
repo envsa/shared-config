@@ -1,6 +1,6 @@
 {
   "name": "@envsa/browserslist-config",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "description": "Browserslist configuration for @envsa/shared-config.",
   "keywords": [
     "shared-config",
