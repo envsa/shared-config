@@ -1,6 +1,6 @@
 {
   "name": "@envsa/stylelint-config",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "description": "Stylelint configuration for @envsa/shared-config.",
   "keywords": [
     "stylelint-config",

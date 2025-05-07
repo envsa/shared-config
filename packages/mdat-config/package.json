@@ -1,6 +1,6 @@
 {
   "name": "@envsa/mdat-config",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "description": "MDAT configuration for @envsa/shared-config.",
   "keywords": [
     "shared-config",

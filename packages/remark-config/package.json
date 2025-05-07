@@ -1,6 +1,6 @@
 {
   "name": "@envsa/remark-config",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "description": "Markdown and MDX linting for @envsa/shared-config.",
   "keywords": [
     "shared-config",
