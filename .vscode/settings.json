@@ -26,7 +26,17 @@
 
     // Matches class strings within twMerge() function calls
     // Example: twMerge("flex items-center p-4")
-    ["twMerge\\(['\"]([^'\"]*)['\"]", "([^']*)"]
+    ["twMerge\\(['\"]([^'\"]*)['\"]", "([^']*)"],
+
+    // Matches PHP-style class assignments (single or array)
+    // Examples:
+    // 'class' => 'text-sm font-medium'
+    // 'classes' => ['bg-red-500', 'text-white']
+    ["['\"](?:class|classes)['\"]\\s*=>\\s*(?:['\"]([^'\"]*)['\"]|\\[([^\\]]*)\\])"],
+
+    // Extracts individual strings from class arrays in PHP-style syntax
+    // Example: 'classes' => ['bg-red-500', 'text-white']
+    ["['\"](?:class|classes)['\"]\\s*=>\\s*\\[([^\\]]*)\\]", "['\"]([^'\"]*)['\"]"]
   ],
   "tailwindCSS.classAttributes": [".*Class.*"],
   "[twig]": {

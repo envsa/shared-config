@@ -8,15 +8,35 @@
     "composer.json": "composer.lock"
   },
   "tailwindCSS.experimental.classRegex": [
+    // Matches JavaScript classList API methods (add, remove, toggle)
+    // Example: element.classList.add('px-4 py-2')
     ["classList.(?:add|remove|toggle)\\(([^)]*)\\)", "(?:'|\"|`)([^\"'`]*)(?:'|\"|`)"],
 
+    // Matches Twig variable assignments ending with "class" or "classes" (case insensitive)
+    // Example: {% set buttonClasses = "bg-blue-500 hover:bg-blue-700" %}
     ["{%\\s+set\\s+.*[Cc]lass(?:es)?\\s+=\\s+['\"](.*)['\"]\\s+%}"],
 
+    // Matches properties ending with "class" or "classes" (case insensitive) in objects/configs
+    // Example: buttonClass: "text-white font-bold"
     ["[a-zA-Z0-9]*[Cc]lass(?:es)?:\\s*['\"](.*)['\"]"],
 
+    // Matches class definitions within a "classes" object structure
+    // Example: classes: { root: "flex items-center", item: "px-4" }
     ["classes:\\s*{([^}]*?)}", ":\\s*['\"]([^'\"]*)['\"]"],
 
-    ["twMerge\\(['\"]([^'\"]*)['\"]", "([^']*)"]
+    // Matches class strings within twMerge() function calls
+    // Example: twMerge("flex items-center p-4")
+    ["twMerge\\(['\"]([^'\"]*)['\"]", "([^']*)"],
+
+    // Matches PHP-style class assignments (single or array)
+    // Examples:
+    // 'class' => 'text-sm font-medium'
+    // 'classes' => ['bg-red-500', 'text-white']
+    ["['\"](?:class|classes)['\"]\\s*=>\\s*(?:['\"]([^'\"]*)['\"]|\\[([^\\]]*)\\])"],
+
+    // Extracts individual strings from class arrays in PHP-style syntax
+    // Example: 'classes' => ['bg-red-500', 'text-white']
+    ["['\"](?:class|classes)['\"]\\s*=>\\s*\\[([^\\]]*)\\]", "['\"]([^'\"]*)['\"]"]
   ],
   "tailwindCSS.classAttributes": [".*Class.*"],
   "[twig]": {
